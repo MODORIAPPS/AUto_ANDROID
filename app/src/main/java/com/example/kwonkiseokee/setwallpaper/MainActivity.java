@@ -2,9 +2,14 @@ package com.example.kwonkiseokee.setwallpaper;
 
 import android.Manifest;
 import android.app.WallpaperManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +23,8 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private static final int PICKER = 3;
 
     private static final int MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 1;
 
@@ -39,23 +46,47 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    //사용자가 권한 요청을 허용했을 때
-                }else{
-                    Toast.makeText(MainActivity.this,"읽기 허용하라우", Toast.LENGTH_SHORT).show();
-                    //사용자가 권한 요청을 거부했을 때
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri imageLocation = data.getData();
+
+
+        try {
+            if (requestCode == PICKER && resultCode == RESULT_OK) {
+                //앨범에서 선택한 이미지 파일의 주소를 가지고 온다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageLocation);
+                int imageSize = (int)bitmap.getHeight() * (1024 / bitmap.getWidth());
+                if(imageSize >= 10000){
+                    Toast.makeText(MainActivity.this,"이미지가 너무 큽니다.", Toast.LENGTH_SHORT).show();
+                }
 
             }
-            case MY_PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE:
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            //이미지 뷰에 띄운다
+            ViewSetAsWallpaper.setImageURI(imageLocation);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //사용자가 권한 요청을 허용했을 때
-                }else{
+                } else {
+                    Toast.makeText(MainActivity.this, "읽기 허용하라우", Toast.LENGTH_SHORT).show();
+                    //사용자가 권한 요청을 거부했을 때
+
+                }
+            case MY_PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //사용자가 권한 요청을 허용했을 때
+                } else {
                     //사용자가 권한 요청을 거부했을 대
-                    Toast.makeText(MainActivity.this,"쓰기 허용하라우!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "쓰기 허용하라우!", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -79,26 +110,25 @@ public class MainActivity extends AppCompatActivity {
         ViewSetAsWallpaper = findViewById(R.id.ViewSetAsWallpaper);
 
         //기기에 권한이 있는지 없는지 체크하는 조건문
-        if(ReadpermissionCheck == PackageManager.PERMISSION_DENIED){
+        if (ReadpermissionCheck == PackageManager.PERMISSION_DENIED) {
             //권한이 없는 경우, 없으므로 권한 요청 메세지 띄운다.
             //요청 메세지가 띄워지면 '허용'과 '거절'이 보이는데 둘중 어느 것을 누르냐에 대한 처리는 onRequestPermissionsResult에서 처리한다.
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE);
 
-        }else{
+        } else {
             //권한이 있는 경우
-            Toast.makeText(MainActivity.this,"읽기 권한이 있었구만?", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "읽기 권한이 있었구만?", Toast.LENGTH_SHORT).show();
 
         }
 
-        if(WritepermissionCheck == PackageManager.PERMISSION_DENIED){
+        if (WritepermissionCheck == PackageManager.PERMISSION_DENIED) {
             //권한이 없는 경우, 없으므로 권한 요청 메세지 띄운다.
             //요청 메세지가 띄워지면 '허용'과 '거절'이 보이는데 둘중 어느 것을 누르냐에 대한 처리는 onRequestPermissionsResult에서 처리한다.
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE);
-        }else{
+        } else {
             //권한이 있는 경우
-            Toast.makeText(MainActivity.this,"쓰기 권한이 있었구만?", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "쓰기 권한이 있었구만?", Toast.LENGTH_SHORT).show();
         }
-
 
 
         //현재 기기의 배경화면을 불러오는 버튼 불러오기 및 현재 배경화면 불러오는 버튼
@@ -127,9 +157,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //이미지 뷰 클릭시 앨범에서 사진을 가지고 올 수 있도록
+        ViewSetAsWallpaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "사진 선택하기"), PICKER);
 
-
-
+            }
+        });
 
 
     }

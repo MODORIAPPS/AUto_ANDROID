@@ -45,11 +45,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="불러온 사진을 기기의 배경화면으로 지정"
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold" />
+        <TextView
+            android:textColor="#000"
+            android:text="아래 사진을 클릭하면 앨범에서 사진을 지정할 수 있습니다."
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:id="@+id/ViewSetAsWallpaper"
