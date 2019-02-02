@@ -2,6 +2,7 @@ package com.example.kwonkiseokee.setwallpaper;
 
 import android.Manifest;
 import android.app.WallpaperManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -44,10 +45,18 @@ public class MainActivity extends AppCompatActivity {
     //배경화면으로 지정할 이미지를 보여주는 이미지뷰
     private ImageView ViewSetAsWallpaper;
 
+    //리사이클러뷰에서 사진을 선택하는 액티비티로 넘어감.
+    Button goPickRecyclerview;
+
+    Context context;
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+
         Uri imageLocation = data.getData();
 
 
@@ -102,10 +111,11 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
 
         final WallpaperManager wallpaperManager = WallpaperManager.getInstance(this);
 
-
+        goPickRecyclerview = findViewById(R.id.goRecyclerPicks);
         ViewCurrentWallpaper = findViewById(R.id.ViewCurrentWallpaper);
         ViewSetAsWallpaper = findViewById(R.id.ViewSetAsWallpaper);
 
@@ -147,13 +157,8 @@ public class MainActivity extends AppCompatActivity {
         setAsWallpaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewSetAsWallpaper.setDrawingCacheEnabled(true);
-
-                try {
-                    wallpaperManager.setBitmap(ViewSetAsWallpaper.getDrawingCache());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+               setWallpaper setter = new setWallpaper();
+               setter.setter(ViewSetAsWallpaper, context);
             }
         });
 
@@ -165,6 +170,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent, "사진 선택하기"), PICKER);
 
+            }
+        });
+
+        goPickRecyclerview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, pickon_recyclerview.class));
             }
         });
 

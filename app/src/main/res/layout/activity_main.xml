@@ -4,74 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="현재 기기의 \n배경화면을 불러온다."
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="현재 기기의 \n배경화면을 불러온다."
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ViewCurrentWallpaper"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            android:src="@color/colorPrimaryDark" />
+            <ImageView
+                android:id="@+id/ViewCurrentWallpaper"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                android:src="@color/colorPrimaryDark" />
 
-        <Button
-            android:id="@+id/getCurrentWallpaper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="현재 배경화면 불러오기" />
+            <Button
+                android:id="@+id/getCurrentWallpaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="현재 배경화면 불러오기" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="불러온 사진을 기기의 배경화면으로 지정"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:textColor="#000"
+                android:text="아래 사진을 클릭하면 앨범에서 사진을 지정할 수 있습니다."
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/ViewSetAsWallpaper"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/aircraft" />
+
+            <Button
+                android:id="@+id/setAsWallpaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="배경화면으로 지정하기" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+    <Button
+        android:text="리사이클러뷰에서 사진 선택하기"
+        android:id="@+id/goRecyclerPicks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="불러온 사진을 기기의 배경화면으로 지정"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-        <TextView
-            android:textColor="#000"
-            android:text="아래 사진을 클릭하면 앨범에서 사진을 지정할 수 있습니다."
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
-        <ImageView
-            android:id="@+id/ViewSetAsWallpaper"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/aircraft" />
 
-        <Button
-            android:id="@+id/setAsWallpaper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="배경화면으로 지정하기" />
-
-    </LinearLayout>
 
 
 </LinearLayout>
