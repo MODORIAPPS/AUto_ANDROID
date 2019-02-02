@@ -13,7 +13,7 @@
         android:textColor="#130E0E"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:text="길게 눌러 설정열기"
+        android:text="길게 눌러 배경화면으로 지정"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
