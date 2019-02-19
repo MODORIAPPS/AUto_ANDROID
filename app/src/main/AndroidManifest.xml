@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.kwonkiseokee.setwallpaper">
+    package="com.modori.kwonkiseokee.AUto">
     <!-- 배경화면 설정 권한 추가 -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" /> <!-- 기기에 저장되어 있는 것들 읽기 권한 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -9,21 +9,21 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/appicon_default"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/appicon_rounded"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Develop_activity"></activity>
+        <activity android:name="com.modori.kwonkiseokee.AUto.Develop_activity"></activity>
         <activity
-            android:name=".SplashActivity"
+            android:name="com.modori.kwonkiseokee.AUto.SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
-        <activity android:name=".SelectFolder" />
-        <activity android:name=".autoWallpaper" />
-        <activity android:name=".pickon_recyclerview" />
+        <activity android:name="com.modori.kwonkiseokee.AUto.SelectFolder" />
+        <activity android:name="com.modori.kwonkiseokee.AUto.autoWallpaper" />
+        <activity android:name="com.modori.kwonkiseokee.AUto.pickon_recyclerview" />
         <activity
-            android:name=".MainActivity">
+            android:name="com.modori.kwonkiseokee.AUto.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +33,7 @@
 
 
 
-        <receiver android:name=".SetWallpaperJob" />
+        <receiver android:name="com.modori.kwonkiseokee.AUto.SetWallpaperJob" />
     </application>
 
 </manifest>

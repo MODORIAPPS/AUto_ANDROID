@@ -1,9 +1,6 @@
-package com.example.kwonkiseokee.setwallpaper;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.modori.kwonkiseokee.AUto;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -22,19 +19,22 @@ public class SplashActivity extends Activity {
         anim.playAnimation();
         anim.loop(true);
 
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 finish();
             }
-        }, 2500);
+        }, 1000);
+
         /*
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("state", "launch");
         startActivity(intent);
         finish();
-s
+
         */
+
     }
 }

@@ -1,10 +1,9 @@
-package com.example.kwonkiseokee.setwallpaper;
+package com.modori.kwonkiseokee.AUto;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.WallpaperManager;
-import android.bluetooth.le.AdvertiseCallback;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;

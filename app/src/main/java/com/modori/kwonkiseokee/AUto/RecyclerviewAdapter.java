@@ -1,4 +1,4 @@
-package com.example.kwonkiseokee.setwallpaper;
+package com.modori.kwonkiseokee.AUto;
 
 import android.content.Context;
 import androidx.annotation.NonNull;

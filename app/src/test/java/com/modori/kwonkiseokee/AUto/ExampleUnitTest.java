@@ -1,4 +1,4 @@
-package com.example.kwonkiseokee.setwallpaper;
+package com.modori.kwonkiseokee.AUto;
 
 import org.junit.Test;
 

@@ -1,8 +1,7 @@
-package com.example.kwonkiseokee.setwallpaper;
+package com.modori.kwonkiseokee.AUto;
 
 import android.app.WallpaperManager;
 import android.content.Context;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import java.io.IOException;

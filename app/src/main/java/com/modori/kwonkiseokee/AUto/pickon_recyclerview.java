@@ -1,4 +1,4 @@
-package com.example.kwonkiseokee.setwallpaper;
+package com.modori.kwonkiseokee.AUto;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
