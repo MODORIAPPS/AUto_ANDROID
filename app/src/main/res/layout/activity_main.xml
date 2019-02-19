@@ -84,6 +84,11 @@
         android:id="@+id/goRecyclerPicks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:text="자동 배경화면 "
+        android:id="@+id/goAutoWallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 

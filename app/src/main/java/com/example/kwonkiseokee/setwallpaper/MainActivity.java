@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     //이미지를 배경화면으로 지정해주는 버튼
     private Button setAsWallpaper;
 
+    //자동 배경화면 설정하러가기
+    private Button goAutoWallpaper;
+
 
     //현재 배경화면 보여줄 이미지뷰
     private ImageView ViewCurrentWallpaper;
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         goPickRecyclerview = findViewById(R.id.goRecyclerPicks);
         ViewCurrentWallpaper = findViewById(R.id.ViewCurrentWallpaper);
         ViewSetAsWallpaper = findViewById(R.id.ViewSetAsWallpaper);
+        goAutoWallpaper = findViewById(R.id.goAutoWallpaper);
 
         //기기에 권한이 있는지 없는지 체크하는 조건문
         if (ReadpermissionCheck == PackageManager.PERMISSION_DENIED) {
@@ -177,6 +181,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, pickon_recyclerview.class));
+            }
+        });
+
+        goAutoWallpaper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, autoWallpaper.class));
             }
         });
 
