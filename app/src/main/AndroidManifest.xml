@@ -15,10 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SelectFolder"></activity>
+        <activity android:name=".Develop_activity"></activity>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
+        <activity android:name=".SelectFolder" />
         <activity android:name=".autoWallpaper" />
         <activity android:name=".pickon_recyclerview" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +31,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".SetWallpaperJob"/>
+
+
+        <receiver android:name=".SetWallpaperJob" />
     </application>
 
 </manifest>

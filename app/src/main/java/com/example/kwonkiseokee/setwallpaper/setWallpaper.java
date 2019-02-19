@@ -2,7 +2,7 @@ package com.example.kwonkiseokee.setwallpaper;
 
 import android.app.WallpaperManager;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import java.io.IOException;

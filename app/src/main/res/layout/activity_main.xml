@@ -7,91 +7,59 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:elevation="8dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <TextView
+            android:text="AUto"
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:textColor="@color/semiBlack"
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </androidx.appcompat.widget.Toolbar>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="현재 기기의 \n배경화면을 불러온다."
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/ViewCurrentWallpaper"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:scaleType="centerCrop"
-                android:src="@color/colorPrimaryDark" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/getCurrentWallpaper"
+            <FrameLayout
+                android:id="@+id/mainFrame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="현재 배경화면 불러오기" />
-        </LinearLayout>
+                android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="불러온 사진을 기기의 배경화면으로 지정"
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <TextView
-                android:textColor="#000"
-                android:text="아래 사진을 클릭하면 앨범에서 사진을 지정할 수 있습니다."
-                android:layout_margin="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageView
-                android:id="@+id/ViewSetAsWallpaper"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/aircraft" />
-
-            <Button
-                android:id="@+id/setAsWallpaper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="배경화면으로 지정하기" />
-
-        </LinearLayout>
-
+            </FrameLayout>
+        </ScrollView>
     </LinearLayout>
 
-    <Button
-        android:text="리사이클러뷰에서 사진 선택하기"
-        android:id="@+id/goRecyclerPicks"
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:text="자동 배경화면 "
-        android:id="@+id/goAutoWallpaper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:backgroundTint="@color/item_colors"
+        android:layout_weight="1"
+        app:itemIconTint="@color/item_colors"
+        app:itemTextColor="@color/item_colors"
+        app:menu="@menu/main_bottomnav">
 
-
-
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </LinearLayout>

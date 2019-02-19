@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/goGithub"
+        android:title="깃허브 페이지로 이동"
+        android:icon="@drawable/opengithub_icon"
+        app:showAsAction="always"
+        android:iconTint="@color/gradient2"
+
+        />
+
+    <item
+        android:id="@+id/goAboutThisApp"
+        android:title="이 앱에 관하여"
+
+        android:icon="@drawable/info_icon"
+        app:showAsAction="always"
+        android:iconTint="@color/gradient2"
+
+
+        />
+
+
+
+</menu>

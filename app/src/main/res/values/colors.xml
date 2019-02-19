@@ -3,4 +3,17 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- Default Colors -->
+    <color name="white">#ffffff</color>
+    <color name="semiBlack">#353535</color>
+    <color name="button">#7076fe</color>
+    <color name="button_Clicked">#4951FF</color>
+
+
+    <!-- Special Colors -->
+    <color name="WhiteTransParent">#bcffff</color>
+    <color name="gradient1">#21D4FD</color>
+    <color name="gradient2">#B721FF</color>
+
 </resources>
