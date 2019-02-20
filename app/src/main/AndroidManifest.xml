@@ -15,15 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.modori.kwonkiseokee.AUto.Develop_activity"></activity>
+        <activity android:name=".DirSelector"></activity>
+        <activity android:name=".LicensePage" />
+        <activity android:name=".Develop_activity" />
         <activity
-            android:name="com.modori.kwonkiseokee.AUto.SplashActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"></activity>
-        <activity android:name="com.modori.kwonkiseokee.AUto.SelectFolder" />
-        <activity android:name="com.modori.kwonkiseokee.AUto.autoWallpaper" />
-        <activity android:name="com.modori.kwonkiseokee.AUto.pickon_recyclerview" />
-        <activity
-            android:name="com.modori.kwonkiseokee.AUto.MainActivity">
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity android:name=".SelectFolder" />
+        <activity android:name=".autoWallpaper" />
+        <activity android:name=".pickon_recyclerview" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,9 +32,7 @@
             </intent-filter>
         </activity>
 
-
-
-        <receiver android:name="com.modori.kwonkiseokee.AUto.SetWallpaperJob" />
+        <receiver android:name=".SetWallpaperJob" />
     </application>
 
 </manifest>

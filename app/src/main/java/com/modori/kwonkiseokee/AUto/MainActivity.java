@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,12 +20,22 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     FrameLayout mainFrame;
     Toolbar toolbar;
     BottomNavigationView bottomNAV;
+
+    TabLayout tabLayout;
+    ViewPager viewPager;
+
+    private int[] tabIcons = {
+            R.drawable.photos_icon,
+            R.drawable.photos_icon,
+            R.drawable.setauto_icon
+    };
 
 
     private static final int MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 1;
@@ -35,16 +46,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.goAboutThisApp:
                 //이 앱에 관한 설명 액티비티로 이동
                 //startActivity(new Intent(MainActivity.this, about_this_app.class));
-                Toast.makeText(MainActivity.this, "준비중입니다.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "준비중입니다.", Toast.LENGTH_SHORT).show();
 
-                //Intent goAboutThisApp = new Intent(getApplicationContext(), about_this_app.class);
-                //startActivity(goAboutThisApp);
+                Intent goAboutThisApp = new Intent(getApplicationContext(), LicensePage.class);
+                startActivity(goAboutThisApp);
                 return true;
 
             case R.id.goGithub:
@@ -60,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -70,11 +83,49 @@ public class MainActivity extends AppCompatActivity {
         permissionCheck();
 
         toolbar = findViewById(R.id.toolbar);
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.mainFrame);
+
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_1));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_2));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_3));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        setUpTabIcons();
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("");
 
+
+    }
+
+    private void setUpTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.setTabIconTint(getResources().getColorStateList(R.color.tablayout_colors));
 
     }
 

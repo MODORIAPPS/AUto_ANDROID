@@ -91,7 +91,7 @@ public class Develop_activity extends AppCompatActivity {
         goAutoWallpaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Develop_activity.this, autoWallpaper.class));
+                //startActivity(new Intent(Develop_activity.this, autoWallpaper.class));
             }
         });
 

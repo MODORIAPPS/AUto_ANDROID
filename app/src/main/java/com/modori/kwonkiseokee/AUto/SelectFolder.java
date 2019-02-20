@@ -18,30 +18,37 @@ public class SelectFolder extends ListActivity {
 
     private List<String> item = null;
     private List<String> path = null;
-    private String root="/";
+    private String root = "/";
     private TextView myPath;
 
-    /** Called when the activity is first created. */
+    private int[] viewTypes = {
+            R.drawable.image_icon,
+            R.drawable.folder_open_icon,
+
+    };
+
+    /**
+     * Called when the activity is first created.
+     */
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_folder);
 
-        try
-        {
-            Button button = (Button)findViewById(R.id.show_select);
+        try {
+            Button button = (Button) findViewById(R.id.show_select);
             button.setOnClickListener(selectClickLister);
 
-            myPath = (TextView)findViewById(R.id.path);
+            myPath = (TextView) findViewById(R.id.path);
 
             File f = new File("/sdcard/");
-            if(f.exists())
+            if (f.exists())
                 getDir(root + "sdcard");
             else
                 getDir(root);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(SelectFolder.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
     }//on create
@@ -49,15 +56,12 @@ public class SelectFolder extends ListActivity {
     private View.OnClickListener selectClickLister = new View.OnClickListener() {
         public void onClick(View v) {
             //select current directory
-            try
-            {
+            try {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("SelectedPath", myPath.getText());
                 setResult(RESULT_OK, resultIntent);
                 finish();
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 Intent resultIntent = new Intent();
                 setResult(RESULT_CANCELED, resultIntent);
                 finish();
@@ -67,10 +71,8 @@ public class SelectFolder extends ListActivity {
         }
     };//selectClickListener
 
-    private void getDir(String dirPath)
-    {
-        try
-        {
+    private void getDir(String dirPath) {
+        try {
             myPath.setText(dirPath);
 
             item = new ArrayList<String>();
@@ -79,33 +81,50 @@ public class SelectFolder extends ListActivity {
             File f = new File(dirPath);
             File[] files = f.listFiles();
 
-            if(!dirPath.equals(root))
-            {
+            if (!dirPath.equals(root)) {
 
-                item.add(root);
-                path.add(root);
-
-                item.add("../");
+                item.add("전 디렉토리로(폴더)");
                 path.add(f.getParent());
 
             }
 
-            for(int i=0; i < files.length; i++)
-            {
+            final String[] okFileExtensions = new String[]{
+                    "jpg",
+                    "png",
+                    "jpeg"
+            };
+
+            for (int i = 0; i < files.length; i++) {
+
                 File file = files[i];
-                if(file.isDirectory() && file.canRead())
-                {
-                    path.add(file.getPath());
-                    item.add(file.getName() + "/");
+
+                if (file.canRead()) {
+                    if (file.isDirectory()) {
+                        path.add(file.getPath());
+                        item.add(file.getName() + "/");
+                    }
+                    for(int k=0; k<3; k++){
+                        String checkFile = okFileExtensions[k];
+                        if(file.getName().toLowerCase().endsWith(checkFile)){
+                            item.add(file.getName());
+                            path.add(file.getAbsolutePath());
+                        }
+                    }
+
                 }
+
+
+//                if(file.isDirectory() && file.canRead())
+//                {
+//                    path.add(file.getPath());
+//                    item.add(file.getName() + "/");
+//                }
             }
 
             ArrayAdapter<String> fileList =
                     new ArrayAdapter<String>(this, R.layout.row_item, item);
             setListAdapter(fileList);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             //Toast.makeText(SelectFolder.this, e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -115,12 +134,10 @@ public class SelectFolder extends ListActivity {
 
         File file = new File(path.get(position));
 
-        if (file.isDirectory())
-        {
-            if(file.canRead())
+        if (file.isDirectory()) {
+            if (file.canRead())
                 getDir(path.get(position));
-            else
-            {
+            else {
                 //Toast.makeText(SelectFolder.this,"Cannot Open Folder", Toast.LENGTH_SHORT).show();
             }
         }//end if File.IsDirectory

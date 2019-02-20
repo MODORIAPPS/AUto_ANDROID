@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/ScrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tab3_t1"
+                android:textColor="@color/semiBlack"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/actCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tab3_ActStateActivated" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tab3_t2"
+                android:textColor="@color/semiBlack"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <!-- 순서대로 & 무작위 옵션-->
+            <CheckBox
+                android:id="@+id/shuffleCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tab3_ShuffleStateOn" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tab3_t3"
+                android:textColor="@color/semiBlack"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/inputCycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="0123456789"
+                android:text="5"
+                android:textColor="@color/semiBlack"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/show_label2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tab3_t4"
+                android:textColor="@color/semiBlack"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/folder_open_icon"
+                    android:tint="@color/semiBlack" />
+
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/showCurrDir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/semiBlack"
+                    android:textSize="20sp"
+                    tools:text="/sdcard/..." />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/showDirBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tab3_t5">
+
+            </Button>
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tab3_t6">
+
+            </Button>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

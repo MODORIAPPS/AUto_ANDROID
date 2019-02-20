@@ -12,54 +12,54 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/white"
-        android:elevation="8dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
         <TextView
-            android:text="AUto"
-            android:layout_marginStart="5dp"
-            android:textStyle="bold"
-            android:textSize="23sp"
-            android:textColor="@color/semiBlack"
             android:id="@+id/toolbar_title"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="AUto"
+            android:textColor="@color/semiBlack"
+            android:textSize="23sp"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
-        android:orientation="vertical">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <FrameLayout
-                android:id="@+id/mainFrame"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-            </FrameLayout>
-        </ScrollView>
-    </LinearLayout>
-
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="bottom"
+        app:tabIndicatorColor="@color/gradient2"
+        app:tabSelectedTextColor="@color/gradient2"
         android:background="@color/white"
-        android:backgroundTint="@color/item_colors"
-        android:layout_weight="1"
-        app:itemIconTint="@color/item_colors"
-        app:itemTextColor="@color/item_colors"
-        app:menu="@menu/main_bottomnav">
+        android:elevation="2dp"
+        android:layout_height="?attr/actionBarSize">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </com.google.android.material.tabs.TabLayout>
 
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/mainFrame"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <!--
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:backgroundTint="@color/item_colors"
+            android:layout_weight="1"
+            app:itemIconTint="@color/item_colors"
+            app:itemTextColor="@color/item_colors"
+            app:menu="@menu/main_bottomnav">
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    -->
 </LinearLayout>

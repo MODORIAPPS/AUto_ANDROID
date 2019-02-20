@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">AUto 자동 배경화면 변경</string>
+    <string name="app_name">AUto - auto wallpaper changer</string>
+
+    <!-- TabLayout -->
+    <string name="tab_1">tap 1</string>
+    <string name="tab_2">recommended pictures</string>
+    <string name="tab_3">auto setting</string>
+
+    <!-- tab3_frag -->
+    <string name="tab3_t1">배경화면 자동변경</string>
+    <string name="tab3_t2">사진 변경 순서</string>
+    <string name="tab3_ActStateActivated">자동변경 켜짐</string>
+    <string name="tab3_ActStateDisabled">자동변경 꺼짐</string>
+    <string name="tab3_ShuffleStateOn">순서대로 변경</string>
+    <string name="tab3_ShuffleStateOff">무작위로 변경</string>
+    <string name="tab3_t3">변경 주기 (분)</string>
+    <string name="tab3_t4">사진을 불러오는 폴더의 경로</string>
+    <string name="tab3_t5">디렉토리 선택기 열기</string>
+    <string name="tab3_t6">변경사항 저장</string>
 </resources>
