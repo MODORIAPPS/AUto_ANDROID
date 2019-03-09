@@ -2,24 +2,22 @@ package com.modori.kwonkiseokee.AUto;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.CollapsibleActionView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.NumberPicker;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.nio.channels.InterruptedByTimeoutException;
 import java.util.Calendar;
 
 import androidx.annotation.NonNull;
@@ -42,19 +40,89 @@ public class tab3_frag extends Fragment {
     boolean isActivate;
 
 
-    //xml 항목
+    //xml widgets
     Button saveBtn;
-    Button showDirBtn;
+    ImageView showDirBtn;
 
     TextView showCurrDir;
+    TextView numPickerView;
 
-    CheckBox actCheckBox;
-    CheckBox shuffleCheckBox;
+    //Switch 위에서 아래 순서
+    Switch actCheckSwitch;
+    Switch bootLaunchSwitch;
+    Switch shuffleSwitch;
 
-    EditText inputCycle;
+    NumberPicker inputCycleDay;
+    NumberPicker inputCycleHour;
+    NumberPicker inputCycleMin;
+
+    int day;
+    int hour;
+    int min;
+
+    private void initWorks() {
+        mainlayout = view.findViewById(R.id.mainlayout);
+        saveBtn = view.findViewById(R.id.saveBtn);
+        showDirBtn = view.findViewById(R.id.showDirBtn);
+        showCurrDir = view.findViewById(R.id.showCurrDir);
+        actCheckSwitch = view.findViewById(R.id.actSwitch);
+        shuffleSwitch = view.findViewById(R.id.shuffleSwitch);
+
+        numPickerView = view.findViewById(R.id.numPickerView);
+
+        //NumberPickers
+        inputCycleDay = view.findViewById(R.id.inputCycleDay);
+        inputCycleHour = view.findViewById(R.id.inputCycleHour);
+        inputCycleMin = view.findViewById(R.id.inputCycleMin);
+
+    }
+
+    private void timePickerSetup(){
+        inputCycleDay.setMinValue(0);
+        inputCycleDay.setMaxValue(5);
+        inputCycleDay.setWrapSelectorWheel(false);
+
+        inputCycleHour.setMinValue(0);
+        inputCycleHour.setMaxValue(23);
+        inputCycleHour.setWrapSelectorWheel(false);
+
+        inputCycleMin.setMinValue(1);
+        inputCycleMin.setMaxValue(60);
+        inputCycleMin.setWrapSelectorWheel(false);
+
+        day = inputCycleDay.getValue();
+        hour = inputCycleHour.getValue();
+        min = inputCycleMin.getValue();
+
+
+        // 변화 리스너
+        inputCycleDay.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                day = inputCycleDay.getValue();
+                numPickerView.setText(day+" 일 | "+ hour +" 시간 | "+ min + " 분");
+            }
+        });
+
+        inputCycleHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                hour = inputCycleHour.getValue();
+                numPickerView.setText(day+" 일 | "+ hour +" 시간 | "+ min + " 분");
+            }
+        });
+
+        inputCycleMin.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                min = inputCycleMin.getValue();
+                numPickerView.setText(day+" 일 | "+ hour +" 시간 | "+ min + " 분");
+            }
+        });
 
 
 
+    }
 
     @Nullable
     @Override
@@ -62,6 +130,10 @@ public class tab3_frag extends Fragment {
         view = inflater.inflate(R.layout.tab3_frag, container, false);
 
         initWorks();
+        timePickerSetup();
+
+        actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
+
 
         Boolean temp;
         String cycleStr;
@@ -73,36 +145,36 @@ public class tab3_frag extends Fragment {
 
         //Activated
         temp = settings.getBoolean("Activated", false);
-        actCheckBox.setChecked(temp);
+        actCheckSwitch.setChecked(temp);
 
         //ShuffleMode
-        actCheckBox.setChecked(isShuffleMode);
+        actCheckSwitch.setChecked(isShuffleMode);
 
         //Cycle
         cycleStr = settings.getString("Cycle", "5");
-        inputCycle.setText(cycleStr);
+        //inputCycle.setText(cycleStr);
 
         //Location
         showCurrDir.setText(SelectedPath);
 
-        actCheckBox.setOnClickListener(new View.OnClickListener() {
+        actCheckSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!actCheckBox.isChecked()){
-                    actCheckBox.setText(R.string.tab3_ActStateDisabled);
+                if(!actCheckSwitch.isChecked()){
+                    actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
                 }else{
-                    actCheckBox.setText(R.string.tab3_ActStateActivated);
+                    actCheckSwitch.setText(R.string.tab3_ActStateActivated);
                 }
             }
         });
 
-        shuffleCheckBox.setOnClickListener(new View.OnClickListener() {
+        shuffleSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!shuffleCheckBox.isChecked()){
-                    shuffleCheckBox.setText(R.string.tab3_ShuffleStateOff);
+                if(!shuffleSwitch.isChecked()){
+                    shuffleSwitch.setText(R.string.tab3_ShuffleStateOff);
                 }else{
-                    shuffleCheckBox.setText(R.string.tab3_ShuffleStateOn);
+                    shuffleSwitch.setText(R.string.tab3_ShuffleStateOn);
                 }
             }
         });
@@ -111,15 +183,16 @@ public class tab3_frag extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isActivate = actCheckBox.isChecked();
+                isActivate = actCheckSwitch.isChecked();
 
                 if (isActivate) {
-                    int cycle = Integer.parseInt(inputCycle.getText().toString());
+                    int cycle;
+                    //cycle = Integer.parseInt(inputCycle.getText().toString());
 
-                    if (cycle == 0)
-                        Snackbar.make(mainlayout, "주기는 0이 될 수 없습니다.", Snackbar.LENGTH_SHORT).show();
+//                    if (cycle == 0)
+//                        Snackbar.make(mainlayout, "주기는 0이 될 수 없습니다.", Snackbar.LENGTH_SHORT).show();
 
-                    isShuffleMode = shuffleCheckBox.isChecked();
+                    isShuffleMode = shuffleSwitch.isChecked();
                     SelectedPath = showCurrDir.getText().toString();
 
                     //설정 쓰기
@@ -130,7 +203,7 @@ public class tab3_frag extends Fragment {
                     editor.putBoolean("ShuffleMode", isShuffleMode);
                     editor.apply();
 
-                    setAutoChangeSlide(cycle);
+                    //setAutoChangeSlide(cycle);
 
                     //save 활동 끝
                     Snackbar.make(mainlayout, "변경사항이 저장되었습니다.", Snackbar.LENGTH_SHORT).show();
@@ -187,14 +260,14 @@ public class tab3_frag extends Fragment {
         SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
         SharedPreferences.Editor editor = settings.edit();
 
-        temp = actCheckBox.isChecked();
+        temp = actCheckSwitch.isChecked();
         editor.putBoolean("Activated", temp);
 
-        temp = shuffleCheckBox.isChecked();
+        temp = shuffleSwitch.isChecked();
         editor.putBoolean("ShuffleMode", temp);
 
-        tempStr = inputCycle.getText().toString();
-        editor.putString("Cycle", tempStr);
+//        tempStr = inputCycle.getText().toString();
+//        editor.putString("Cycle", tempStr);
 
         SelectedPath = showCurrDir.getText().toString();
         editor.putString("SelectedPath", SelectedPath);
@@ -224,14 +297,5 @@ public class tab3_frag extends Fragment {
         am.cancel(sender);
     }
 
-    private void initWorks() {
-        mainlayout = view.findViewById(R.id.mainlayout);
-        saveBtn = view.findViewById(R.id.saveBtn);
-        showDirBtn = view.findViewById(R.id.showDirBtn);
-        showCurrDir = view.findViewById(R.id.showCurrDir);
-        actCheckBox = view.findViewById(R.id.actCheckBox);
-        shuffleCheckBox = view.findViewById(R.id.shuffleCheckBox);
-        inputCycle = view.findViewById(R.id.inputCycle);
 
-    }
 }

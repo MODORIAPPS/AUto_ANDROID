@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainlayout"
+    android:padding="2dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
     android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/LinearLayout02"
@@ -18,102 +19,348 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- 활성화 상태인지 표시 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/background_theme_title"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/viewBootLaunch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:text="부팅후 자동 실행"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/viewCycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/viewBootLaunch"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:text="주기 n분"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_toStartOf="@id/actSwitch"
+                    android:text="@string/tab3_ActStateActivated"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:id="@+id/actSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2" />
+            </RelativeLayout>
+
+
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/tab3_t1"
-                android:textColor="@color/semiBlack"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <CheckBox
-                android:id="@+id/actCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tab3_ActStateActivated" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/tab3_t2"
-                android:textColor="@color/semiBlack"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <!-- 순서대로 & 무작위 옵션-->
-            <CheckBox
-                android:id="@+id/shuffleCheckBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tab3_ShuffleStateOn" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/tab3_t3"
-                android:textColor="@color/semiBlack"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/inputCycle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:digits="0123456789"
-                android:text="5"
-                android:textColor="@color/semiBlack"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/show_label2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/tab3_t4"
-                android:textColor="@color/semiBlack"
-                android:textSize="25sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="변경 설정"
+                android:textColor="@color/littleBlack"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="@drawable/background_theme"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/folder_open_icon"
-                    android:tint="@color/semiBlack" />
+                <!-- 부팅 후 자동 실행 여부-->
 
-                <TextView
-                    android:layout_marginLeft="8dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/showCurrDir"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/detailSet1Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="부팅 후 자동 실행"
+                        android:textColor="@color/semiBlack"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detailSet1Con"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detailSet1Title"
+                        android:layout_alignParentStart="true"
+                        android:text="부팅후 자동으로 서비스를 시작합니다."
+                        android:textColor="@color/littleBlack"
+                        android:textStyle="normal" />
+
+                    <Switch
+                        android:id="@+id/bootLaunchSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="20dp"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/semiBlack" />
+
+
+                <!-- 순서대로 & 무작위 옵션-->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/detailSet2Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/tab3_ShuffleStateOn"
+                        android:textColor="@color/semiBlack"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detailSet2Con"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detailSet2Title"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/tab3_t2"
+                        android:textColor="@color/littleBlack"
+                        android:textStyle="normal" />
+
+                    <Switch
+                        android:id="@+id/shuffleSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginEnd="20dp"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@color/semiBlack" />
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/semiBlack"
-                    android:textSize="20sp"
-                    tools:text="/sdcard/..." />
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/detailSet3Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/tab3_t3"
+                        android:textColor="@color/semiBlack"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detailSet3Con"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detailSet3Title"
+                        android:layout_alignParentStart="true"
+                        android:text="최소 1분 이상이여야 합니다."
+                        android:textColor="@color/littleBlack"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/numPickerView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="n일 : n시간 : n분"
+                        android:textColor="@color/semiBlack"
+                        android:textStyle="normal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+
+                        android:layout_below="@+id/detailSet3Con"
+                        android:layout_marginTop="5dp">
+
+                        <NumberPicker
+
+                            android:id="@+id/inputCycleDay"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </NumberPicker>
+
+                        <NumberPicker
+                            android:id="@+id/inputCycleHour"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </NumberPicker>
+
+                        <NumberPicker
+                            android:id="@+id/inputCycleMin"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                        </NumberPicker>
+                    </LinearLayout>
+
+
+                    <!--&lt;!&ndash; 빠른 시간 선택&ndash;&gt;-->
+                    <!--<LinearLayout-->
+                    <!--android:layout_below="@id/inputCycle"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="30dp">-->
+                    <!---->
+                    <!--<LinearLayout-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent">-->
+                    <!--<Te-->
+                    <!--</LinearLayout>-->
+                    <!---->
+                    <!--</LinearLayout>-->
+
+
+                </RelativeLayout>
+
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="디렉토리"
+                android:textColor="@color/littleBlack"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/showDirBtn"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tab3_t5">
+                android:background="@drawable/background_theme"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
 
-            </Button>
+                <!-- 디렉토리 설정 -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/detailSet4Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:text="@string/tab3_t4"
+                        android:textColor="@color/semiBlack"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detailSet4Title"
+                        android:layout_alignParentStart="true"
+                        android:text=""
+                        android:textColor="@color/littleBlack"
+                        android:textStyle="normal"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detailSet4Title"
+                        android:layout_alignParentStart="true"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/folder_open_icon"
+                            android:tint="@color/semiBlack" />
+
+                        <TextView
+                            android:id="@+id/showCurrDir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="8dp"
+                            android:singleLine="true"
+                            android:textColor="@color/semiBlack"
+                            android:textSize="20sp"
+                            tools:text="/sdcard/..." />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/showDirBtn"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/opened_folder_100">
+
+                    </ImageView>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_theme"
                 android:text="@string/tab3_t6">
 
             </Button>
