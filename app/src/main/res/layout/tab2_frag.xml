@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="TAB2"
+        android:text="서비스 준비중입니다."
         android:textSize="30sp"
         android:textColor="@color/semiBlack"
         android:textStyle="bold"

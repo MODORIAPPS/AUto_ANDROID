@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainlayout"
-    android:padding="2dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="2dp">
 
     <ScrollView
         android:id="@+id/ScrollView01"
@@ -21,9 +21,10 @@
 
             <!-- 활성화 상태인지 표시 -->
             <RelativeLayout
+                android:id="@+id/actView_layout"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@drawable/background_theme_title"
+                android:background="@drawable/background_theme_title_act"
                 android:padding="10dp">
 
                 <TextView
@@ -48,7 +49,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -56,19 +56,20 @@
                     android:layout_toStartOf="@id/actSwitch"
                     android:text="@string/tab3_ActStateActivated"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <Switch
-                    android:layout_marginEnd="20dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:id="@+id/actSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
+                    android:layout_marginEnd="20dp"
                     android:scaleX="1.2"
-                    android:scaleY="1.2" />
+                    android:scaleY="1.2"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
 
