@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">AUto 자동 배경화면 변경</string>
 
+    <string name="makingAlert">서비스 준비중입니다.</string>
+
     <!-- TabLayout -->
     <string name="tab_1">탭 1</string>
     <string name="tab_2">추천 사진</string>
@@ -8,17 +10,34 @@
 
 
     <!-- tab3_frag -->
+    <string name="tab3_detailSet1Title">부팅 후 자동 실행</string>
+    <string name="tab3_detailSet1Con">부팅 후 자동으로 서비스를 시작합니다.</string>
+    <string name="tab3_title_BootViewEnabled">부팅 후 자동 실행 함</string>
+    <string name="tab3_title_BootViewDisabled">부팅 후 자동 실행 안함</string>
+    <string name="tab3_title_cycleView">주기</string>
+    <string name="tab3_detailLine1">변경 설정</string>
+    <string name="tab3_detailLine2">디렉토리</string>
+    <string name="tab3_t3_sub">최소 1분 이상이여야 합니다.</string>
+
     <string name="tab3_t1">배경화면 자동변경</string>
     <string name="tab3_t2">사진 변경 순서</string>
     <string name="tab3_ActStateActivated">서비스 동작중</string>
     <string name="tab3_ActStateDisabled">실행 명령 대기중</string>
     <string name="tab3_ShuffleStateOn">순서대로 변경</string>
     <string name="tab3_ShuffleStateOff">무작위로 변경</string>
-    <string name="tab3_t3">변경 주기 (분)</string>
+    <string name="tab3_t3">변경 주기</string>
     <string name="tab3_t4">사진을 불러오는 경로 설정</string>
     <string name="tab3_t5">디렉토리 선택기 열기</string>
     <string name="tab3_t6">변경사항 저장</string>
 
+    
+    <string name="tab3_snackBar1">변경사항이 저장되었습니다. 서비스를 시작합니다.</string>
+    <string name="tab3_snackBar2">변경사항이 저장되었습니다</string>
 
+
+    <!-- time  -->
+    <string name="day">일</string>
+    <string name="hour">시간</string>
+    <string name="min">분</string>
 
 </resources>

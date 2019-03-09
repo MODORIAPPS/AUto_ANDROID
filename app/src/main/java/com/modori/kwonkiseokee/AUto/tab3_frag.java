@@ -70,11 +70,20 @@ public class tab3_frag extends Fragment {
     int hour;
     int min;
 
+    String _day;
+    String _hour;
+    String _min;
+
     public static int _DAY = 0;
     public static int _HOUR = 0;
     public static int _MIN = 0;
 
     private void initWorks() {
+        _day = getResources().getString(R.string.day);
+        _hour = getResources().getString(R.string.hour);
+        _min = getResources().getString(R.string.min);
+
+
         context = getActivity();
         mainlayout = view.findViewById(R.id.mainlayout);
         saveBtn = view.findViewById(R.id.saveBtn);
@@ -95,32 +104,32 @@ public class tab3_frag extends Fragment {
         inputCycleHour = view.findViewById(R.id.inputCycleHour);
         inputCycleMin = view.findViewById(R.id.inputCycleMin);
 
+        String str = _DAY + "  " + _day + " | " + _HOUR + "  " + _hour + " | " + _MIN + "  " + _min;
+        numPickerView.setText(str);
+
+
     }
 
     private void initSet() {
+
+
         SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
         //int cycle = settings.getInt("Cycle", 5);
 
         if (settings.getBoolean("BootLaunch", false)) {
-            viewBootLaunch.setText("부팅후 자동실행함");
+            viewBootLaunch.setText(R.string.tab3_title_BootViewEnabled);
         } else {
-            viewBootLaunch.setText("부팅후 자동실행 안함");
+            viewBootLaunch.setText(R.string.tab3_title_BootViewDisabled);
         }
 
         _DAY = settings.getInt("_DAY", 0);
         _HOUR = settings.getInt("_HOUR", 0);
         _MIN = settings.getInt("_MIN", 0);
 
-        viewCycle.setText(  _DAY+" 일 | " +_HOUR + " 시간 | " + _MIN + " 분");
 
-//        if(cycle < 60){
-//            viewCycle.setText(cycle + " 분");
-//        }else if(cycle >= 60){
-//
-//        }
+        viewCycle.setText(_DAY + " " + _day + " | " + _HOUR + " " + _hour + " | " + _MIN + " " + _min);
 
-
-        numPickerView.setText(_DAY + " 일 | " + _HOUR + " 시간 | " + _MIN + " 분");
+        numPickerView.setText(_DAY + "  " + _day + " | " + _HOUR + "  " + _hour + " | " + _MIN + "  " + _min);
 
     }
 
@@ -146,24 +155,29 @@ public class tab3_frag extends Fragment {
         inputCycleDay.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+
                 day = inputCycleDay.getValue();
-                numPickerView.setText(day + " 일 | " + hour + " 시간 | " + min + " 분");
+                numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
             }
         });
 
         inputCycleHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
                 hour = inputCycleHour.getValue();
-                numPickerView.setText(day + " 일 | " + hour + " 시간 | " + min + " 분");
+                numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
             }
         });
 
         inputCycleMin.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+
                 min = inputCycleMin.getValue();
-                numPickerView.setText(day + " 일 | " + hour + " 시간 | " + min + " 분");
+                numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
             }
         });
 
@@ -193,7 +207,6 @@ public class tab3_frag extends Fragment {
             shuffleSwitch.setChecked(false);
         }
     }
-
 
     @Nullable
     @Override
@@ -255,7 +268,7 @@ public class tab3_frag extends Fragment {
         inputCycleHour.setValue(_HOUR);
         inputCycleMin.setValue(_MIN);
 
-        numPickerView.setText(_DAY + " 일 | " + _HOUR + " 시간 | " + _MIN + " 분");
+        numPickerView.setText(_DAY + "  " + R.string.day + " | " + _HOUR + "  " + R.string.hour + " | " + _MIN + "  " + R.string.min);
 
 
         //Location
@@ -407,10 +420,10 @@ public class tab3_frag extends Fragment {
 
             //save 활동 끝
             setAutoChangeSlide(cycle);
-            Snackbar.make(mainlayout, "변경사항이 저장되었습니다. 서비스를 시작합니다.", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mainlayout, R.string.tab3_snackBar1, Snackbar.LENGTH_SHORT).show();
         } else {
             unSetAutoChangeSlide();
-            Snackbar.make(mainlayout, "변경사항이 저장되었습니다.", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(mainlayout, R.string.tab3_snackBar2, Snackbar.LENGTH_SHORT).show();
 
         }
     }

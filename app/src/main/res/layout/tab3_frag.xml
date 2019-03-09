@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
-                    android:text="부팅후 자동 실행"
+                    android:text="@string/tab3_title_BootViewDisabled"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:layout_below="@id/viewBootLaunch"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
-                    android:text="주기 n분"
+                    android:text="0일 0시 0분"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -79,7 +79,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="변경 설정"
+                android:text="@string/tab3_detailLine1"
                 android:textColor="@color/littleBlack"
                 android:textStyle="bold" />
 
@@ -103,7 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:text="부팅 후 자동 실행"
+                        android:text="@string/tab3_detailSet1Title"
                         android:textColor="@color/semiBlack"
                         android:textSize="23sp"
                         android:textStyle="bold" />
@@ -114,7 +114,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/detailSet1Title"
                         android:layout_alignParentStart="true"
-                        android:text="부팅후 자동으로 서비스를 시작합니다."
+                        android:text="@string/tab3_detailSet1Con"
                         android:textColor="@color/littleBlack"
                         android:textStyle="normal" />
 
@@ -203,7 +203,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/detailSet3Title"
                         android:layout_alignParentStart="true"
-                        android:text="최소 1분 이상이여야 합니다."
+                        android:text="@string/tab3_t3_sub"
                         android:textColor="@color/littleBlack"
                         android:textStyle="normal" />
 
@@ -278,7 +278,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="디렉토리"
+                android:text="@string/tab3_detailLine2"
                 android:textColor="@color/littleBlack"
                 android:textStyle="bold" />
 

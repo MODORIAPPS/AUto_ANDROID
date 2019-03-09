@@ -1,20 +1,41 @@
 <resources>
     <string name="app_name">AUto 自動壁紙変更ツール</string>
 
+    <string name="makingAlert">サビスは準備中です。</string>
+
+
     <!-- TabLayout -->
     <string name="tab_1">タップ 1</string>
     <string name="tab_2">おすすめの写真</string>
     <string name="tab_3">自動設定</string>
 
     <!-- tab3_frag -->
+    <string name="tab3_detailSet1Title">再起動のあと自動実行</string>
+    <string name="tab3_detailSet1Con">再起動のあと自動にサビスを実行します。</string>
+    <string name="tab3_title_BootViewEnabled">再起動のあと自動実行をする</string>
+    <string name="tab3_title_BootViewDisabled">再起動のあと自動実行をしない</string>
+    <string name="tab3_title_cycleView">サイクル</string>
+    <string name="tab3_detailLine1">変更設定</string>
+    <string name="tab3_detailLine2">ディレクトリ</string>
+    <string name="tab3_t3_sub">最初のサイクルは１分以上です。</string>
+
     <string name="tab3_t1">壁紙 自動変更</string>
     <string name="tab3_t2">写真 変更 順番</string>
     <string name="tab3_ActStateActivated">自動変更 on</string>
     <string name="tab3_ActStateDisabled">自動変更 off</string>
     <string name="tab3_ShuffleStateOn">順番に替える</string>
     <string name="tab3_ShuffleStateOff">無作為に替える</string>
-    <string name="tab3_t3">変更サイクル (分)</string>
+    <string name="tab3_t3">変更サイクル</string>
     <string name="tab3_t4">写真を読み込むフォルダのパス</string>
     <string name="tab3_t5">パス設定を開く</string>
     <string name="tab3_t6">変更を保存</string>
+
+    <string name="tab3_snackBar1">保存しました。サビスを実行します。</string>
+    <string name="tab3_snackBar2">保存しました。</string>
+
+
+    <!-- time  -->
+    <string name="day">日</string>
+    <string name="hour">時間</string>
+    <string name="min">分</string>
 </resources>
