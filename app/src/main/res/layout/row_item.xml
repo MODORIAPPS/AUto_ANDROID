@@ -7,14 +7,18 @@
     android:padding="5dp"
     android:orientation="horizontal">
 
-    <ImageView
-        android:layout_gravity="center"
-        android:src="@drawable/folder_open_icon"
-        android:id="@+id/showFileType"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
+    <!--<ImageView-->
+        <!--android:layout_gravity="center"-->
+        <!--android:src="@drawable/folder_open_icon"-->
+        <!--android:id="@+id/showFileType"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp" />-->
 
     <TextView
+
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:ellipsize="marquee"
         android:layout_gravity="center"
         android:id="@+id/folderName"
         android:layout_width="match_parent"

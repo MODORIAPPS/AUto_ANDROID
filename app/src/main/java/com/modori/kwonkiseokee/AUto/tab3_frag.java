@@ -392,6 +392,9 @@ public class tab3_frag extends Fragment {
     }
 
     public static void setAutoChangeSlide(int _cycle) {
+
+     //http://webs.co.kr/index.php?mid=Android&document_srl=3312655 배경화면이 제때 바뀌지 않는 이유
+
         Intent intent = new Intent(context, SetWallpaperJob.class);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
 

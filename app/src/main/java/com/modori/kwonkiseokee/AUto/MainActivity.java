@@ -86,8 +86,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.mainFrame);
 
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_1));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_2));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_1));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_2));
+        tabLayout.addTab(tabLayout.newTab().setText("준비중"));
+        tabLayout.addTab(tabLayout.newTab().setText("준비중"));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_3));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         setUpTabIcons();

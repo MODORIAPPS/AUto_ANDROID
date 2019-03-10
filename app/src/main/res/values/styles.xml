@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textAllCaps">false</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/blueEnabled</item>
 
         <item name="android:fontFamily">@font/applesdgothicneom</item>
         <item name="fontFamily">@font/applesdgothicneom</item>

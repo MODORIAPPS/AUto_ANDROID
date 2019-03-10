@@ -37,6 +37,10 @@
 
     <string name="tab3_alertStartService">서비스가 시작됨</string>
 
+
+    <!--Select_Folder-->
+    <string name="goSdcard">처음 디렉토리로(sdcard/)</string>
+    <string name="goPreDir">이전 디렉토리로</string>
     <!-- time  -->
     <string name="day">일</string>
     <string name="hour">시간</string>

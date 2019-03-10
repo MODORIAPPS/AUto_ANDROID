@@ -12,6 +12,7 @@
     <color name="button">#7076fe</color>
     <color name="button_Clicked">#4951FF</color>
     <color name="blueEnabled">#6AAFE6</color>
+    <color name="cursorColor">#6AAFE6</color>
 
     <!-- Special Colors -->
     <color name="WhiteTransParent">#bcffff</color>
