@@ -62,7 +62,7 @@
         android:id="@+id/show_select"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="선택하기">
+        android:text="@string/chooseBtn">
 
     </Button>
 

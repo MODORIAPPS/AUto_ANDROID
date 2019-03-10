@@ -1,11 +1,15 @@
 <resources>
-    <string name="app_name">AUto 자동 배경화면 변경</string>
+    <string name="app_name">AUto 매일 새로운 기분</string>
 
     <string name="makingAlert">서비스 준비중입니다.</string>
+    <string name="nonAlert">준비중</string>
+    <string name="nonPageAlert">라이선스 페이지 준비중입니다.(MIT)</string>
+    <string name="noImageAlert">이미지를 찾지 못했습니다.</string>
+
 
     <!-- TabLayout -->
-    <string name="tab_1">탭 1</string>
-    <string name="tab_2">추천 사진</string>
+    <string name="tab_1">준비중</string>
+    <string name="tab_2">준비중</string>
     <string name="tab_3">자동 설정</string>
 
 
@@ -20,10 +24,10 @@
     <string name="tab3_t3_sub">최소 1분 이상이여야 합니다.</string>
 
     <string name="tab3_t1">배경화면 자동변경</string>
-    <string name="tab3_t2">사진 변경 순서</string>
+    <string name="tab3_t2">순서대로 변경, 또는 무작위로 변경</string>
     <string name="tab3_ActStateActivated">서비스 동작 준비</string>
     <string name="tab3_ActStateDisabled">서비스가 비활성화됨</string>
-    <string name="tab3_ShuffleStateOn">순서대로 변경</string>
+    <string name="tab3_ShuffleStateOn">순서대로 변경 하기</string>
     <string name="tab3_ShuffleStateOff">무작위로 변경</string>
     <string name="tab3_t3">변경 주기</string>
     <string name="tab3_t4">사진을 불러오는 경로 설정</string>
@@ -39,6 +43,7 @@
     <!--Select_Folder-->
     <string name="goSdcard">처음 디렉토리로(sdcard/)</string>
     <string name="goPreDir">이전 디렉토리로</string>
+    <string name="chooseBtn">폴더를 선택합니다.</string>
     <!-- time  -->
     <string name="day">일</string>
     <string name="hour">시간</string>

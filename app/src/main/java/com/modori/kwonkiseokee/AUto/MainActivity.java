@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -53,17 +54,17 @@ public class MainActivity extends AppCompatActivity {
             case R.id.goAboutThisApp:
                 //이 앱에 관한 설명 액티비티로 이동
                 //startActivity(new Intent(MainActivity.this, about_this_app.class));
-                //Toast.makeText(MainActivity.this, "준비중입니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.nonPageAlert, Toast.LENGTH_SHORT).show();
 
-                Intent goAboutThisApp = new Intent(getApplicationContext(), LicensePage.class);
-                startActivity(goAboutThisApp);
+//                Intent goAboutThisApp = new Intent(getApplicationContext(), LicensePage.class);
+//                startActivity(goAboutThisApp);
                 return true;
 
             case R.id.goGithub:
                 //깃허브 페이지로 이동
                 //Toast.makeText(MainActivity.this, "준비중입니다.", Toast.LENGTH_SHORT).show();
 
-                Intent openGithub = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MODORIAPPS/-Asset-SetWallPaperAPP_ANDROID_JAVA"));
+                Intent openGithub = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/MODORIAPPS/AUto_ANDROID"));
                 startActivity(openGithub);
                 return true;
 
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
 
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_1));
         //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_2));
-        tabLayout.addTab(tabLayout.newTab().setText("준비중"));
-        tabLayout.addTab(tabLayout.newTab().setText("준비중"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.nonAlert));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.nonAlert));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_3));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         setUpTabIcons();

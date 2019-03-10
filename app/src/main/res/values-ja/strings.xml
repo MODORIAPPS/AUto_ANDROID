@@ -1,12 +1,15 @@
 <resources>
-    <string name="app_name">AUto 自動壁紙変更ツール</string>
+    <string name="app_name">AUto 日々新たな気持ち</string>
 
     <string name="makingAlert">サビスは準備中です。</string>
+    <string name="nonAlert">準備中</string>
+    <string name="nonPageAlert">ライセンスのページは準備中です。(MIT)</string>
+    <string name="noImageAlert">イメージを探すに失敗しました。</string>
 
 
     <!-- TabLayout -->
-    <string name="tab_1">タップ 1</string>
-    <string name="tab_2">おすすめの写真</string>
+    <string name="tab_1">準備中</string>
+    <string name="tab_2">準備中</string>
     <string name="tab_3">自動設定</string>
 
     <!-- tab3_frag -->
@@ -20,7 +23,7 @@
     <string name="tab3_t3_sub">最初のサイクルは１分以上です。</string>
 
     <string name="tab3_t1">壁紙 自動変更</string>
-    <string name="tab3_t2">写真 変更 順番</string>
+    <string name="tab3_t2">順に変更、または無作為に変更</string>
     <string name="tab3_ActStateActivated">サビス動作準備</string>
     <string name="tab3_ActStateDisabled">サビスが非活性化</string>
     <string name="tab3_ShuffleStateOn">順番に替える</string>
@@ -37,8 +40,9 @@
 
 
     <!--Select_Folder-->
-    <string name="goSdcard">처음 디렉토리로(sdcard/)</string>
-    <string name="goPreDir">이전 디렉토리로</string>
+    <string name="goSdcard"> 最初のディレクトリへ(sdcard/)</string>
+    <string name="goPreDir">移転のディレクトリへ</string>
+    <string name="chooseBtn">フォルダーを選択します。</string>
     <!-- time  -->
     <string name="day">日</string>
     <string name="hour">時間</string>
