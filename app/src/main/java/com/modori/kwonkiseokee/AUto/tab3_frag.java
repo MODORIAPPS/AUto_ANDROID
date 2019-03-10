@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -27,6 +26,7 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -58,9 +58,9 @@ public class tab3_frag extends Fragment {
     TextView viewBootLaunch;
 
     //Switch 위에서 아래 순서
-    Switch actCheckSwitch;
-    Switch bootLaunchSwitch;
-    Switch shuffleSwitch;
+    SwitchCompat actCheckSwitch;
+    SwitchCompat bootLaunchSwitch;
+    SwitchCompat shuffleSwitch;
 
     NumberPicker inputCycleDay;
     NumberPicker inputCycleHour;
@@ -104,8 +104,6 @@ public class tab3_frag extends Fragment {
         inputCycleHour = view.findViewById(R.id.inputCycleHour);
         inputCycleMin = view.findViewById(R.id.inputCycleMin);
 
-        String str = _DAY + "  " + _day + " | " + _HOUR + "  " + _hour + " | " + _MIN + "  " + _min;
-        numPickerView.setText(str);
 
 
     }
@@ -127,9 +125,13 @@ public class tab3_frag extends Fragment {
         _MIN = settings.getInt("_MIN", 0);
 
 
-        viewCycle.setText(_DAY + " " + _day + " | " + _HOUR + " " + _hour + " | " + _MIN + " " + _min);
+        viewCycle.setText(_DAY + " " + _day + " " + _HOUR + " " + _hour + " " + _MIN + " " + _min);
 
-        numPickerView.setText(_DAY + "  " + _day + " | " + _HOUR + "  " + _hour + " | " + _MIN + "  " + _min);
+        String str = _DAY + "  " + _day + " " + _HOUR + "  " + _hour + " " + _MIN + "  " + _min;
+        //String str = " 23fwe";
+        numPickerView.setText(str);
+
+        // numPickerView.setText(_DAY + "  " + _day + " " + _HOUR + "  " + _hour + " " + _MIN + "  " + _min);
 
     }
 
@@ -200,10 +202,10 @@ public class tab3_frag extends Fragment {
 
     private void shuffleModeSwitchControl() {
         if (shuffleSwitch.isChecked() || isShuffleMode) {
-            shuffleSwitch.setText(R.string.tab3_ShuffleStateOn);
+            //shuffleSwitch.setText(R.string.tab3_ShuffleStateOn);
             shuffleSwitch.setChecked(true);
         } else {
-            shuffleSwitch.setText(R.string.tab3_ShuffleStateOff);
+            //shuffleSwitch.setText(R.string.tab3_ShuffleStateOff);
             shuffleSwitch.setChecked(false);
         }
     }
@@ -262,13 +264,13 @@ public class tab3_frag extends Fragment {
 
         calTimes.minToThreeTypes(Integer.valueOf(cycleStr));
 
-        Toast.makeText(getActivity(), cycleStr, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), cycleStr, Toast.LENGTH_SHORT).show();
 
         inputCycleDay.setValue(_DAY);
         inputCycleHour.setValue(_HOUR);
         inputCycleMin.setValue(_MIN);
 
-        numPickerView.setText(_DAY + "  " + R.string.day + " | " + _HOUR + "  " + R.string.hour + " | " + _MIN + "  " + R.string.min);
+        //numPickerView.setText(_DAY + "  " + R.string.day + " | " + _HOUR + "  " + R.string.hour + " | " + _MIN + "  " + R.string.min);
 
 
         //Location
@@ -285,9 +287,9 @@ public class tab3_frag extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!shuffleSwitch.isChecked()) {
-                    shuffleSwitch.setText(R.string.tab3_ShuffleStateOff);
+                    //shuffleSwitch.setText(R.string.tab3_ShuffleStateOff);
                 } else {
-                    shuffleSwitch.setText(R.string.tab3_ShuffleStateOn);
+                    //shuffleSwitch.setText(R.string.tab3_ShuffleStateOn);
                 }
             }
         });

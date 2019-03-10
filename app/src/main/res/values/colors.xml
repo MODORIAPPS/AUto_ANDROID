@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#353535</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#e63462</color>
+    <color name="switchColor">#30A9DE</color>
 
     <!-- Default Colors -->
     <color name="white">#ffffff</color>
@@ -10,7 +11,7 @@
     <color name="littleBlack">#555555</color>
     <color name="button">#7076fe</color>
     <color name="button_Clicked">#4951FF</color>
-
+    <color name="blueEnabled">#6AAFE6</color>
 
     <!-- Special Colors -->
     <color name="WhiteTransParent">#bcffff</color>

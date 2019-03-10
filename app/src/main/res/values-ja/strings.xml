@@ -21,8 +21,8 @@
 
     <string name="tab3_t1">壁紙 自動変更</string>
     <string name="tab3_t2">写真 変更 順番</string>
-    <string name="tab3_ActStateActivated">自動変更 on</string>
-    <string name="tab3_ActStateDisabled">自動変更 off</string>
+    <string name="tab3_ActStateActivated">サビス動作準備</string>
+    <string name="tab3_ActStateDisabled">サビスが非活性化</string>
     <string name="tab3_ShuffleStateOn">順番に替える</string>
     <string name="tab3_ShuffleStateOff">無作為に替える</string>
     <string name="tab3_t3">変更サイクル</string>

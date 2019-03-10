@@ -21,8 +21,8 @@
 
     <string name="tab3_t1">배경화면 자동변경</string>
     <string name="tab3_t2">사진 변경 순서</string>
-    <string name="tab3_ActStateActivated">서비스 동작중</string>
-    <string name="tab3_ActStateDisabled">실행 명령 대기중</string>
+    <string name="tab3_ActStateActivated">서비스 동작 준비</string>
+    <string name="tab3_ActStateDisabled">서비스가 비활성화됨</string>
     <string name="tab3_ShuffleStateOn">순서대로 변경</string>
     <string name="tab3_ShuffleStateOff">무작위로 변경</string>
     <string name="tab3_t3">변경 주기</string>

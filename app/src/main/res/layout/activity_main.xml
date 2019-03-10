@@ -29,8 +29,9 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        app:tabIndicatorColor="@color/gradient2"
-        app:tabSelectedTextColor="@color/gradient2"
+        app:tabIconTint="#6AAFE6"
+        app:tabIndicatorColor="#6AAFE6"
+        app:tabSelectedTextColor="#6AAFE6"
         android:background="@color/white"
         android:elevation="2dp"
         android:layout_height="?attr/actionBarSize">

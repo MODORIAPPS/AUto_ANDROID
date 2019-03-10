@@ -11,6 +11,10 @@
         <item name="android:fontFamily">@font/applesdgothicneom</item>
         <item name="fontFamily">@font/applesdgothicneom</item>
     </style>
+    
+    <style name="SwitchCompatTheme">
+        <item name="colorControlActivated">@color/switchColor</item>
+    </style>
 
 
 </resources>
