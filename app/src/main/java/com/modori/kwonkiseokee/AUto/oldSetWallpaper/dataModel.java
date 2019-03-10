@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.oldSetWallpaper;
 
 public class dataModel {
     String viewName;

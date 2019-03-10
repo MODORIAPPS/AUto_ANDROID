@@ -1,4 +1,8 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.ViewPager;
+
+import com.modori.kwonkiseokee.AUto.tab1_frag;
+import com.modori.kwonkiseokee.AUto.tab2_frag;
+import com.modori.kwonkiseokee.AUto.tab3_frag;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

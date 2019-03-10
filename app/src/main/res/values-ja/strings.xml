@@ -33,6 +33,8 @@
     <string name="tab3_snackBar1">保存しました。サビスを実行します。</string>
     <string name="tab3_snackBar2">保存しました。</string>
 
+    <string name="tab3_alertStartService">サビスが開始され</string>
+
 
     <!-- time  -->
     <string name="day">日</string>

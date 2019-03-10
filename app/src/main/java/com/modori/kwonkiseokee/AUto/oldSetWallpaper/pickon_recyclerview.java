@@ -1,10 +1,12 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.oldSetWallpaper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+
+import com.modori.kwonkiseokee.AUto.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

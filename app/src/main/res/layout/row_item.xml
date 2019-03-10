@@ -16,7 +16,7 @@
 
     <TextView
         android:layout_gravity="center"
-        android:id="@+id/fileName"
+        android:id="@+id/folderName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"

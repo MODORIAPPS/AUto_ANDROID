@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.oldSetWallpaper;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.modori.kwonkiseokee.AUto.R;
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class RecyclerviewAdapter extends RecyclerView.Adapter<RecyclerviewAdapte
             @Override
             public boolean onLongClick(View v) {
                 context = viewHolder.view_image.getContext();
-                setWallpaper setWallpaper = new setWallpaper();
+                setWallpaper_OLD setWallpaper = new setWallpaper_OLD();
                 setWallpaper.setter(viewHolder.view_image, context);
                 return true;
             }

@@ -105,7 +105,6 @@ public class tab3_frag extends Fragment {
         inputCycleMin = view.findViewById(R.id.inputCycleMin);
 
 
-
     }
 
     private void initSet() {
@@ -125,13 +124,31 @@ public class tab3_frag extends Fragment {
         _MIN = settings.getInt("_MIN", 0);
 
 
-        viewCycle.setText(_DAY + " " + _day + " " + _HOUR + " " + _hour + " " + _MIN + " " + _min);
+        viewCycle.setText(_DAY + _day + _HOUR + _hour + _MIN + _min);
 
-        String str = _DAY + "  " + _day + " " + _HOUR + "  " + _hour + " " + _MIN + "  " + _min;
+        String str = _DAY + "  " + _day + " | " + _HOUR + "  " + _hour + " | " + _MIN + "  " + _min;
         //String str = " 23fwe";
+
         numPickerView.setText(str);
 
         // numPickerView.setText(_DAY + "  " + _day + " " + _HOUR + "  " + _hour + " " + _MIN + "  " + _min);
+
+    }
+
+    private void initSet(int day, int hour, int min) {
+        if (bootLaunchSwitch.isChecked()) {
+            viewBootLaunch.setText(R.string.tab3_title_BootViewEnabled);
+        } else {
+            viewBootLaunch.setText(R.string.tab3_title_BootViewDisabled);
+
+        }
+
+        viewCycle.setText(day + _day + hour + _hour + min + _min);
+
+        String str = day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min;
+        //String str = " 23fwe";
+
+        numPickerView.setText(str);
 
     }
 
@@ -160,15 +177,19 @@ public class tab3_frag extends Fragment {
 
 
                 day = inputCycleDay.getValue();
+                hour = inputCycleHour.getValue();
+                min = inputCycleMin.getValue();
                 numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
+
             }
         });
 
         inputCycleHour.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-
+                day = inputCycleDay.getValue();
                 hour = inputCycleHour.getValue();
+                min = inputCycleMin.getValue();
                 numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
             }
         });
@@ -178,6 +199,8 @@ public class tab3_frag extends Fragment {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
 
+                day = inputCycleDay.getValue();
+                hour = inputCycleHour.getValue();
                 min = inputCycleMin.getValue();
                 numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
             }
@@ -237,7 +260,7 @@ public class tab3_frag extends Fragment {
 
         if (settings.getBoolean("Activated", false)) {
             actCheckSwitch.setChecked(true);
-            actCheckSwitch.setText(R.string.tab3_ActStateActivated);
+            actCheckSwitch.setText(R.string.tab3_alertStartService);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_act);
         } else {
             actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
@@ -262,7 +285,7 @@ public class tab3_frag extends Fragment {
         cycleStr = settings.getString("Cycle", "5");
 
 
-        calTimes.minToThreeTypes(Integer.valueOf(cycleStr));
+        //calTimes.minToThreeTypes(Integer.valueOf(cycleStr));
 
         //Toast.makeText(getActivity(), cycleStr, Toast.LENGTH_SHORT).show();
 
@@ -314,6 +337,10 @@ public class tab3_frag extends Fragment {
                 }
             }
         });
+
+//        if(actCheckSwitch.getText().toString().equals(R.string.tab3_alertStartService)){
+//            actCheckSwitch.setText(R.string.tab3_alertStartService);
+//        }
 
 
         return view;
@@ -415,13 +442,15 @@ public class tab3_frag extends Fragment {
             editor.putInt("_HOUR", hour);
             editor.putInt("_MIN", min);
 
-            initSet();
+            //initSet();
+            initSet(day, hour, min);
 
             editor.apply();
 
 
             //save 활동 끝
             setAutoChangeSlide(cycle);
+            actCheckSwitch.setText(R.string.tab3_alertStartService);
             Snackbar.make(mainlayout, R.string.tab3_snackBar1, Snackbar.LENGTH_SHORT).show();
         } else {
             unSetAutoChangeSlide();

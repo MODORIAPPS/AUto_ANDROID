@@ -16,6 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.modori.kwonkiseokee.AUto.oldSetWallpaper.pickon_recyclerview;
+import com.modori.kwonkiseokee.AUto.oldSetWallpaper.setWallpaper_OLD;
+
 import java.io.IOException;
 
 public class Develop_activity extends AppCompatActivity {
@@ -65,7 +68,7 @@ public class Develop_activity extends AppCompatActivity {
         setAsWallpaper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setWallpaper setter = new setWallpaper();
+                setWallpaper_OLD setter = new setWallpaper_OLD();
                 setter.setter(ViewSetAsWallpaper, context);
             }
         });

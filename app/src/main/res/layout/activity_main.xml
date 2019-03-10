@@ -29,21 +29,21 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        app:tabIconTint="#6AAFE6"
-        app:tabIndicatorColor="#6AAFE6"
-        app:tabSelectedTextColor="#6AAFE6"
+        android:layout_height="?attr/actionBarSize"
+
         android:background="@color/white"
         android:elevation="2dp"
-        android:layout_height="?attr/actionBarSize">
+        app:tabIndicatorColor="#6AAFE6"
+        app:tabSelectedTextColor="#6AAFE6">
 
     </com.google.android.material.tabs.TabLayout>
 
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mainFrame"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
 
     </androidx.viewpager.widget.ViewPager>

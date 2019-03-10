@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="7dp"
                     android:text="@string/tab3_title_BootViewDisabled"
                     android:textColor="@color/white" />
 
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/viewBootLaunch"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="7dp"
                     android:text="0일 0시 0분"
                     android:textColor="@color/white"
                     android:textSize="30sp"

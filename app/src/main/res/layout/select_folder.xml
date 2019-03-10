@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/tab3_t4"
+            android:textColor="@color/littleBlack"
+            android:textStyle="normal" />
+
+        <View
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/littleBlack" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:padding="2dp"
@@ -19,7 +44,7 @@
             android:layout_height="25dp" />
 
         <TextView
-            android:textSize="18sp"
+            android:textSize="23sp"
             android:textColor="@color/semiBlack"
             android:layout_gravity="center"
             android:layout_marginStart="6dp"
@@ -32,6 +57,8 @@
 
 
     <Button
+        android:textColor="@color/white"
+        android:background="@drawable/button_bg"
         android:id="@+id/show_select"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

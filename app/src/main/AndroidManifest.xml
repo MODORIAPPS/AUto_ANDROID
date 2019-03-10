@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".DirSelector"></activity>
         <activity android:name=".LicensePage" />
         <activity android:name=".Develop_activity" />
         <activity
@@ -25,7 +24,7 @@
         <activity android:name=".SelectFolder" />
 
         <!--<activity android:name=".autoWallpaper" />-->
-        <activity android:name=".pickon_recyclerview" />
+        <activity android:name=".oldSetWallpaper.pickon_recyclerview" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

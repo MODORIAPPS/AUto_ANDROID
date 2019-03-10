@@ -35,6 +35,7 @@
     <string name="tab3_snackBar1">변경사항이 저장되었습니다. 서비스를 시작합니다.</string>
     <string name="tab3_snackBar2">변경사항이 저장되었습니다</string>
 
+    <string name="tab3_alertStartService">서비스가 시작됨</string>
 
     <!-- time  -->
     <string name="day">일</string>

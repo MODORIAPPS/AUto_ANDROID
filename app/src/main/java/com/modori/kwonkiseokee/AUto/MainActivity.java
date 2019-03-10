@@ -17,10 +17,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.modori.kwonkiseokee.AUto.ViewPager.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.setTabIconTint(getResources().getColorStateList(R.color.blueEnabled));
+        tabLayout.setTabIconTint(getResources().getColorStateList(R.color.tablayout_colors));
 
     }
 
