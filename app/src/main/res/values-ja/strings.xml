@@ -7,6 +7,18 @@
     <string name="noImageAlert">イメージを探すに失敗しました。</string>
 
 
+    <!--스플래쉬 스크린 뷰페이저 튜토리얼-->
+
+
+    <string name="tap1_title">写真のあるフォルダーを選択し、サイクルを選択を選択するだけで終わり！</string>
+
+    <string name="tap1_subTitle">beta v.1.50 では経路やファイルの名前に英語以外の文字があってはいけないんです。  \n 次期にパッチします。</string>
+
+
+
+    <string name="tap2_title">再起動のあと、自動実行設定と変更順を選択することもできますよ！</string>
+    <string name="tap2_subTitle"> 以降にパッチにもっと素敵になります。</string>
+
     <!-- TabLayout -->
     <string name="tab_1">準備中</string>
     <string name="tab_2">準備中</string>

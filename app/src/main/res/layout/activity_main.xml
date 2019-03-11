@@ -56,7 +56,7 @@
             android:layout_gravity="bottom"
             android:background="@color/white"
             android:backgroundTint="@color/item_colors"
-            android:layout_weight="1"
+            android:layout_weight="splash_image1"
             app:itemIconTint="@color/item_colors"
             app:itemTextColor="@color/item_colors"
             app:menu="@menu/main_bottomnav">

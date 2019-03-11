@@ -7,7 +7,13 @@
     <string name="nonAlert">準備中</string>
     <string name="nonPageAlert">페이지 준비중입니다.</string>
     <string name="noImageAlert">イメージを探すに失敗しました。</string>
+    <!--스플래쉬 스크린 뷰페이저 튜토리얼-->
 
+    <string name="tap1_title">사진이 들어있는 폴더를 선택하고 주기를 선택하면 끝!</string>
+    <string name="tap1_subTitle">beta v.1.50 에서는 경로나 파일이름에 영어이외의 문자가 있어서는 안됩니다.  \n 추후 패치 예정</string>
+
+    <string name="tap2_title">부팅 후 자동실행 설정과 변경 순서 설정도 할 수 있어요!</string>
+    <string name="tap2_subTitle">이후 패치에서 더 멋진 모습 보여드리겠습니다. </string>
 
     <!-- TabLayout -->
     <string name="tab_1">탭 1</string>

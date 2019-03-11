@@ -20,7 +20,7 @@
         <activity android:name=".Develop_activity" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            />
         <activity android:name=".SelectFolder" />
 
         <!--<activity android:name=".autoWallpaper" />-->

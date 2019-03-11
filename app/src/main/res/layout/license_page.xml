@@ -9,7 +9,7 @@
     tools:context="com.modori.kwonkiseokee.AUto.LicensePage">
 
     <ImageView
-        android:src="@drawable/appicon_default"
+        android:src="@drawable/appicon_rounded"
         android:layout_width="200dp"
         android:layout_height="200dp" />
 

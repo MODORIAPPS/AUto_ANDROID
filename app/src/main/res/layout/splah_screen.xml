@@ -12,11 +12,14 @@
     tools:context=".SplashActivity">
 
     <ImageView
+        android:id="@+id/splashImage"
+        android:visibility="gone"
         android:src="@drawable/appicon_rounded"
         android:layout_width="150dp"
         android:layout_height="150dp" />
 
     <com.airbnb.lottie.LottieAnimationView
+        android:visibility="gone"
         android:id="@+id/splah_animLoading"
         android:layout_marginTop="40dp"
         android:layout_width="200dp"
@@ -24,6 +27,14 @@
         app:lottie_autoPlay="true"
         app:lottie_fileName="loadingbar_b.json"
         android:layout_height="100dp" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:visibility="visible"
+        android:id="@+id/splashViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
 
 
 

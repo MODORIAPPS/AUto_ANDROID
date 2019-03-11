@@ -9,6 +9,7 @@
     <color name="white">#ffffff</color>
     <color name="semiBlack">#353535</color>
     <color name="littleBlack">#555555</color>
+    <color name="gray">#7D7D7D</color>
     <color name="button">#7076fe</color>
     <color name="button_Clicked">#4951FF</color>
     <color name="blueEnabled">#6AAFE6</color>

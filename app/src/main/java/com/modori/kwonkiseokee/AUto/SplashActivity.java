@@ -1,14 +1,32 @@
 package com.modori.kwonkiseokee.AUto;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.modori.kwonkiseokee.AUto.ViewPager.SplashViewpagerAdapter;
 
-public class SplashActivity extends Activity {
+import androidx.viewpager.widget.ViewPager;
+
+
+public class SplashActivity extends AppCompatActivity {
+
+    public static final String PREFS_FILE = "PrefsFile";
+
 
     LottieAnimationView anim;
+    ViewPager splashViewpager;
+
+    ImageView splashLogo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,17 +34,50 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.splah_screen);
 
         anim = findViewById(R.id.splah_animLoading);
-        anim.playAnimation();
-        anim.loop(true);
+
+        splashLogo = findViewById(R.id.splashImage);
+        splashViewpager = findViewById(R.id.splashViewPager);
 
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, 1000);
+        SharedPreferences settings = this.getSharedPreferences(PREFS_FILE, 0);
+
+        boolean firstLaunch = settings.getBoolean("FirstLaunch", false);
+        SharedPreferences.Editor editor = settings.edit();
+
+
+
+        Log.d("LaunchStats", String.valueOf(firstLaunch));
+
+        //초기 실행일 경우 false를 받아옴
+
+        if (firstLaunch){
+
+
+            splashViewpager.setVisibility(View.GONE);
+            splashLogo.setVisibility(View.VISIBLE);
+            anim.setVisibility(View.VISIBLE);
+            anim.playAnimation();
+            anim.loop(true);
+            timeHandler();
+        }else{
+            //초기 실행시의 행동
+
+            splashLogo.setVisibility(View.GONE);
+            anim.setVisibility(View.GONE);
+            splashViewpager.setVisibility(View.VISIBLE);
+            SplashViewpagerAdapter adapter = new SplashViewpagerAdapter(getSupportFragmentManager());
+            splashViewpager.setAdapter(adapter);
+
+            editor.putBoolean("FirstLaunch", true);
+            editor.apply();
+
+
+
+
+        }
+
+
+        //timeHandler();
 
         /*
         Intent intent = new Intent(this, MainActivity.class);
@@ -37,4 +88,16 @@ public class SplashActivity extends Activity {
         */
 
     }
+
+    public void timeHandler() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 1000);
+
+    }
+
 }

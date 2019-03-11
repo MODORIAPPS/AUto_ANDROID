@@ -60,7 +60,7 @@ public class SetWallpaperJob extends BroadcastReceiver {
                 wallpaperManager.setBitmap(myBitmap);
 
             } else {
-                throw new Exception("No Images Found - walli-e");
+                throw new Exception(String.valueOf(R.string.noImageAlert));
             }
 
         } catch (Exception ae) {
