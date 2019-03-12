@@ -12,7 +12,7 @@
 
     <string name="tap1_title">写真のあるフォルダーを選択し、サイクルを選択を選択するだけで終わり！</string>
 
-    <string name="tap1_subTitle">beta v.1.50 では経路やファイルの名前に英語以外の文字があってはいけないんです。  \n 次期にパッチします。</string>
+    <string name="tap1_subTitle">もう jpg, jpeg, gif, png の拡張子がサポートされます。</string>
 
 
 
