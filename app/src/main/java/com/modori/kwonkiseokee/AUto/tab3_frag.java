@@ -213,12 +213,12 @@ public class tab3_frag extends Fragment {
 
         if (actCheckSwitch.isChecked()) {
 
-            actCheckSwitch.setText(R.string.tab3_ActStateActivated);
+            //actCheckSwitch.setText(R.string.tab3_ActStateActivated);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_act);
 
         } else {
 
-            actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
+            //actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_disable);
         }
     }
@@ -260,10 +260,10 @@ public class tab3_frag extends Fragment {
 
         if (settings.getBoolean("Activated", false)) {
             actCheckSwitch.setChecked(true);
-            actCheckSwitch.setText(R.string.tab3_alertStartService);
+            //actCheckSwitch.setText(R.string.tab3_alertStartService);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_act);
         } else {
-            actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
+            //actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
             actCheckSwitch.setChecked(false);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_disable);
 

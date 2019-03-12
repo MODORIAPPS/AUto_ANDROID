@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">AUto 日々新たな気持ち</string>
+    <string name="version_name">1.5.2</string>
+
 
     <string name="makingAlert">サビスは準備中です。</string>
     <string name="nonAlert">準備中</string>
@@ -49,6 +51,21 @@
     <string name="tab3_snackBar2">保存しました。</string>
 
     <string name="tab3_alertStartService">サビスが開始され</string>
+
+    <!--라이선스 표시 페이지-->
+    <string name="mainTitle">いつも新たな気持ちのために。</string>
+
+    <string name="subTitle1">壁紙</string>
+    <string name="subTitle2">で自分の心理を変える。</string>
+
+    <string name="title1">このアプリは</string>
+    <string name="title12">MITオプンソースライセンスの</string>
+    <string name="title13">規正されています。</string>
+
+    <string name="title2">そして、いろんなオプンソースを使って \n作られました。</string>
+
+
+    <string name="credit">用いたサビス</string>
 
 
     <!--Select_Folder-->

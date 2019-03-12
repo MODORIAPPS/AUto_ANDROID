@@ -65,9 +65,9 @@
                     android:id="@+id/actSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="13dp"
                     android:scaleX="1.2"
                     android:scaleY="1.2"
                     android:textColor="@color/white"
@@ -98,7 +98,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/detailSet1Title"
@@ -128,7 +128,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="8dp"
                         android:scaleX="1.3"
                         android:scaleY="1.3" />
                 </RelativeLayout>
@@ -146,7 +146,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:layout_marginTop="5dp"
@@ -177,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="8dp"
                         android:scaleX="1.3"
                         android:scaleY="1.3" />
                 </RelativeLayout>
@@ -192,7 +192,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/detailSet3Title"
@@ -215,21 +215,23 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:layout_below="@id/detailSet3Con"
                         android:id="@+id/numPickerView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginTop="15dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="4dp"
                         android:layout_marginEnd="20dp"
                         android:text="n일 : n시간 : n분"
                         android:textColor="@color/semiBlack"
                         android:textStyle="normal" />
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
 
-                        android:layout_below="@+id/detailSet3Con"
+                        android:layout_below="@+id/numPickerView"
                         android:layout_marginTop="5dp">
 
                         <NumberPicker
@@ -301,7 +303,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
-                    android:padding="10dp">
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/detailSet4Title"

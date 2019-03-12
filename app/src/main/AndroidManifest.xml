@@ -23,7 +23,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".LicensePage" />
-        <activity android:name=".Develop_activity" />
         <activity
             android:name=".SplashActivity"
             />

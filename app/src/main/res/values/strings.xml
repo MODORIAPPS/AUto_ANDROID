@@ -1,61 +1,77 @@
 <resources>
 
     <!--영어 버전-->
-    <string name="app_name">AUto 日々新たな気持ち</string>
+    <string name="app_name">AUto - a new mood every day</string>
+    <string name="version_name">1.5.2</string>
 
-    <string name="makingAlert">서비스 준비중입니다.</string>
-    <string name="nonAlert">準備中</string>
-    <string name="nonPageAlert">페이지 준비중입니다.</string>
-    <string name="noImageAlert">イメージを探すに失敗しました。</string>
+    <string name="makingAlert">The service is being prepared.</string>
+    <string name="nonAlert">preparing</string>
+    <string name="nonPageAlert">Page is in preparation.</string>
+    <string name="noImageAlert">Failed to find image.</string>
     <!--스플래쉬 스크린 뷰페이저 튜토리얼-->
 
-    <string name="tap1_title">사진이 들어있는 폴더를 선택하고 주기를 선택하면 끝!</string>
-    <string name="tap1_subTitle">beta v.1.50 에서는 경로나 파일이름에 영어이외의 문자가 있어서는 안됩니다.  \n 추후 패치 예정</string>
+    <string name="tap1_title">Select the folder containing the pictures and select the Period to end!</string>
+    <string name="tap1_subTitle">Extensions for jpg, jpeg, gif, and png are now supported.</string>
 
-    <string name="tap2_title">부팅 후 자동실행 설정과 변경 순서 설정도 할 수 있어요!</string>
-    <string name="tap2_subTitle">이후 패치에서 더 멋진 모습 보여드리겠습니다. </string>
+    <string name="tap2_title">You can also set AutoPlay settings and change order after booting!</string>
+    <string name="tap2_subTitle">We are going to show you a better look at the patch.</string>
 
     <!-- TabLayout -->
-    <string name="tab_1">탭 1</string>
-    <string name="tab_2">추천 사진</string>
-    <string name="tab_3">자동 설정</string>
+    <string name="tab_1">preparing</string>
+    <string name="tab_2">preparing</string>
+    <string name="tab_3">Auto Settings</string>
 
 
     <!-- tab3_frag -->
-    <string name="tab3_detailSet1Title">부팅 후 자동 실행</string>
-    <string name="tab3_detailSet1Con">부팅 후 자동으로 서비스를 시작합니다.</string>
-    <string name="tab3_title_BootViewEnabled">부팅 후 자동 실행 함</string>
-    <string name="tab3_title_BootViewDisabled">부팅 후 자동 실행 안함</string>
-    <string name="tab3_title_cycleView">주기</string>
-    <string name="tab3_detailLine1">변경 설정</string>
-    <string name="tab3_detailLine2">디렉토리</string>
-    <string name="tab3_t3_sub">최소 1분 이상이여야 합니다.</string>
+    <string name="tab3_detailSet1Title">AutoPlay After Boot</string>
+    <string name="tab3_detailSet1Con">Start service automatically after booting up.</string>
+    <string name="tab3_title_BootViewEnabled">AutoPlay After Boot</string>
+    <string name="tab3_title_BootViewDisabled">No AutoPlay After Boot</string>
+    <string name="tab3_title_cycleView">Period</string>
+    <string name="tab3_detailLine1">Change settings</string>
+    <string name="tab3_detailLine2">Directory</string>
+    <string name="tab3_t3_sub">Must be at least 1 minute.</string>
 
-    <string name="tab3_t1">배경화면 자동변경</string>
-    <string name="tab3_t2">사진 변경 순서</string>
-    <string name="tab3_ActStateActivated">서비스 동작중</string>
-    <string name="tab3_ActStateDisabled">실행 명령 대기중</string>
-    <string name="tab3_ShuffleStateOn">순서대로 변경</string>
-    <string name="tab3_ShuffleStateOff">무작위로 변경</string>
-    <string name="tab3_t3">변경 주기</string>
-    <string name="tab3_t4">사진을 불러오는 경로 설정</string>
-    <string name="tab3_t5">디렉토리 선택기 열기</string>
-    <string name="tab3_t6">변경사항 저장</string>
+    <string name="tab3_t1">Change wallpaper automatically</string>
+    <string name="tab3_t2">Picture Change Order</string>
+    <string name="tab3_ActStateActivated">Service in operation</string>
+    <string name="tab3_ActStateDisabled">awaiting execution command</string>
+    <string name="tab3_ShuffleStateOn">Changing in order</string>
+    <string name="tab3_ShuffleStateOff">Randomly</string>
+    <string name="tab3_t3">Change frequency</string>
+    <string name="tab3_t4">path settings to recall pictures</string>
+    <string name="tab3_t5">open directory selector</string>
+    <string name="tab3_t6">Save changes</string>
 
 
-    <string name="tab3_snackBar1">변경사항이 저장되었습니다. 서비스를 시작합니다.</string>
-    <string name="tab3_snackBar2">변경사항이 저장되었습니다</string>
+    <string name="tab3_snackBar1">Your changes have been saved. Start the service.</string>
+    <string name="tab3_snackBar2">Your changes have been saved.</string>
 
-    <string name="tab3_alertStartService">서비스가 시작됨</string>
+    <string name="tab3_alertStartService">Service started</string>
+
+    <!--라이선스 표시 페이지-->
+    <string name="mainTitle">Always for new moods. </string>
+
+    <string name="subTitle1">Wallpaper,</string>
+    <string name="subTitle2">  change one\'s mind</string>
+
+    <string name="title1">This app is subject to the</string>
+    <string name="title12">MIT OpenSource License </string>
+    <string name="title13">Regulations.</string>
+
+    <string name="title2">It is also made from a number of open sources.</string>
+
+
+    <string name="credit">Credit</string>
 
 
     <!--Select_Folder-->
-    <string name="goSdcard">처음 디렉토리로(sdcard/)</string>
-    <string name="goPreDir">이전 디렉토리로</string>
-    <string name="chooseBtn">フォルダーを選択します。</string>
+    <string name="goSdcard">To the first directory(sdcard/)</string>
+    <string name="goPreDir">Previous directory</string>
+    <string name="chooseBtn">Previous directory</string>
     <!-- time  -->
-    <string name="day">일</string>
-    <string name="hour">시간</string>
-    <string name="min">분</string>
+    <string name="day">Day</string>
+    <string name="hour">Hour</string>
+    <string name="min">Min</string>
 
 </resources>
