@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.modori.kwonkiseokee.AUto">
+    package="com.modori.kwonkiseokee.AUto"
+
+
+    android:versionName= "1.5.2">
+
+    <!--버전 코드 설명 https://mainia.tistory.com/4925-->
+
     <!-- 배경화면 설정 권한 추가 -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" /> <!-- 기기에 저장되어 있는 것들 읽기 권한 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
