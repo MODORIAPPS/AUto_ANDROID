@@ -100,7 +100,8 @@ public class SelectFolder extends ListActivity {
             final String[] okFileExtensions = new String[]{
                     "jpg",
                     "png",
-                    "jpeg"
+                    "jpeg",
+                    "gif"
             };
 
 //            for(int i=0; i < files.length; i++) {
@@ -120,7 +121,7 @@ public class SelectFolder extends ListActivity {
                         path.add(file.getPath());
                         item.add(file.getName() + "/");
                     }
-                    for (int k = 0; k < 3; k++) {
+                    for (int k = 0; k <= 3; k++) {
                         String checkFile = okFileExtensions[k];
                         if (file.getName().toLowerCase().endsWith(checkFile)) {
                             item.add(file.getName());

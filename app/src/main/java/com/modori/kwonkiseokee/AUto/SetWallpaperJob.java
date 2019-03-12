@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -15,7 +16,10 @@ import java.util.Random;
 
 public class SetWallpaperJob extends BroadcastReceiver {
 
-    public static final String PREFS_FILE = "walliePrefsFile";
+    private final String[] okFileExtensions = new String[]{"jpg", "jpeg", "png", "gif"};
+
+
+    public static final String PREFS_FILE = "PrefsFile";
     String SelectedPath;
     Boolean ShuffleMode;
     static int FileNumber = 0;
@@ -23,6 +27,8 @@ public class SetWallpaperJob extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
+
+        Log.d("SetWallpaperJob", "신호 받음");
 
         try {
             //load preferences
@@ -34,10 +40,29 @@ public class SetWallpaperJob extends BroadcastReceiver {
 
             File file = new File(SelectedPath);
 
-            FilenameFilter only = new OnlyExt("jpg");
+            //FilenameFilter only = new OnlyExt("jpg");
+            //File[] imageFiles = file.listFiles(only);
+            //
 
-            File[] imageFiles = file.listFiles(only);
+            File[] imageFiles = file.listFiles();
 
+            for (int i = 0; i < imageFiles.length; i++) {
+
+                Log.d("찾는 for 문 진입 ", String.valueOf(i));
+                //File file = files[i];
+
+                if (file.canRead()) {
+                    for (int k = 0; k <= 3; k++) {
+                        String checkFile = okFileExtensions[k];
+                        if (file.getName().toLowerCase().endsWith(checkFile)) {
+                            imageFiles[i] = new File(String.valueOf(file.getName()));
+                            Log.d("찾은 파일", String.valueOf(imageFiles[i]));
+                        }
+                    }
+                }
+            }
+
+            //
             if (imageFiles.length > 0) {
 
                 if (ShuffleMode) {
@@ -60,7 +85,8 @@ public class SetWallpaperJob extends BroadcastReceiver {
                 wallpaperManager.setBitmap(myBitmap);
 
             } else {
-                throw new Exception(String.valueOf(R.string.noImageAlert));
+                String alert = context.getResources().getString(R.string.noImageAlert);
+                throw new Exception(alert);
             }
 
         } catch (Exception ae) {
