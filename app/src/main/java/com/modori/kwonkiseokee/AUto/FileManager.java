@@ -48,19 +48,6 @@ public class FileManager {
         for (int i = 0; i < imageFiles.length; i++) {
 
             Log.d("찾는 for 문 진입 ", String.valueOf(i));
-            //File file = files[i];
-
-
-//            for (String extension : okFileExtensions) {
-//                if (file.getName().toLowerCase().endsWith(extension)) {
-//
-//                    //들어가지 못하고 있는 문제가 있음.
-//                    imageFiles[i] = new File(String.valueOf(file.getName()));
-//                    imagesCnt++;
-//                    Log.d("찾은 파일", String.valueOf(imageFiles[i]));
-//                }
-//            }
-
             file = imageFiles[i];
             String[] okFileExtensions = new String[]{"jpg", "jpeg", "png", "gif"};
 
