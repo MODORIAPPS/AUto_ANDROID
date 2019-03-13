@@ -40,13 +40,11 @@ public class SetWallpaperJob extends BroadcastReceiver {
 
             File file = new File(SelectedPath);
 
-            //FilenameFilter only = new OnlyExt("jpg");
-            //File[] imageFiles = file.listFiles(only);
-            //
-
             File[] imageFiles = file.listFiles();
 
             for (int i = 0; i < imageFiles.length; i++) {
+
+                file = imageFiles[i];
 
                 Log.d("찾는 for 문 진입 ", String.valueOf(i));
                 //File file = files[i];

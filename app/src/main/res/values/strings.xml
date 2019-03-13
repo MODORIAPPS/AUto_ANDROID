@@ -64,11 +64,18 @@
 
     <string name="credit">Credit</string>
 
+    <string name="dialog1Title">Image file not found.</string>
+    <string name="dialog1Con">The selected folder does not appear to have an image. Please check the folder again and ask if you continue to experience any problems.</string>
+
+    <string name="dialog2Title">Image file too few. </string>
+    <string name="dialog2Con">Run, however, it is recommended that you use at least 3 photos.</string>
+
+    <string name="dialogOkay">I see.</string>
 
     <!--Select_Folder-->
     <string name="goSdcard">To the first directory(sdcard/)</string>
     <string name="goPreDir">Previous directory</string>
-    <string name="chooseBtn">Previous directory</string>
+    <string name="chooseBtn">Select this folder</string>
     <!-- time  -->
     <string name="day">Day</string>
     <string name="hour">Hour</string>

@@ -4,7 +4,7 @@
     package="com.modori.kwonkiseokee.AUto"
 
 
-    android:versionName= "1.5.2">
+    android:versionName= "1.5.3">
 
     <!--버전 코드 설명 https://mainia.tistory.com/4925-->
 
@@ -28,8 +28,6 @@
             />
         <activity android:name=".SelectFolder" />
 
-        <!--<activity android:name=".autoWallpaper" />-->
-        <activity android:name=".oldSetWallpaper.pickon_recyclerview" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

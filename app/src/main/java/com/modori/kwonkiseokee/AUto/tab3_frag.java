@@ -1,8 +1,10 @@
 package com.modori.kwonkiseokee.AUto;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -56,6 +58,7 @@ public class tab3_frag extends Fragment {
     TextView numPickerView;
     TextView viewCycle;
     TextView viewBootLaunch;
+    TextView actStats;
 
     //Switch 위에서 아래 순서
     SwitchCompat actCheckSwitch;
@@ -91,6 +94,7 @@ public class tab3_frag extends Fragment {
         showDirBtn = view.findViewById(R.id.showDirBtn);
         showCurrDir = view.findViewById(R.id.showCurrDir);
         viewCycle = view.findViewById(R.id.viewCycle);
+        actStats = view.findViewById(R.id.actStats);
         viewBootLaunch = view.findViewById(R.id.viewBootLaunch);
 
         bootLaunchSwitch = view.findViewById(R.id.bootLaunchSwitch);
@@ -126,7 +130,7 @@ public class tab3_frag extends Fragment {
 
         viewCycle.setText(_DAY + _day + _HOUR + _hour + _MIN + _min);
 
-        String str = _DAY + "  " + _day + " | " + _HOUR + "  " + _hour + " | " + _MIN + "  " + _min;
+        String str = _DAY + "  " + _day + " : " + _HOUR + "  " + _hour + " : " + _MIN + "  " + _min;
         //String str = " 23fwe";
 
         numPickerView.setText(str);
@@ -145,7 +149,7 @@ public class tab3_frag extends Fragment {
 
         viewCycle.setText(day + _day + hour + _hour + min + _min);
 
-        String str = day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min;
+        String str = day + "  " + _day + " : " + hour + "  " + _hour + " : " + min + "  " + _min;
         //String str = " 23fwe";
 
         numPickerView.setText(str);
@@ -179,7 +183,7 @@ public class tab3_frag extends Fragment {
                 day = inputCycleDay.getValue();
                 hour = inputCycleHour.getValue();
                 min = inputCycleMin.getValue();
-                numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
+                numPickerView.setText(day + "  " + _day + " : " + hour + "  " + _hour + " : " + min + "  " + _min);
 
             }
         });
@@ -190,7 +194,7 @@ public class tab3_frag extends Fragment {
                 day = inputCycleDay.getValue();
                 hour = inputCycleHour.getValue();
                 min = inputCycleMin.getValue();
-                numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
+                numPickerView.setText(day + "  " + _day + " : " + hour + "  " + _hour + " : " + min + "  " + _min);
             }
         });
 
@@ -202,7 +206,7 @@ public class tab3_frag extends Fragment {
                 day = inputCycleDay.getValue();
                 hour = inputCycleHour.getValue();
                 min = inputCycleMin.getValue();
-                numPickerView.setText(day + "  " + _day + " | " + hour + "  " + _hour + " | " + min + "  " + _min);
+                numPickerView.setText(day + "  " + _day + " : " + hour + "  " + _hour + " : " + min + "  " + _min);
             }
         });
 
@@ -213,12 +217,12 @@ public class tab3_frag extends Fragment {
 
         if (actCheckSwitch.isChecked()) {
 
-            //actCheckSwitch.setText(R.string.tab3_ActStateActivated);
+            actStats.setText(R.string.tab3_ActStateActivated);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_act);
 
         } else {
 
-            //actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
+            actStats.setText(R.string.tab3_ActStateDisabled);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_disable);
         }
     }
@@ -260,10 +264,10 @@ public class tab3_frag extends Fragment {
 
         if (settings.getBoolean("Activated", false)) {
             actCheckSwitch.setChecked(true);
-            //actCheckSwitch.setText(R.string.tab3_alertStartService);
+            actStats.setText(R.string.tab3_alertStartService);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_act);
         } else {
-            //actCheckSwitch.setText(R.string.tab3_ActStateDisabled);
+            actStats.setText(R.string.tab3_ActStateDisabled);
             actCheckSwitch.setChecked(false);
             actView_layout.setBackgroundResource(R.drawable.background_theme_title_disable);
 
@@ -414,7 +418,13 @@ public class tab3_frag extends Fragment {
         am.cancel(sender);
     }
 
+    public void showDialog() {
+
+    }
+
     public void saveFunction() {
+
+
         isActivate = actCheckSwitch.isChecked();
 
         if (isActivate) {
@@ -450,11 +460,51 @@ public class tab3_frag extends Fragment {
 
             editor.apply();
 
+            String dialog1Title = getResources().getString(R.string.dialog1Title);
+            String dialog1Con = getResources().getString(R.string.dialog1Con);
+            String dialog2Title = getResources().getString(R.string.dialog2Title);
+            String dialog2Con = getResources().getString(R.string.dialog2Con);
 
+            String dialogOkay = getResources().getString(R.string.dialogOkay);
+
+
+            int imageN = FileManager.availableImages(context);
+            if (imageN == 0) {
+                //이미지가 없는 경우
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(dialog1Title).setMessage(dialog1Con);
+                builder.setPositiveButton(dialogOkay, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+
+                unSetAutoChangeSlide();
+
+
+            } else if (imageN <= 2) {
+                //이미지가 1~2개인 경우
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(dialog2Title).setMessage(dialog2Con);
+                builder.setPositiveButton(dialogOkay, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+                setAutoChangeSlide(cycle);
+                actStats.setText(R.string.tab3_alertStartService);
+                Snackbar.make(mainlayout, R.string.tab3_snackBar1, Snackbar.LENGTH_SHORT).show();
+
+
+            } else {
+                setAutoChangeSlide(cycle);
+                actStats.setText(R.string.tab3_alertStartService);
+                Snackbar.make(mainlayout, R.string.tab3_snackBar1, Snackbar.LENGTH_SHORT).show();
+            }
             //save 활동 끝
-            setAutoChangeSlide(cycle);
-            actCheckSwitch.setText(R.string.tab3_alertStartService);
-            Snackbar.make(mainlayout, R.string.tab3_snackBar1, Snackbar.LENGTH_SHORT).show();
+
         } else {
             unSetAutoChangeSlide();
             Snackbar.make(mainlayout, R.string.tab3_snackBar2, Snackbar.LENGTH_SHORT).show();

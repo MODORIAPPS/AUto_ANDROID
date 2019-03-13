@@ -4,7 +4,7 @@
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#FCFCFC"
     android:orientation="vertical"
     android:padding="2dp">
 
@@ -21,10 +21,10 @@
 
             <!-- 활성화 상태인지 표시 -->
             <RelativeLayout
-                android:layout_marginTop="5dp"
                 android:id="@+id/actView_layout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/background_theme_title_act"
                 android:padding="10dp">
 
@@ -50,18 +50,27 @@
                     android:textStyle="normal" />
 
                 <TextView
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:id="@+id/actStats"
+                    android:layout_marginStart="7dp"
+                    android:textColor="@color/white"
+                    android:layout_below="@id/viewCycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab3_ActStateActivated" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="20dp"
                     android:layout_toStartOf="@id/actSwitch"
-                    android:text="@string/tab3_ActStateActivated"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:visibility="gone" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:theme="@style/SwitchCompatTheme"
                     android:id="@+id/actSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -71,7 +80,8 @@
                     android:scaleX="1.2"
                     android:scaleY="1.2"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:theme="@style/SwitchCompatTheme" />
             </RelativeLayout>
 
 
@@ -97,7 +107,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="90dp"
                     android:padding="8dp">
 
                     <TextView
@@ -111,6 +121,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:maxWidth="250dp"
                         android:id="@+id/detailSet1Con"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -121,16 +132,16 @@
                         android:textStyle="normal" />
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:theme="@style/SwitchCompatTheme"
-
                         android:id="@+id/bootLaunchSwitch"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
                         android:layout_marginEnd="8dp"
                         android:scaleX="1.3"
-                        android:scaleY="1.3" />
+                        android:scaleY="1.3"
+                        android:theme="@style/SwitchCompatTheme" />
                 </RelativeLayout>
 
                 <View
@@ -149,11 +160,11 @@
                     android:padding="8dp">
 
                     <TextView
-                        android:layout_marginTop="5dp"
                         android:id="@+id/detailSet2Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_marginTop="5dp"
                         android:text="@string/tab3_ShuffleStateOn"
                         android:textColor="@color/semiBlack"
                         android:textSize="23sp"
@@ -170,16 +181,16 @@
                         android:textStyle="normal" />
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:theme="@style/SwitchCompatTheme"
-
                         android:id="@+id/shuffleSwitch"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true"
                         android:layout_marginEnd="8dp"
                         android:scaleX="1.3"
-                        android:scaleY="1.3" />
+                        android:scaleY="1.3"
+                        android:theme="@style/SwitchCompatTheme" />
                 </RelativeLayout>
 
                 <View
@@ -215,10 +226,10 @@
                         android:textStyle="normal" />
 
                     <TextView
-                        android:layout_below="@id/detailSet3Con"
                         android:id="@+id/numPickerView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/detailSet3Con"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="20dp"
@@ -235,11 +246,11 @@
                         android:layout_marginTop="5dp">
 
                         <NumberPicker
-                            android:theme="@style/AppTheme"
                             android:id="@+id/inputCycleDay"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme">
 
                         </NumberPicker>
 
@@ -302,17 +313,18 @@
                 <!-- 디렉토리 설정 -->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="100dp"
                     android:padding="8dp">
 
                     <TextView
+                         android:maxWidth="280dp"
                         android:id="@+id/detailSet4Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:text="@string/tab3_t4"
                         android:textColor="@color/semiBlack"
-                        android:textSize="21sp"
+                        android:textSize="19sp"
                         android:textStyle="normal" />
 
                     <TextView
@@ -352,12 +364,12 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:tint="#6AAFE6"
                         android:id="@+id/showDirBtn"
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/opened_folder_100">
+                        android:src="@drawable/opened_folder_100"
+                        android:tint="#6AAFE6">
 
                     </ImageView>
 
@@ -367,13 +379,13 @@
             </LinearLayout>
 
             <Button
-                android:textColor="@color/white"
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_bg"
-                android:text="@string/tab3_t6">
+                android:text="@string/tab3_t6"
+                android:textColor="@color/white">
 
             </Button>
         </LinearLayout>

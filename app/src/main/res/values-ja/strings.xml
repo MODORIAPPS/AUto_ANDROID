@@ -17,7 +17,6 @@
     <string name="tap1_subTitle">もう jpg, jpeg, gif, png の拡張子がサポートされます。</string>
 
 
-
     <string name="tap2_title">再起動のあと、自動実行設定と変更順を選択することもできますよ！</string>
     <string name="tap2_subTitle"> 以降にパッチにもっと素敵になります。</string>
 
@@ -67,6 +66,13 @@
 
     <string name="credit">用いたサビス</string>
 
+    <string name="dialog1Title">イメージファイルを見つけられませんでした。</string>
+    <string name="dialog1Con">選択したフォルダにイメージがないようです。 フォルダを再度確認して,引き続き問題が発生した場合にお問い合わせください。</string>
+
+    <string name="dialog2Title">イメージが少なすぎます。</string>
+    <string name="dialog2Con">実行はしますが,3枚以上の写真をお使いになることが推奨されます。</string>
+
+    <string name="dialogOkay">はい.</string>
 
     <!--Select_Folder-->
     <string name="goSdcard"> 最初のディレクトリへ(sdcard/)</string>

@@ -49,6 +49,14 @@
 
     <string name="tab3_alertStartService">서비스가 시작됨</string>
 
+    <string name="dialog1Title">이미지 파일을 찾지 못했습니다.</string>
+    <string name="dialog1Con">선택한 폴더에 이미지가 없는 것 같습니다. 폴더를 다시 한번 확인하시고, 계속해서 문제가 발생할 경우 문의부탁드립니다.</string>
+
+    <string name="dialog2Title">이미지 파일이 너무 적습니다. </string>
+    <string name="dialog2Con">실행은 하지만, 3장 이상의 사진을 사용하시는 것이 권장됩니다. </string>
+
+    <string name="dialogOkay">알겠습니다.</string>
+
     <!--Select_Folder-->
     <string name="goSdcard">처음 디렉토리로(sdcard/)</string>
     <string name="goPreDir">이전 디렉토리로</string>
@@ -68,6 +76,8 @@
 
 
     <string name="credit">사용된 서비스</string>
+
+
 
 
     <!-- time  -->
