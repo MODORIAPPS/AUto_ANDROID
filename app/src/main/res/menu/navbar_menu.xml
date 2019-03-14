@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+
+        android:id="@+id/goTranslate"
+        android:icon="@drawable/photos_icon"
+        android:title="@string/tab_1" />
+    <item
+        android:id="@+id/goPhotos"
+        android:icon="@drawable/photos_icon"
+        android:title="@string/tab_2" />
+    <item
+        android:id="@+id/goAutoSet"
+        android:icon="@drawable/setauto_icon"
+        android:title="@string/tab_3" />
+</menu>

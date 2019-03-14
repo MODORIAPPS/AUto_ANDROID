@@ -7,9 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,7 +31,10 @@ import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -50,6 +56,9 @@ public class tab3_frag extends Fragment {
 
 
     //xml widgets
+    Toolbar toolbar;
+    ImageView goInfo;
+
     Button saveBtn;
     ImageView showDirBtn;
 
@@ -81,6 +90,7 @@ public class tab3_frag extends Fragment {
     public static int _HOUR = 0;
     public static int _MIN = 0;
 
+
     private void initWorks() {
         _day = getResources().getString(R.string.day);
         _hour = getResources().getString(R.string.hour);
@@ -88,6 +98,7 @@ public class tab3_frag extends Fragment {
 
 
         context = getActivity();
+        goInfo = view.findViewById(R.id.goInfo);
         mainlayout = view.findViewById(R.id.mainlayout);
         saveBtn = view.findViewById(R.id.saveBtn);
         actView_layout = view.findViewById(R.id.actView_layout);
@@ -96,6 +107,7 @@ public class tab3_frag extends Fragment {
         viewCycle = view.findViewById(R.id.viewCycle);
         actStats = view.findViewById(R.id.actStats);
         viewBootLaunch = view.findViewById(R.id.viewBootLaunch);
+        toolbar = view.findViewById(R.id.toolbar3);
 
         bootLaunchSwitch = view.findViewById(R.id.bootLaunchSwitch);
         actCheckSwitch = view.findViewById(R.id.actSwitch);
@@ -107,6 +119,11 @@ public class tab3_frag extends Fragment {
         inputCycleDay = view.findViewById(R.id.inputCycleDay);
         inputCycleHour = view.findViewById(R.id.inputCycleHour);
         inputCycleMin = view.findViewById(R.id.inputCycleMin);
+
+
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
 
     }
@@ -342,9 +359,13 @@ public class tab3_frag extends Fragment {
             }
         });
 
-//        if(actCheckSwitch.getText().toString().equals(R.string.tab3_alertStartService)){
-//            actCheckSwitch.setText(R.string.tab3_alertStartService);
-//        }
+        goInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goAboutThisApp = new Intent(getActivity(), LicensePage.class);
+                startActivity(goAboutThisApp);
+            }
+        });
 
 
         return view;
@@ -383,9 +404,6 @@ public class tab3_frag extends Fragment {
 
         temp = shuffleSwitch.isChecked();
         editor.putBoolean("ShuffleMode", temp);
-
-//        tempStr = inputCycle.getText().toString();
-//        editor.putString("Cycle", tempStr);
 
         SelectedPath = showCurrDir.getText().toString();
         editor.putString("SelectedPath", SelectedPath);

@@ -22,7 +22,7 @@
 
     <!-- TabLayout -->
     <string name="tab_1">準備中</string>
-    <string name="tab_2">準備中</string>
+    <string name="tab_2">探索</string>
     <string name="tab_3">自動設定</string>
 
     <!-- tab3_frag -->
