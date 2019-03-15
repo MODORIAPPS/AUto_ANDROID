@@ -1,5 +1,6 @@
 package com.modori.kwonkiseokee.AUto.RecyclerViewAdapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,15 @@ public class AdapterTab2_tagLists extends RecyclerView.Adapter<AdapterTab2_tagLi
 
     private ArrayList<String> tagLists;
 
+    private Context context;
+    private View.OnClickListener onClickItem;
+
+    public AdapterTab2_tagLists(Context context, ArrayList<String> tagLists, View.OnClickListener onClickItem) {
+        this.context = context;
+        this.tagLists = tagLists;
+        this.onClickItem = onClickItem;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -28,6 +38,7 @@ public class AdapterTab2_tagLists extends RecyclerView.Adapter<AdapterTab2_tagLi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String item = tagLists.get(position);
         holder.tags.setText(item);
+        holder.tags.setOnClickListener(onClickItem);
 
     }
 
