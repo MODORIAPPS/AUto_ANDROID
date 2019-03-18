@@ -2,17 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.modori.kwonkiseokee.AUto"
-
-
-    android:versionName= "1.5.4">
-
-    <!--버전 코드 설명 https://mainia.tistory.com/4925-->
-
+    android:versionName="1.5.4">
+    <!-- 버전 코드 설명 https://mainia.tistory.com/4925 -->
     <!-- 배경화면 설정 권한 추가 -->
-    <uses-permission android:name="android.permission.SET_WALLPAPER" /> <!-- 기기에 저장되어 있는 것들 읽기 권한 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
 
     <application
         android:allowBackup="true"
@@ -22,13 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".getFromGallery"></activity>
+        <activity android:name=".SetGetImagesDir_layout" />
+        <activity android:name=".PhotoDetail" />
+        <activity android:name=".ListsOfPhotos" />
         <activity android:name=".LicensePage" />
-        <activity
-            android:name=".SplashActivity"
-            />
+        <activity android:name=".SplashActivity" />
         <activity android:name=".SelectFolder" />
-
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,18 +31,23 @@
         </activity>
 
         <receiver android:name=".SetWallpaperJob" />
-
         <receiver
             android:name=".Receiver.BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="BOOTReceiver">
-
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-    </application>
 
+
+    </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.SET_WALLPAPER" /> <!-- 기기에 저장되어 있는 것들 읽기 권한 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

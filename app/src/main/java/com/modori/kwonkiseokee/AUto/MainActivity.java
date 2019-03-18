@@ -58,43 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1_frag()).commit();
 
-//        tabLayout = findViewById(R.id.tabLayout);
-//        viewPager = findViewById(R.id.mainFrame);
-
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_1));
-        //tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_2));
-//        tabLayout.addTab(tabLayout.newTab().setText(R.string.nonAlert));
-//        tabLayout.addTab(tabLayout.newTab().setText(R.string.nonAlert));
-//        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab_3));
-//        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-//        setUpTabIcons();
-//
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        viewPager.setAdapter(adapter);
-//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition());
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
-
-//        setSupportActionBar(toolbar);
-//
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setTitle("");
-
         navBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:background="@color/white"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="변경 주기 설정"
+                android:text="자동 변경 설정"
                 android:textColor="@color/semiBlack"
                 android:textSize="22sp"
                 android:textStyle="normal"/>
@@ -359,7 +359,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:maxWidth="280dp"
-                        android:text="@string/tab3_t4"
+                        android:text="사진을 불러오는 방법"
                         android:textColor="@color/semiBlack"
                         android:textSize="19sp"
                         android:textStyle="normal" />
@@ -375,37 +375,43 @@
                         android:visibility="gone" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/showStatsDefaultGetting"
                         android:layout_below="@id/detailSet4Title"
-                        android:layout_alignParentStart="true"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/folder_open_icon"
-                            android:tint="@color/semiBlack" />
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:maxWidth="250dp"
+                            android:textColor="@color/gray"
+                            android:textStyle="normal"
+                            android:textSize="15sp"
+                            android:text="기본 폴더에서 불러오고 있습니다."
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                         <TextView
-                            android:id="@+id/showCurrDir"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:singleLine="true"
+                            android:id="@+id/showDefaultGetCnt"
+                            android:layout_marginTop="5dp"
+                            android:maxWidth="250dp"
                             android:textColor="@color/semiBlack"
+                            android:textStyle="bold"
                             android:textSize="15sp"
-                            tools:text="/sdcard/..." />
+                            android:text="확인된 사진 n개"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
+
+
+
 
                     <ImageView
                         android:id="@+id/showDirBtn"
                         android:layout_width="50dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/opened_folder_100"
+                        android:src="@drawable/settings_icon"
                         android:tint="#6AAFE6">
 
                     </ImageView>
@@ -420,6 +426,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/button_bg"
                 android:text="@string/tab3_t6"
                 android:textColor="@color/white">

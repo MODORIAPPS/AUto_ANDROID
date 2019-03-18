@@ -3,22 +3,15 @@ package com.modori.kwonkiseokee.AUto;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.kc.unsplash.Unsplash;
-import com.kc.unsplash.api.Order;
-import com.kc.unsplash.models.Photo;
-import com.kc.unsplash.models.SearchResults;
 import com.modori.kwonkiseokee.AUto.RecyclerViewAdapter.AdapterTab2_tagLists;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class tab2_frag extends Fragment {
 
     Context context;
-
-    Unsplash unsplash;
 
 
     public static final String PREFS_FILE = "PrefsFile";
@@ -73,7 +64,6 @@ public class tab2_frag extends Fragment {
         tagLists = new ArrayList<>();
 
         initWork();
-        getPhotosAsEachTag();
 
 
         return view;
@@ -82,8 +72,6 @@ public class tab2_frag extends Fragment {
     public void initWork() {
         context = getActivity();
 
-        //커밋할 때는 반드시 지워서!!
-        unsplash = new Unsplash("");
 
         tag1Gridview = view.findViewById(R.id.tag1Gridview);
         tag2Gridview = view.findViewById(R.id.tag2Gridview);
@@ -137,21 +125,21 @@ public class tab2_frag extends Fragment {
 
     private void getPhotosAsEachTag() {
 
-        unsplash.searchPhotos(tag1, new Unsplash.OnSearchCompleteListener() {
-            @Override
-            public void onComplete(SearchResults results) {
-                Log.d("Photos", "Total Results Found " + results.getTotal());
-                List<Photo> photos = results.getResults();
-                Log.d("불러온 값의 상태", String.valueOf(photos));
-                Glide.with(context).load(photos.get(0)).into(tag1Gridview);
-            }
-
-
-            @Override
-            public void onError(String error) {
-                Log.d("Unsplash", error);
-            }
-        });
+//        unsplash.searchPhotos(tag1, new Unsplash.OnSearchCompleteListener() {
+//            @Override
+//            public void onComplete(SearchResults results) {
+//                Log.d("Photos", "Total Results Found " + results.getTotal());
+//                List<Photo> photos = results.getResults();
+//                Log.d("불러온 값의 상태", String.valueOf(photos));
+//                Glide.with(context).load(photos.get(0)).into(tag1Gridview);
+//            }
+//
+//
+//            @Override
+//            public void onError(String error) {
+//                Log.d("Unsplash", error);
+//            }
+//        });
 
     }
 

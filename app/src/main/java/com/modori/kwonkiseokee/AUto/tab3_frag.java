@@ -7,27 +7,21 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.modori.kwonkiseokee.AUto.CalTools.calTimes;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,11 +40,9 @@ public class tab3_frag extends Fragment {
     View view;
     View mainlayout;
 
-    public static final int SELECT_FOLDER = 6541;
     public static final String PREFS_FILE = "PrefsFile";
 
 
-    String SelectedPath;
     boolean isShuffleMode;
     boolean isActivate;
 
@@ -60,10 +52,9 @@ public class tab3_frag extends Fragment {
     ImageView goInfo;
 
     Button saveBtn;
-    ImageView showDirBtn;
+    ImageView goGetImageSettings;
 
     View actView_layout;
-    TextView showCurrDir;
     TextView numPickerView;
     TextView viewCycle;
     TextView viewBootLaunch;
@@ -102,8 +93,8 @@ public class tab3_frag extends Fragment {
         mainlayout = view.findViewById(R.id.mainlayout);
         saveBtn = view.findViewById(R.id.saveBtn);
         actView_layout = view.findViewById(R.id.actView_layout);
-        showDirBtn = view.findViewById(R.id.showDirBtn);
-        showCurrDir = view.findViewById(R.id.showCurrDir);
+        goGetImageSettings = view.findViewById(R.id.showDirBtn);
+        //showCurrDir = view.findViewById(R.id.showCurrDir);
         viewCycle = view.findViewById(R.id.viewCycle);
         actStats = view.findViewById(R.id.actStats);
         viewBootLaunch = view.findViewById(R.id.viewBootLaunch);
@@ -268,7 +259,6 @@ public class tab3_frag extends Fragment {
 
         // load preferences
         SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
-        SelectedPath = settings.getString("SelectedPath", "/system");
         isShuffleMode = settings.getBoolean("ShuffleMode", false);
 
         //Activated
@@ -318,7 +308,6 @@ public class tab3_frag extends Fragment {
 
 
         //Location
-        showCurrDir.setText(SelectedPath);
 
         actCheckSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -346,16 +335,11 @@ public class tab3_frag extends Fragment {
             }
         });
 
-        showDirBtn.setOnClickListener(new View.OnClickListener() {
+        goGetImageSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Intent intent = new Intent(getActivity(), SelectFolder.class);
-                    startActivityForResult(intent, SELECT_FOLDER);
-                } catch (Exception e) {
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                startActivity(new Intent(context, SetGetImagesDir_layout.class));
 
-                }
             }
         });
 
@@ -369,24 +353,6 @@ public class tab3_frag extends Fragment {
 
 
         return view;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            switch (requestCode) {
-                case SELECT_FOLDER:
-                    if (resultCode != getActivity().RESULT_CANCELED) {
-                        SelectedPath = data.getStringExtra("SelectedPath");
-                        showCurrDir.setText(SelectedPath);
-                    }
-
-            }
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-
-        }
     }
 
     @Override
@@ -405,8 +371,6 @@ public class tab3_frag extends Fragment {
         temp = shuffleSwitch.isChecked();
         editor.putBoolean("ShuffleMode", temp);
 
-        SelectedPath = showCurrDir.getText().toString();
-        editor.putString("SelectedPath", SelectedPath);
 
         // Commit the edits!
         editor.apply();
@@ -456,7 +420,7 @@ public class tab3_frag extends Fragment {
 //                        Snackbar.make(mainlayout, "주기는 0이 될 수 없습니다.", Snackbar.LENGTH_SHORT).show();
 
             isShuffleMode = shuffleSwitch.isChecked();
-            SelectedPath = showCurrDir.getText().toString();
+            ///SelectedPath = showCurrDir.getText().toString();
 
             //설정 쓰기
             SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
@@ -465,7 +429,7 @@ public class tab3_frag extends Fragment {
             //Toast.makeText(getActivity(), cycle, Toast.LENGTH_SHORT).show();
             Log.d("save  : ", String.valueOf(cycle));
             editor.putString("Cycle", String.valueOf(cycle));
-            editor.putString("SelectedPath", SelectedPath);
+            //editor.putString("SelectedPath", SelectedPath);
             editor.putBoolean("ShuffleMode", isShuffleMode);
             editor.putBoolean("BootLaunch", bootLaunchSwitch.isChecked());
 
