@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.modori.kwonkiseokee.AUto.ViewPager.SplashViewpagerAdapter;
 
 import androidx.viewpager.widget.ViewPager;
@@ -22,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
     public static final String PREFS_FILE = "PrefsFile";
 
 
-    LottieAnimationView anim;
     ViewPager splashViewpager;
 
     ImageView splashLogo;
@@ -33,7 +31,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splah_screen);
 
-        anim = findViewById(R.id.splah_animLoading);
 
         splashLogo = findViewById(R.id.splashImage);
         splashViewpager = findViewById(R.id.splashViewPager);
@@ -55,15 +52,11 @@ public class SplashActivity extends AppCompatActivity {
 
             splashViewpager.setVisibility(View.GONE);
             splashLogo.setVisibility(View.VISIBLE);
-            anim.setVisibility(View.VISIBLE);
-            anim.playAnimation();
-            anim.loop(true);
             timeHandler();
         }else{
             //초기 실행시의 행동
 
             splashLogo.setVisibility(View.GONE);
-            anim.setVisibility(View.GONE);
             splashViewpager.setVisibility(View.VISIBLE);
             SplashViewpagerAdapter adapter = new SplashViewpagerAdapter(getSupportFragmentManager());
             splashViewpager.setAdapter(adapter);

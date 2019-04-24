@@ -76,8 +76,8 @@
             <!-- 상단 그리드 1-->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_marginRight="5dp"
+                android:layout_height="300dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1.8"
                 app:cardCornerRadius="30dp"
                 tools:ignore="RtlSymmetry">
@@ -115,7 +115,7 @@
             <!-- 상단 그리드 2-->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1.2"
                 app:cardCornerRadius="30dp">
@@ -162,7 +162,7 @@
             <!-- 상단 그리드 1-->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1.2"
                 app:cardCornerRadius="30dp"
@@ -201,7 +201,7 @@
             <!-- 상단 그리드 2-->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1.8"
                 app:cardCornerRadius="30dp">
@@ -248,7 +248,7 @@
             <!-- 상단 그리드 1-->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1.8"
@@ -287,7 +287,7 @@
             <!-- 상단 그리드 2-->
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1.2"
