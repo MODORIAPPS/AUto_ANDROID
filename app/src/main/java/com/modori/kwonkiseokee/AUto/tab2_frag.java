@@ -1,6 +1,7 @@
 package com.modori.kwonkiseokee.AUto;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class tab2_frag extends Fragment {
+public class tab2_frag extends Fragment implements View.OnClickListener {
 
     List<Results> results = new ArrayList<>();
     //Results[] results = new Results[5];
@@ -58,6 +59,14 @@ public class tab2_frag extends Fragment {
     //Widgets
     RecyclerView viewTagLists;
 
+    // GridView
+    View grid1;
+    View grid2;
+    View grid3;
+    View grid4;
+    View grid5;
+    View grid6;
+
     //GridViews of tags
     ImageView tag1Gridview;
     ImageView tag2Gridview;
@@ -79,6 +88,8 @@ public class tab2_frag extends Fragment {
 
     View view;
 
+    Intent intent;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,6 +99,12 @@ public class tab2_frag extends Fragment {
         initWork();
 
         getPhotosAsEachTag(tag1, tag2, tag3, tag4, tag5, tag6);
+        grid1.setOnClickListener(this);
+        grid2.setOnClickListener(this);
+        grid3.setOnClickListener(this);
+        grid4.setOnClickListener(this);
+        grid5.setOnClickListener(this);
+        grid6.setOnClickListener(this);
 
         return view;
     }
@@ -95,6 +112,7 @@ public class tab2_frag extends Fragment {
     public void initWork() {
         context = getActivity();
 
+        intent = new Intent(getActivity(), ListsOfPhotos.class);
 
         tag1Gridview = view.findViewById(R.id.tag1Gridview);
         tag2Gridview = view.findViewById(R.id.tag2Gridview);
@@ -109,6 +127,13 @@ public class tab2_frag extends Fragment {
         view_tag4Grid = view.findViewById(R.id.view_tag4Grid);
         view_tag5Grid = view.findViewById(R.id.view_tag5Grid);
         view_tag6Grid = view.findViewById(R.id.view_tag6Grid);
+
+        grid1 = view.findViewById(R.id.grid1);
+        grid2 = view.findViewById(R.id.grid2);
+        grid3 = view.findViewById(R.id.grid3);
+        grid4 = view.findViewById(R.id.grid4);
+        grid5 = view.findViewById(R.id.grid5);
+        grid6 = view.findViewById(R.id.grid6);
 
 
         toolbar = view.findViewById(R.id.toolbar2);
@@ -285,17 +310,49 @@ public class tab2_frag extends Fragment {
 
     }
 
-    private void setPhotosAsEachTag() {
-
-    }
-
     private View.OnClickListener onClickItem = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String str = (String) v.getTag();
-            Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+            //String str = (String) v.getId();
+            //Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
         }
     };
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+
+            case R.id.grid1:
+                intent.putExtra("tag",tag1);
+                startActivity(intent);
+                break;
+
+            case R.id.grid2:
+                intent.putExtra("tag",tag2);
+                startActivity(intent);
+                break;
+
+            case R.id.grid3:
+                intent.putExtra("tag",tag3);
+                startActivity(intent);
+                break;
+
+            case R.id.grid4:
+                intent.putExtra("tag",tag4);
+                startActivity(intent);
+                break;
+
+            case R.id.grid5:
+                intent.putExtra("tag",tag5);
+                startActivity(intent);
+                break;
+
+            case R.id.grid6:
+                intent.putExtra("tag",tag6);
+                startActivity(intent);
+                break;
+        }
+    }
 }

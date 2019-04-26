@@ -6,6 +6,7 @@ import java.util.List;
 
 
 public class Results {
+
     @SerializedName("id")
     private String id;
     @SerializedName("created_at")

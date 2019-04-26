@@ -5,7 +5,11 @@ import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitAPI;
 public class ApiClient {
     private static final String BASE_URL = "https://api.unsplash.com/";
 
-    public static SearchApi getPhotoByKeyword(){
+    public static SearchApi getPhotoByKeyword() {
         return RetrofitAPI.getRetrofit(BASE_URL).create(SearchApi.class);
+    }
+
+    public static SearchIDApi getPhotoById() {
+        return RetrofitAPI.getRetrofit(BASE_URL).create(SearchIDApi.class);
     }
 }

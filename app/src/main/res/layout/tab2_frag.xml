@@ -75,9 +75,10 @@
 
             <!-- 상단 그리드 1-->
             <androidx.cardview.widget.CardView
+                android:id="@+id/grid1"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1.8"
                 app:cardCornerRadius="30dp"
                 tools:ignore="RtlSymmetry">
@@ -114,6 +115,7 @@
 
             <!-- 상단 그리드 2-->
             <androidx.cardview.widget.CardView
+                android:id="@+id/grid2"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="5dp"
@@ -161,6 +163,7 @@
 
             <!-- 상단 그리드 1-->
             <androidx.cardview.widget.CardView
+                android:id="@+id/grid3"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginEnd="5dp"
@@ -200,6 +203,7 @@
 
             <!-- 상단 그리드 2-->
             <androidx.cardview.widget.CardView
+                android:id="@+id/grid4"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="5dp"
@@ -247,6 +251,7 @@
 
             <!-- 상단 그리드 1-->
             <androidx.cardview.widget.CardView
+                android:id="@+id/grid5"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginTop="5dp"
@@ -286,6 +291,7 @@
 
             <!-- 상단 그리드 2-->
             <androidx.cardview.widget.CardView
+                android:id="@+id/grid6"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="5dp"

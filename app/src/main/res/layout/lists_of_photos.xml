@@ -7,7 +7,24 @@
     android:orientation="vertical"
     tools:context=".ListsOfPhotos">
 
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/blueEnabled"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/goBack"
+            android:layout_centerVertical="true"
+            android:tint="@color/white"
+            android:src="@drawable/left_arrow_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        tools:listitem="@layout/photo_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
