@@ -38,24 +38,24 @@ public class PhotoDetail extends AppCompatActivity {
 
         detailImageView = findViewById(R.id.detailImageView);
 
-        ApiClient.getPhotoById().getPhotoByID(tag).enqueue(new Callback<List<PhotoSearchID>>() {
+        ApiClient.getPhotoById().getPhotoByID(tag).enqueue(new Callback<PhotoSearchID>() {
 
             @Override
-            public void onResponse(Call<List<PhotoSearchID>> call, Response<List<PhotoSearchID>> response) {
+            public void onResponse(Call<PhotoSearchID> call, Response<PhotoSearchID> response) {
                 if (response.isSuccessful()) {
                     //results[0] = (Results) response.body().getResults();
-                    List<PhotoSearchID> results = response.body();
+                    PhotoSearchID results = response.body();
 
                     Log.d("포토 디테일", "잘 가져옴");
-                    Log.d("포토 디테일 id ", results.get(1).getId());
-                    Glide.with(getApplicationContext()).load(results.get(1).getUrls().getRegular()).into(detailImageView);
+                    Log.d("포토 디테일 id ", results.getId());
+                    Glide.with(getApplicationContext()).load(results.getUrls().getRegular()).into(detailImageView);
 
 
                 }
             }
 
             @Override
-            public void onFailure(Call<List<PhotoSearchID>> call, Throwable t) {
+            public void onFailure(Call<PhotoSearchID> call, Throwable t) {
                 Log.d("사진 검색 오류", t.getMessage());
 
             }

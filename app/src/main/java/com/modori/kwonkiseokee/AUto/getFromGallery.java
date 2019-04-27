@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.modori.kwonkiseokee.AUto.RecyclerViewAdapter.GetFromGalleryRA;
+import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
 
 import java.util.ArrayList;
 

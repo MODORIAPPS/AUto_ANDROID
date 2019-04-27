@@ -1,8 +1,7 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.RA;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.modori.kwonkiseokee.AUto.PhotoDetail;
+import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.data.data.Results;
 
 import java.util.List;

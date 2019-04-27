@@ -1,7 +1,6 @@
 package com.modori.kwonkiseokee.AUto;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
+import com.modori.kwonkiseokee.AUto.RA.ListPhotoRA;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 import com.modori.kwonkiseokee.AUto.data.data.Results;

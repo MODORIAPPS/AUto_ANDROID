@@ -36,6 +36,8 @@
             </intent-filter>
         </activity>
 
+
+
         <receiver android:name=".SetWallpaperJob" />
         <receiver
             android:name=".Receiver.BootReceiver"
