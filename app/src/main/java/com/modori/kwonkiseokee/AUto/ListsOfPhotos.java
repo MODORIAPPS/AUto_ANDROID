@@ -1,10 +1,13 @@
 package com.modori.kwonkiseokee.AUto;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +46,7 @@ public class ListsOfPhotos extends AppCompatActivity {
 
         //GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
@@ -75,6 +79,25 @@ public class ListsOfPhotos extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+
+        Configuration config = getResources().getConfiguration();
+        if(config.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+
+        }else{
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+
+        }
+
 
     }
 }

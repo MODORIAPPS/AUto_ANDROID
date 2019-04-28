@@ -9,14 +9,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="wrap_content">
         <ImageView
+            android:adjustViewBounds="true"
             android:id="@+id/imageCleanView"
-            android:maxHeight="200dp"
             android:scaleType="centerCrop"
             tools:src="@tools:sample/backgrounds/scenic"
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="wrap_content" />
         <!---->
         <!--<LinearLayout-->
             <!--android:background="#5BFF9800"-->

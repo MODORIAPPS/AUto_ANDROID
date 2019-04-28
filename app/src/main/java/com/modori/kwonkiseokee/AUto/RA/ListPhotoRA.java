@@ -44,6 +44,9 @@ public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
 
         // https://gun0912.tistory.com/17
         String regularPhoto = item.getUrls().getRegular();
+        String smallPhoto = item.getUrls().getSmall();
+        String thumbPhoto = item.getUrls().getThumb();
+
         YoYo.with(Techniques.FadeIn).playOn(holder.imageCleanView);
         YoYo.with(Techniques.FadeIn).playOn(holder.photoCardofList);
 

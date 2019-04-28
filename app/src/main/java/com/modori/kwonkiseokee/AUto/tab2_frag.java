@@ -64,6 +64,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     //Widgets
     RecyclerView viewTagLists;
+    View goInfo;
 
     // GridView
     View grid1;
@@ -106,12 +107,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
         getPhotosAsEachTag(tag1, tag2, tag3, tag4, tag5, tag6);
 
-        grid1.setOnClickListener(this);
-        grid2.setOnClickListener(this);
-        grid3.setOnClickListener(this);
-        grid4.setOnClickListener(this);
-        grid5.setOnClickListener(this);
-        grid6.setOnClickListener(this);
+
 
         return view;
     }
@@ -120,6 +116,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         context = getActivity();
 
         intent = new Intent(getActivity(), ListsOfPhotos.class);
+
+        goInfo = view.findViewById(R.id.goInfo);
 
         tag1Gridview = view.findViewById(R.id.tag1Gridview);
         tag2Gridview = view.findViewById(R.id.tag2Gridview);
@@ -165,6 +163,14 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
         adapterOfTagLists = new Tab2_tagListsRA(context, tagLists);
         viewTagLists.setAdapter(adapterOfTagLists);
+
+        grid1.setOnClickListener(this);
+        grid2.setOnClickListener(this);
+        grid3.setOnClickListener(this);
+        grid4.setOnClickListener(this);
+        grid5.setOnClickListener(this);
+        grid6.setOnClickListener(this);
+        goInfo.setOnClickListener(this);
 
 //        MyListDecoration decoration = new MyListDecoration();
 //        viewTagLists.addItemDecoration(decoration);
@@ -213,7 +219,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     YoYo.with(Techniques.FadeIn).playOn(tag1Gridview);
 
 
-                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag1Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag1Gridview);
                     Log.d("tag1", "잘 가져옴");
 
                 }
@@ -234,7 +240,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     results = response.body().getResults();
                     YoYo.with(Techniques.FadeIn).playOn(tag2Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag2Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag2Gridview);
                     Log.d("tag2", "잘 가져옴");
 
                 }
@@ -256,7 +262,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag3Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag3Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag3Gridview);
                     Log.d("tag3", "잘 가져옴");
 
                 }
@@ -277,7 +283,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag4Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag4Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag4Gridview);
                     Log.d("tag4", "잘 가져옴");
 
                 }
@@ -298,7 +304,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag5Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag5Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag5Gridview);
                     Log.d("tag5", "잘 가져옴");
 
                 }
@@ -320,7 +326,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag6Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag6Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag6Gridview);
                     Log.d("tag6", "잘 가져옴");
 
                 }
@@ -374,6 +380,21 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             case R.id.grid6:
                 intent.putExtra("tag", tag6);
                 startActivity(intent);
+                break;
+
+            case R.id.goInfo:
+                //show Dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("이 페이지 설명");
+                builder.setMessage("키워드를 눌러 원하는 키워드를 입력하여 변경할 수 있으며 변경된 키워드를 통해 불러온 사진이 아래 표시됩니다. 최대 6개의 키워드를 동시에 불러올 수 있습니다.");
+                builder.setPositiveButton("알겠습니다.",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+
+                builder.show();
+
                 break;
         }
     }

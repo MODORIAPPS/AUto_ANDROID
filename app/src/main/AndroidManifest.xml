@@ -24,7 +24,7 @@
         <activity android:name=".getFromGallery" />
         <activity android:name=".SetGetImagesDir_layout" />
         <activity android:name=".PhotoDetail" />
-        <activity android:name=".ListsOfPhotos" />
+        <activity android:name=".ListsOfPhotos" android:configChanges="screenSize|orientation" />
         <activity android:name=".LicensePage" />
         <activity android:name=".SplashActivity" />
         <activity android:name=".SelectFolder" />
