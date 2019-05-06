@@ -95,23 +95,23 @@ public class FileManager {
 
         File[] imageFiles = file.listFiles();
 
-        for (int i = 0; i < imageFiles.length; i++) {
-
-            Log.d("찾는 for 문 진입 ", String.valueOf(i));
-            file = imageFiles[i];
-            String[] okFileExtensions = new String[]{"jpg", "jpeg", "png", "gif"};
-
-            if (file.canRead()) {
-                for (int k = 0; k <= 3; k++) {
-                    String checkFile = okFileExtensions[k];
-                    if (file.getName().toLowerCase().endsWith(checkFile)) {
-                        imagesCnt++;
-                    }
-                }
-            }
-
-
-        }
+//        for (int i = 0; i < imageFiles.length; i++) {
+//
+//            Log.d("찾는 for 문 진입 ", String.valueOf(i));
+//            file = imageFiles[i];
+//            String[] okFileExtensions = new String[]{"jpg", "jpeg", "png", "gif"};
+//
+//            if (file.canRead()) {
+//                for (int k = 0; k <= 3; k++) {
+//                    String checkFile = okFileExtensions[k];
+//                    if (file.getName().toLowerCase().endsWith(checkFile)) {
+//                        imagesCnt++;
+//                    }
+//                }
+//            }
+//
+//
+//        }
         Log.d("찾은 이미지 파일", String.valueOf(imagesCnt));
         return imagesCnt;
     }

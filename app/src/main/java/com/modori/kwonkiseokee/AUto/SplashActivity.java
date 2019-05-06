@@ -40,35 +40,11 @@ public class SplashActivity extends AppCompatActivity {
 
         boolean firstLaunch = settings.getBoolean("FirstLaunch", false);
         SharedPreferences.Editor editor = settings.edit();
-
+        editor.putBoolean("FirstLaunch", true);
+        editor.apply();
 
 
         Log.d("LaunchStats", String.valueOf(firstLaunch));
-
-        //초기 실행일 경우 false를 받아옴
-
-        if (firstLaunch){
-
-
-            splashViewpager.setVisibility(View.GONE);
-            splashLogo.setVisibility(View.VISIBLE);
-            timeHandler();
-        }else{
-            //초기 실행시의 행동
-
-            splashLogo.setVisibility(View.GONE);
-            splashViewpager.setVisibility(View.VISIBLE);
-            SplashViewpagerAdapter adapter = new SplashViewpagerAdapter(getSupportFragmentManager());
-            splashViewpager.setAdapter(adapter);
-
-            editor.putBoolean("FirstLaunch", true);
-            editor.apply();
-
-
-
-
-        }
-
 
         //timeHandler();
 

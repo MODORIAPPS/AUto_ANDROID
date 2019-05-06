@@ -2,6 +2,7 @@ package com.modori.kwonkiseokee.AUto;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
@@ -22,15 +23,14 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.modori.kwonkiseokee.AUto.ViewPager.SplashViewpagerAdapter;
 import com.modori.kwonkiseokee.AUto.ViewPager.ViewPagerAdapter;
+
+import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
 
 public class MainActivity extends AppCompatActivity {
 
     FrameLayout mainFrame;
-    //Toolbar toolbar;
-
-//    TabLayout tabLayout;
-//    ViewPager viewPager;
     BottomNavigationView navBar;
 
     private int[] tabIcons = {
@@ -48,34 +48,42 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(this, SplashActivity.class);
-        startActivity(intent);
+
+        //임시 스플래쉬 띄우는 부분
+        SharedPreferences settings = this.getSharedPreferences(PREFS_FILE, 0);
+        boolean firstLaunch = settings.getBoolean("FirstLaunch", false);
+        SharedPreferences.Editor editor = settings.edit();
+
+        if (!firstLaunch) {
+            Intent intent = new Intent(this, SplashActivity.class);
+            startActivity(intent);
+        }
+
         permissionCheck();
 
         mainFrame = findViewById(R.id.mainFrame);
         navBar = findViewById(R.id.navBar);
-        //toolbar = findViewById(R.id.toolbar);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1_frag()).commit();
 
         navBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.goTranslate:
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1_frag()).commit();
-                        return  true;
+                        return true;
 
                     case R.id.goPhotos:
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab2_frag()).commit();
-                        return  true;
+                        return true;
 
                     case R.id.goAutoSet:
                         getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab3_frag()).commit();
-                        return  true;
+                        return true;
 
-                        default:
-                            return false;
+                    default:
+                        return false;
                 }
             }
         });

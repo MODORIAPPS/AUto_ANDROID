@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.modori.kwonkiseokee.AUto.CalTools.calTimes;
@@ -45,6 +44,7 @@ public class tab3_frag extends Fragment {
 
     boolean isShuffleMode;
     boolean isActivate;
+    SharedPreferences settings;
 
 
     //xml widgets
@@ -59,6 +59,8 @@ public class tab3_frag extends Fragment {
     TextView viewCycle;
     TextView viewBootLaunch;
     TextView actStats;
+    TextView showGetCnt;
+    TextView showGetFromWhat;
 
     //Switch 위에서 아래 순서
     SwitchCompat actCheckSwitch;
@@ -81,6 +83,18 @@ public class tab3_frag extends Fragment {
     public static int _HOUR = 0;
     public static int _MIN = 0;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initSet();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initSet();
+    }
 
     private void initWorks() {
         _day = getResources().getString(R.string.day);
@@ -89,6 +103,8 @@ public class tab3_frag extends Fragment {
 
 
         context = getActivity();
+
+        showGetFromWhat = view.findViewById(R.id.showGetFromWhat);
         goInfo = view.findViewById(R.id.goInfo);
         mainlayout = view.findViewById(R.id.mainlayout);
         saveBtn = view.findViewById(R.id.saveBtn);
@@ -110,6 +126,7 @@ public class tab3_frag extends Fragment {
         inputCycleDay = view.findViewById(R.id.inputCycleDay);
         inputCycleHour = view.findViewById(R.id.inputCycleHour);
         inputCycleMin = view.findViewById(R.id.inputCycleMin);
+        showGetCnt = view.findViewById(R.id.showPictGetCnt);
 
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -122,7 +139,7 @@ public class tab3_frag extends Fragment {
     private void initSet() {
 
 
-        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
+        settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
         //int cycle = settings.getInt("Cycle", 5);
 
         if (settings.getBoolean("BootLaunch", false)) {
@@ -142,6 +159,21 @@ public class tab3_frag extends Fragment {
         //String str = " 23fwe";
 
         numPickerView.setText(str);
+
+        switch (settings.getInt("GetSetting", 0)){
+            case 0:
+                showGetFromWhat.setText("사용자가 지정한 폴더에서 불러오고 있습니다.");
+                break;
+            case 1:
+                showGetFromWhat.setText("사용자가 직접 선택한 사진별로 불러오고 있습니다.");
+                break;
+
+            case 2:
+        }
+
+        showGetCnt.setText(+FileManager.availableImages(context) + " 개의 사진 찾음");
+
+
 
         // numPickerView.setText(_DAY + "  " + _day + " " + _HOUR + "  " + _hour + " " + _MIN + "  " + _min);
 
@@ -258,7 +290,7 @@ public class tab3_frag extends Fragment {
         String cycleStr;
 
         // load preferences
-        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
+        settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
         isShuffleMode = settings.getBoolean("ShuffleMode", false);
 
         //Activated
@@ -362,7 +394,7 @@ public class tab3_frag extends Fragment {
         boolean temp;
         String tempStr;
 
-        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
+        settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
         SharedPreferences.Editor editor = settings.edit();
 
         temp = actCheckSwitch.isChecked();
@@ -423,7 +455,7 @@ public class tab3_frag extends Fragment {
             ///SelectedPath = showCurrDir.getText().toString();
 
             //설정 쓰기
-            SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
+            settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
             SharedPreferences.Editor editor = settings.edit();
 
             //Toast.makeText(getActivity(), cycle, Toast.LENGTH_SHORT).show();

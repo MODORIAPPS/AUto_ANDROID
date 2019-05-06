@@ -58,6 +58,13 @@ public class ListsOfPhotos extends AppCompatActivity {
             }
         });
 
+        getPhotoByKeyword();
+
+
+
+    }
+
+    public void getPhotoByKeyword(){
         ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
@@ -79,8 +86,8 @@ public class ListsOfPhotos extends AppCompatActivity {
 
             }
         });
-
     }
+
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
@@ -89,6 +96,8 @@ public class ListsOfPhotos extends AppCompatActivity {
 
         Configuration config = getResources().getConfiguration();
         if(config.orientation == Configuration.ORIENTATION_LANDSCAPE){
+
+
             StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);
 
