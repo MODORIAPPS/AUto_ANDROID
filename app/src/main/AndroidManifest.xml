@@ -4,12 +4,10 @@
     package="com.modori.kwonkiseokee.AUto"
     android:versionName="1.5.4">
     <!-- 버전 코드 설명 https://mainia.tistory.com/4925 -->
-    <!-- 배경화면 설정 권한 추가 -->
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.SET_WALLPAPER" /> <!-- 기기에 저장되어 있는 것들 읽기 권한 -->
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -38,9 +36,9 @@
 
 
 
-        <receiver android:name=".SetWallpaperJob" />
+        <receiver android:name=".Service.SetWallpaperJob" />
         <receiver
-            android:name=".Receiver.BootReceiver"
+            android:name=".Service.BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="BOOTReceiver">

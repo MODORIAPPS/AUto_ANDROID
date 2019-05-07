@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.modori.kwonkiseokee.AUto.CalTools.calTimes;
+import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 
 import java.util.Calendar;
 

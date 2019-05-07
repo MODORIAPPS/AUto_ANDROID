@@ -353,32 +353,32 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
 
             case R.id.grid1:
-                intent.putExtra("tag", tag1);
+                intent.putExtra("photoID", tag1);
                 startActivity(intent);
                 break;
 
             case R.id.grid2:
-                intent.putExtra("tag", tag2);
+                intent.putExtra("photoID", tag2);
                 startActivity(intent);
                 break;
 
             case R.id.grid3:
-                intent.putExtra("tag", tag3);
+                intent.putExtra("photoID", tag3);
                 startActivity(intent);
                 break;
 
             case R.id.grid4:
-                intent.putExtra("tag", tag4);
+                intent.putExtra("photoID", tag4);
                 startActivity(intent);
                 break;
 
             case R.id.grid5:
-                intent.putExtra("tag", tag5);
+                intent.putExtra("photoID", tag5);
                 startActivity(intent);
                 break;
 
             case R.id.grid6:
-                intent.putExtra("tag", tag6);
+                intent.putExtra("photoID", tag6);
                 startActivity(intent);
                 break;
 

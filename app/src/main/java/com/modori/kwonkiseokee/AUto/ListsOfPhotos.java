@@ -42,7 +42,7 @@ public class ListsOfPhotos extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        tag = intent.getExtras().getString("tag");
+        tag = intent.getExtras().getString("photoID");
 
         //GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

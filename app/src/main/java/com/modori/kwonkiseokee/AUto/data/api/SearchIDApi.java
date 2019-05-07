@@ -22,7 +22,7 @@ public interface SearchIDApi {
 
     // https://api.unsplash.com/photos/?client_id=YOUR_KEY&id=Dwu85P9SOIk
 
-    @GET("photos/{id}")
+    @GET("photos/{id}/")
     public Call<PhotoSearchID> getPhotoByID(@Path("id") String photoID);
 
 }

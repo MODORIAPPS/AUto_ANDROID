@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.Service;
 
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
@@ -9,6 +9,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.modori.kwonkiseokee.AUto.R;
 
 import java.io.File;
 import java.io.FilenameFilter;

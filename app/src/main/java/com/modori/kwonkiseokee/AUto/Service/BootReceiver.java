@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto.Receiver;
+package com.modori.kwonkiseokee.AUto.Service;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -9,9 +9,6 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.modori.kwonkiseokee.AUto.CalTools.calTimes;
-import com.modori.kwonkiseokee.AUto.MainActivity;
-import com.modori.kwonkiseokee.AUto.SetWallpaperJob;
-import com.modori.kwonkiseokee.AUto.tab3_frag;
 
 import java.util.Calendar;
 
