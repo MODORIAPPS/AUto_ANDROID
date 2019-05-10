@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class getFromGallery extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String TAG = "갤러리에서 사진 가져오기";
+
     final int PICTURE_REQUEST_CODE = 123;
 
     ArrayList<String> pickedLists = new ArrayList<>();
@@ -153,6 +155,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                     Log.d("1개 선택됨", data.getDataString());
                     pickedLists.add(String.valueOf(data.getData()));
 
+                    Log.d(TAG,data.getDataString());
                     setRecyclerView();
 
 
