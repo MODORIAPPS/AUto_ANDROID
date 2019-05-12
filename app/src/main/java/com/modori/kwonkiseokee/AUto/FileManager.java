@@ -23,7 +23,6 @@ public class FileManager {
     private static final int WRITE_REQUEST_CODE = 43;
 
 
-    private static int imagesCnt = 0;
     static File appDir;
 
     public static void makeDir() {
@@ -46,7 +45,9 @@ public class FileManager {
     }
 
 
-    public static int availableImages(Context context) {
+    static int availableImages(Context context) {
+        int imagesCnt = 0;
+
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
         String SelectedPath = settings.getString("SelectedPath", "sdcard/");
 
@@ -75,7 +76,7 @@ public class FileManager {
         return imagesCnt;
     }
 
-    public static int availableDefaultImages() {
+    static int availableDefaultImages() {
         //MakePreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
         //String SelectedPath = settings.getString("SelectedPath", "sdcard/");
         //Log.d("파일의 형식", SelectedPath);
@@ -104,8 +105,8 @@ public class FileManager {
 //
 //
 //        }
-        Log.d("찾은 이미지 파일", String.valueOf(imagesCnt));
-        return imagesCnt;
+        //Log.d("찾은 이미지 파일", String.valueOf(imagesCnt));
+        return 8;
     }
 
     public static Uri sendImagesUri(int position) {
@@ -127,7 +128,7 @@ public class FileManager {
                 for (int k = 0; k <= 3; k++) {
                     String checkFile = okFileExtensions[k];
                     if (file.getName().toLowerCase().endsWith(checkFile)) {
-                        imagesCnt++;
+                        //imagesCnt++;
                     }
                 }
             }
