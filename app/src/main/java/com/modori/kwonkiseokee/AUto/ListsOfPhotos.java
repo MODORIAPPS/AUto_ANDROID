@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.modori.kwonkiseokee.AUto.data.data.Results;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.transform.Result;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +32,9 @@ public class ListsOfPhotos extends AppCompatActivity {
     View goBack;
     RecyclerView recyclerView;
     String tag;
+    int photoCnt = 1;
+    ListPhotoRA adapter;
+
     List<Results> results = new ArrayList<>();
 
 
@@ -50,6 +56,32 @@ public class ListsOfPhotos extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if (!recyclerView.canScrollVertically(-1)) {
+                        //Log.i(TAG, "Top of list");
+                    } else if (!recyclerView.canScrollVertically(1)) {
+                        //Log.i(TAG, "End of list");
+                        getPhotoByKeyword();
+                    } else {
+                        //Log.i(TAG, "idle");
+                    }
+                }
+            });
+        }else{
+            int visibleItemCount = layoutManager.getChildCount();
+            int totalItemCount = layoutManager.getItemCount();
+            int pastVisibleItems = layoutManager.findFirstCompletelyVisibleItemPosition();
+
+            if(pastVisibleItems+visibleItemCount >= totalItemCount){
+                // End of the list is here.
+                //Log.i(TAG, "End of list");
+                getPhotoByKeyword();
+            }
+        }
+
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +97,33 @@ public class ListsOfPhotos extends AppCompatActivity {
     }
 
     public void getPhotoByKeyword(){
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag,photoCnt, 10).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
                     //results[0] = (Results) response.body().getResults();
-                    results = response.body().getResults();
 
-                    ListPhotoRA adapter = new ListPhotoRA(getApplicationContext(), results);
-                    recyclerView.setAdapter(adapter);
+
+                    //results.add(response.body().getResults(),response.body().getResults().size());
+
+                    if(photoCnt == 1){
+                        results = response.body().getResults();
+                        adapter = new ListPhotoRA(getApplicationContext(), results);
+                        recyclerView.setAdapter(adapter);
+
+
+                    }else{
+                        int count = adapter.getItemCount();
+                        //results.add()
+//                        Log.d("results의 사이즈", results.size() +"");
+//                        for (int i = 0; i < response.body().getResults().size(); i++) {
+//                            results.add(results.size()+i,response.body().getResults().get(i));
+//                        }
+                        //List<Result>
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    ++photoCnt;
 
                     Log.d("tag1", "잘 가져옴");
 

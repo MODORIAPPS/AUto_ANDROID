@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
 
-    private final List<Results> data;
+    private List<Results> data;
     Context context;
 
     public ListPhotoRA(Context context, List<Results> data) {

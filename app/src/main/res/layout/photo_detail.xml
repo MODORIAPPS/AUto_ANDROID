@@ -7,9 +7,17 @@
     tools:context=".PhotoDetail">
 
     <ImageView
+        android:background="#D8D8D8"
         android:id="@+id/detailImageView"
         android:layout_width="match_parent"
         android:layout_height="400dp" />
+
+    <ImageView
+        android:background="#696969"
+        android:layout_below="@id/detailImageView"
+        android:id="@+id/downloadedImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_alignParentBottom="true"

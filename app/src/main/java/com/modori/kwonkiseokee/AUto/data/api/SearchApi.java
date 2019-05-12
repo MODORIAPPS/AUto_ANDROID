@@ -19,7 +19,18 @@ public interface SearchApi {
     )
 
     @GET("search/photos")
-    public Call<PhotoSearch> getPhotobyKeyward(@Query("query") String key);
+    public Call<PhotoSearch> getPhotobyKeyward(@Query("query") String key,
+                                               @Query("page") Integer page,
+                                               @Query("per_page") Integer per_page
+
+    );
+
+//    @GET("search/photos")
+//    Call<SearchPhotosResult> searchPhotos(@Query("query") String query,
+//                                          @Query("page") Integer page,
+//                                          @Query("per_page") Integer per_page,
+//                                          @Query("collections") String collections,
+//                                          @Query("orientation") String orientation);
 
 
 }

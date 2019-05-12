@@ -92,7 +92,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample_images" />
+                        android:src="@drawable/image_icon" />
 
                     <LinearLayout
                         android:background="#99000000"
@@ -131,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample_images" />
+                        android:src="@drawable/image_icon" />
 
                     <LinearLayout
                         android:background="#99000000"
@@ -180,7 +180,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample_images" />
+                        android:src="@drawable/image_icon" />
 
                     <LinearLayout
                         android:background="#99000000"
@@ -219,7 +219,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample_images" />
+                        android:src="@drawable/image_icon" />
 
                     <LinearLayout
                         android:background="#99000000"
@@ -269,7 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample_images" />
+                        android:src="@drawable/image_icon" />
 
                     <LinearLayout
                         android:background="#99000000"
@@ -308,7 +308,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/sample_images" />
+                        android:src="@drawable/image_icon" />
 
                     <LinearLayout
                         android:background="#99000000"

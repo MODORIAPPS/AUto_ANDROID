@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.modori.kwonkiseokee.AUto.CalTools.calTimes;
+import com.modori.kwonkiseokee.AUto.Util.calTimes;
 
 import java.util.Calendar;
 

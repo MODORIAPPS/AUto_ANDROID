@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto.Service;
+package com.modori.kwonkiseokee.AUto.data.api;
 
 import com.modori.kwonkiseokee.AUto.R;
 

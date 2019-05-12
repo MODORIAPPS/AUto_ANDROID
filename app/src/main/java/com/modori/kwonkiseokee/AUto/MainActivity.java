@@ -33,13 +33,6 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout mainFrame;
     BottomNavigationView navBar;
 
-    private int[] tabIcons = {
-            R.drawable.photos_icon,
-            R.drawable.photos_icon,
-            R.drawable.setauto_icon
-    };
-
-
     private static final int MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 1;
 
 

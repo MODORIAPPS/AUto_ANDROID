@@ -1,9 +1,11 @@
 package com.modori.kwonkiseokee.AUto;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.modori.kwonkiseokee.AUto.RA.Tab2_tagListsRA;
+import com.modori.kwonkiseokee.AUto.Util.Frag2;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 import com.modori.kwonkiseokee.AUto.data.data.Results;
@@ -32,26 +35,29 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class tab2_frag extends Fragment implements View.OnClickListener {
 
-    List<Results> results = new ArrayList<>();
+    private List<Results> results = new ArrayList<>();
     //Results[] results = new Results[5];
 
-    public static Context context;
+    public Context context;
 
 
     public static final String PREFS_FILE = "PrefsFile";
 
 
     //TagLists
-    ArrayList<String> tagLists;
+    private List<String> tagLists;
     Tab2_tagListsRA adapterOfTagLists;
 
     private static String tag1 = null;
@@ -75,23 +81,34 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     View grid6;
 
     //GridViews of tags
-    ImageView tag1Gridview;
-    ImageView tag2Gridview;
-    ImageView tag3Gridview;
-    ImageView tag4Gridview;
-    ImageView tag5Gridview;
-    ImageView tag6Gridview;
+    private ImageView tag1Gridview;
+    private ImageView tag2Gridview;
+    private ImageView tag3Gridview;
+    private ImageView tag4Gridview;
+    private ImageView tag5Gridview;
+    private ImageView tag6Gridview;
 
     // TextView of GridViews, tags..
+    @BindView(R.id.view_tag1Grid)
     TextView view_tag1Grid;
+
+    @BindView(R.id.view_tag2Grid)
     TextView view_tag2Grid;
+
+    @BindView(R.id.view_tag3Grid)
     TextView view_tag3Grid;
+
+    @BindView(R.id.view_tag4Grid)
     TextView view_tag4Grid;
+
+    @BindView(R.id.view_tag5Grid)
     TextView view_tag5Grid;
+
+    @BindView(R.id.view_tag6Grid)
     TextView view_tag6Grid;
 
 
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     View view;
 
@@ -101,19 +118,16 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab2_frag, container, false);
+        context = getActivity();
+        ButterKnife.bind(this, view);
+
         tagLists = new ArrayList<>();
-
         initWork();
-
         getPhotosAsEachTag(tag1, tag2, tag3, tag4, tag5, tag6);
-
-
-
         return view;
     }
 
-    public void initWork() {
-        context = getActivity();
+    private void initWork() {
 
         intent = new Intent(getActivity(), ListsOfPhotos.class);
 
@@ -133,14 +147,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         YoYo.with(Techniques.FadeIn).playOn(tag5Gridview);
         YoYo.with(Techniques.FadeIn).playOn(tag6Gridview);
 
-
-        view_tag1Grid = view.findViewById(R.id.view_tag1Grid);
-        view_tag2Grid = view.findViewById(R.id.view_tag2Grid);
-        view_tag3Grid = view.findViewById(R.id.view_tag3Grid);
-        view_tag4Grid = view.findViewById(R.id.view_tag4Grid);
-        view_tag5Grid = view.findViewById(R.id.view_tag5Grid);
-        view_tag6Grid = view.findViewById(R.id.view_tag6Grid);
-
         grid1 = view.findViewById(R.id.grid1);
         grid2 = view.findViewById(R.id.grid2);
         grid3 = view.findViewById(R.id.grid3);
@@ -155,14 +161,9 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        getTagLists();
-        addTagLists();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
-        viewTagLists.setLayoutManager(layoutManager);
+        setTagListsView(context);
 
-        adapterOfTagLists = new Tab2_tagListsRA(context, tagLists);
-        viewTagLists.setAdapter(adapterOfTagLists);
 
         grid1.setOnClickListener(this);
         grid2.setOnClickListener(this);
@@ -171,30 +172,40 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         grid5.setOnClickListener(this);
         grid6.setOnClickListener(this);
         goInfo.setOnClickListener(this);
-
-//        MyListDecoration decoration = new MyListDecoration();
-//        viewTagLists.addItemDecoration(decoration);
     }
 
-    private void getTagLists() {
-        SharedPreferences settings = getActivity().getSharedPreferences(PREFS_FILE, 0);
+    public void setTagListsView(Context context) {
+        getTagLists(context);
+        addTagLists();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+        viewTagLists.setLayoutManager(layoutManager);
 
-        tag1 = settings.getString("tag1", "Landscape");
-        tag2 = settings.getString("tag2", "Office");
-        tag3 = settings.getString("tag3", "Milkyway");
-        tag4 = settings.getString("tag4", "Yosemite");
-        tag5 = settings.getString("tag5", "Roads");
-        tag6 = settings.getString("tag6", "home");
+        adapterOfTagLists = new Tab2_tagListsRA(context, tagLists);
+        viewTagLists.setAdapter(adapterOfTagLists);
+    }
+
+    private void getTagLists(Context context) {
+        tagLists = Frag2.getTagLists(context);
+
+        tag1 = tagLists.get(0);
+        tag2 = tagLists.get(1);
+        tag3 = tagLists.get(2);
+        tag4 = tagLists.get(3);
+        tag5 = tagLists.get(4);
+        tag6 = tagLists.get(5);
+
+        Log.d("태그1 정보", tag1 + "");
+
 
     }
 
     private void addTagLists() {
-        tagLists.add(tag1);
-        tagLists.add(tag2);
-        tagLists.add(tag3);
-        tagLists.add(tag4);
-        tagLists.add(tag5);
-        tagLists.add(tag6);
+//        tagLists.add(tag1);
+//        tagLists.add(tag2);
+//        tagLists.add(tag3);
+//        tagLists.add(tag4);
+//        tagLists.add(tag5);
+//        tagLists.add(tag6);
 
         view_tag1Grid.setText(tag1);
         view_tag2Grid.setText(tag2);
@@ -206,21 +217,27 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     }
 
+
     private void getPhotosAsEachTag(String tag1, String tag2, String tag3, String tag4, String tag5, final String tag6) {
 
         Log.d("가져오는 중 ", "태그별 가져오는 중");
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag1).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag1, 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
                     //results[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
+
                     YoYo.with(Techniques.FadeIn).playOn(tag1Gridview);
 
+                    if (Integer.valueOf(response.body().getTotal()) == 0) {
 
-                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag1Gridview);
-                    Log.d("tag1", "잘 가져옴");
+                    } else {
+                        Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag1Gridview);
+                        Log.d("tag1", "잘 가져옴");
+                    }
+
 
                 }
             }
@@ -232,7 +249,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             }
         });
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag2).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag2, 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -240,7 +257,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     results = response.body().getResults();
                     YoYo.with(Techniques.FadeIn).playOn(tag2Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag2Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag2Gridview);
                     Log.d("tag2", "잘 가져옴");
 
                 }
@@ -253,7 +270,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             }
         });
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag3).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag3, 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -262,7 +279,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag3Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag3Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag3Gridview);
                     Log.d("tag3", "잘 가져옴");
 
                 }
@@ -274,7 +291,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
             }
         });
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag4).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag4, 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -283,7 +300,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag4Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag4Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag4Gridview);
                     Log.d("tag4", "잘 가져옴");
 
                 }
@@ -295,7 +312,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
             }
         });
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag5).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag5, 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -304,7 +321,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag5Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag5Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag5Gridview);
                     Log.d("tag5", "잘 가져옴");
 
                 }
@@ -317,7 +334,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             }
         });
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag6).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag6, 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -326,7 +343,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     YoYo.with(Techniques.FadeIn).playOn(tag6Gridview);
 
-                    Glide.with(context).load(results.get(0).getUrls().getThumb()).into(tag6Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag6Gridview);
                     Log.d("tag6", "잘 가져옴");
 
                 }
@@ -342,16 +359,10 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
-
             case R.id.grid1:
                 intent.putExtra("photoID", tag1);
                 startActivity(intent);

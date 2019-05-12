@@ -18,7 +18,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.modori.kwonkiseokee.AUto.CalTools.calTimes;
+import com.modori.kwonkiseokee.AUto.Util.calTimes;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 
 import java.util.Calendar;
@@ -98,13 +98,9 @@ public class tab3_frag extends Fragment {
     }
 
     private void initWorks() {
-        _day = getResources().getString(R.string.day);
-        _hour = getResources().getString(R.string.hour);
-        _min = getResources().getString(R.string.min);
 
 
         context = getActivity();
-
         showGetFromWhat = view.findViewById(R.id.showGetFromWhat);
         goInfo = view.findViewById(R.id.goInfo);
         mainlayout = view.findViewById(R.id.mainlayout);
@@ -138,6 +134,9 @@ public class tab3_frag extends Fragment {
     }
 
     private void initSet() {
+        _day = getResources().getString(R.string.day);
+        _hour = getResources().getString(R.string.hour);
+        _min = getResources().getString(R.string.min);
 
 
         settings = getActivity().getSharedPreferences(PREFS_FILE, 0);

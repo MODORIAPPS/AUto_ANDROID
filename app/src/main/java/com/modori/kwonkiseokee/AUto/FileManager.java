@@ -45,14 +45,6 @@ public class FileManager {
         }
     }
 
-    public void copyToAutoGallary(String strCurPath) {
-        if (!appDir.exists()) {
-            makeDir();
-        } else {
-
-        }
-    }
-
 
     public static int availableImages(Context context) {
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
@@ -84,7 +76,7 @@ public class FileManager {
     }
 
     public static int availableDefaultImages() {
-        //SharedPreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
+        //MakePreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
         //String SelectedPath = settings.getString("SelectedPath", "sdcard/");
         //Log.d("파일의 형식", SelectedPath);
 

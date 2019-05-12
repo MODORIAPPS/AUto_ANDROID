@@ -3,17 +3,24 @@ package com.modori.kwonkiseokee.AUto.RA;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.R;
+import com.modori.kwonkiseokee.AUto.Util.Frag2;
+import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
+import com.modori.kwonkiseokee.AUto.Util.OpenDialog;
 import com.modori.kwonkiseokee.AUto.tab2_frag;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,11 +30,12 @@ import static com.modori.kwonkiseokee.AUto.tab2_frag.PREFS_FILE;
 
 public class Tab2_tagListsRA extends RecyclerView.Adapter<Tab2_tagListsRA.ViewHolder> {
 
-    private ArrayList<String> tagLists;
+    private List<String> tagLists;
 
     private Context mContext;
+    private OpenDialog openDialog;
 
-    public Tab2_tagListsRA(Context context, ArrayList<String> tagLists) {
+    public Tab2_tagListsRA(Context context, List<String> tagLists) {
         this.mContext = context;
         this.tagLists = tagLists;
     }
@@ -48,69 +56,34 @@ public class Tab2_tagListsRA extends RecyclerView.Adapter<Tab2_tagListsRA.ViewHo
         holder.tagShape.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final SharedPreferences settings = mContext.getSharedPreferences(PREFS_FILE, 0);
-                final SharedPreferences.Editor editor = settings.edit();
 
                 String currTag = holder.tags.getText().toString();
 
                 Log.d("선택된 TAG 와 position", currTag + " | " + position);
 
-                final EditText edittext = new EditText(mContext);
+                String title = "사진 검색 키워드 수정";
+                String subtitle = "기존의 " + currTag + " 키워드를 수정합니다.";
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("사진 검색 키워드 수정");
-                builder.setMessage("기존의 " + currTag + " 키워드를 수정합니다.");
-                builder.setView(edittext);
-                builder.setPositiveButton("확인",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                //Toast.makeText(mContext, edittext.getText().toString() ,Toast.LENGTH_LONG).show();
+                // 화면 조정
+                DisplayMetrics dm = mContext.getResources().getDisplayMetrics(); //디바이스 화면크기를 구하기위해
+                int width = dm.widthPixels; //디바이스 화면 너비
+                int height = dm.heightPixels; //디바이스 화면 높이
+                openDialog = new OpenDialog(mContext,position, title, subtitle);
+                WindowManager.LayoutParams wm = openDialog.getWindow().getAttributes();  //다이얼로그의 높이 너비 설정하기위해
+                wm.copyFrom(openDialog.getWindow().getAttributes());  //여기서 설정한값을 그대로 다이얼로그에 넣겠다는의미
+                wm.width = width;  //화면 너비의 절반
+                wm.height = height / 3;  //화면 높이의 1/3
 
-                                if (true) {
-                                    Log.d("TAG 처리중", "진입됨");
-
-                                    switch (position) {
-
-                                        case 0:
-                                            editor.putString("tag1", edittext.getText().toString());
-                                            break;
-                                        case 1:
-                                            editor.putString("tag2", edittext.getText().toString());
-                                            break;
-                                        case 2:
-                                            editor.putString("tag3", edittext.getText().toString());
-                                            break;
-                                        case 3:
-                                            editor.putString("tag4", edittext.getText().toString());
-                                            break;
-                                        case 4:
-                                            editor.putString("tag5", edittext.getText().toString());
-                                            break;
-                                        case 5:
-                                            editor.putString("tag6", edittext.getText().toString());
-                                            break;
-
-                                        default:
-                                            Log.d("TAG 처리중 오류", "예기치 않은 오류 발생");
-
-                                    }
-                                    editor.apply();
-
-                                }
+                openDialog.show();
 
 
-                            }
-                        });
-                builder.setNegativeButton("취소",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-                builder.show();
 
             }
         });
+
+    }
+
+    private void tagSet(){
 
     }
 
