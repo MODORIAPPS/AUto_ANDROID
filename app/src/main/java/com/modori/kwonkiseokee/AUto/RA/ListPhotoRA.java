@@ -17,18 +17,19 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.modori.kwonkiseokee.AUto.PhotoDetail;
 import com.modori.kwonkiseokee.AUto.R;
-import com.modori.kwonkiseokee.AUto.data.data.Results;
 
 import java.util.List;
 
 public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
 
-    private List<Results> data;
+    private List<String> photoUrl;
+    private List<String> photoID;
     Context context;
 
-    public ListPhotoRA(Context context, List<Results> data) {
+    public ListPhotoRA(Context context, List<String> data, List<String> photoID) {
         this.context = context;
-        this.data = data;
+        this.photoUrl = data;
+        this.photoID = photoID;
     }
 
     @NonNull
@@ -40,17 +41,14 @@ public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ListPhotoRA.ViewHolder holder, final int position) {
-        final Results item = data.get(position);
+        String photoUrl = this.photoUrl.get(position);
+        String photoID = this.photoID.get(position);
 
-        // https://gun0912.tistory.com/17
-        String regularPhoto = item.getUrls().getRegular();
-        String smallPhoto = item.getUrls().getSmall();
-        String thumbPhoto = item.getUrls().getThumb();
 
         YoYo.with(Techniques.FadeIn).playOn(holder.imageCleanView);
         YoYo.with(Techniques.FadeIn).playOn(holder.photoCardofList);
 
-        Glide.with(context).load(regularPhoto).centerCrop().into(holder.imageCleanView);
+        Glide.with(context).load(photoUrl).centerCrop().into(holder.imageCleanView);
 
         holder.photoCardofList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +57,8 @@ public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
                 Log.d("ListPhotoRA", String.valueOf(position));
 
                 Intent intent = new Intent(context, PhotoDetail.class);
-                intent.putExtra("id", item.getId());
-                Log.d("id",item.getId());
+                intent.putExtra("id", photoID);
+                Log.d("id", photoID);
 
                 context.startActivity(intent);
 
@@ -70,7 +68,7 @@ public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return photoUrl.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

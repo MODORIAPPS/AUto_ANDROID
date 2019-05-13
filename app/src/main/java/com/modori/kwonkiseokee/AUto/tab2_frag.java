@@ -1,26 +1,21 @@
 package com.modori.kwonkiseokee.AUto;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.modori.kwonkiseokee.AUto.RA.Tab2_tagListsRA;
-import com.modori.kwonkiseokee.AUto.Util.Frag2;
+import com.modori.kwonkiseokee.AUto.Util.TagTools;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 import com.modori.kwonkiseokee.AUto.data.data.Results;
@@ -35,7 +30,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +42,7 @@ import retrofit2.Response;
 public class tab2_frag extends Fragment implements View.OnClickListener {
 
     private List<Results> results = new ArrayList<>();
-    //Results[] results = new Results[5];
+    //Results[] photoUrl = new Results[5];
 
     public Context context;
 
@@ -185,7 +179,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     }
 
     private void getTagLists(Context context) {
-        tagLists = Frag2.getTagLists(context);
+        tagLists = TagTools.getTagLists(context);
 
         tag1 = tagLists.get(0);
         tag2 = tagLists.get(1);
@@ -226,17 +220,13 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
+                    //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
                     YoYo.with(Techniques.FadeIn).playOn(tag1Gridview);
 
-                    if (Integer.valueOf(response.body().getTotal()) == 0) {
-
-                    } else {
                         Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag1Gridview);
                         Log.d("tag1", "잘 가져옴");
-                    }
 
 
                 }
@@ -253,7 +243,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
+                    //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
                     YoYo.with(Techniques.FadeIn).playOn(tag2Gridview);
 
@@ -274,7 +264,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
+                    //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
                     YoYo.with(Techniques.FadeIn).playOn(tag3Gridview);
@@ -295,7 +285,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
+                    //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
                     YoYo.with(Techniques.FadeIn).playOn(tag4Gridview);
@@ -316,7 +306,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
+                    //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
                     YoYo.with(Techniques.FadeIn).playOn(tag5Gridview);
@@ -338,7 +328,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
+                    //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
                     YoYo.with(Techniques.FadeIn).playOn(tag6Gridview);

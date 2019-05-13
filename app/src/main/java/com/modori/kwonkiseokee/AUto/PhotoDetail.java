@@ -76,7 +76,7 @@ public class PhotoDetail extends AppCompatActivity {
             @Override
             public void onResponse(Call<PhotoSearchID> call, Response<PhotoSearchID> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
+                    //photoUrl[0] = (Results) response.body().getResults();
                     PhotoSearchID results = response.body();
 
                     Log.d("포토 디테일", "잘 가져옴");

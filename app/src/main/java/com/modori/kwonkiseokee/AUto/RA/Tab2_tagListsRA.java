@@ -1,32 +1,21 @@
 package com.modori.kwonkiseokee.AUto.RA;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.R;
-import com.modori.kwonkiseokee.AUto.Util.Frag2;
-import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.Util.OpenDialog;
-import com.modori.kwonkiseokee.AUto.tab2_frag;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
-import static com.modori.kwonkiseokee.AUto.tab2_frag.PREFS_FILE;
 
 public class Tab2_tagListsRA extends RecyclerView.Adapter<Tab2_tagListsRA.ViewHolder> {
 

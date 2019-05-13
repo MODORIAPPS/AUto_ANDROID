@@ -16,12 +16,9 @@ import android.view.View;
 import com.modori.kwonkiseokee.AUto.RA.ListPhotoRA;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
-import com.modori.kwonkiseokee.AUto.data.data.Results;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.transform.Result;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +32,9 @@ public class ListsOfPhotos extends AppCompatActivity {
     int photoCnt = 1;
     ListPhotoRA adapter;
 
-    List<Results> results = new ArrayList<>();
+    //List<PhotoSearch> results = new ArrayList<>();
+    List<String> photoUrl = new ArrayList<>();
+    List<String> photoID = new ArrayList<>();
 
 
     @Override
@@ -70,12 +69,12 @@ public class ListsOfPhotos extends AppCompatActivity {
                     }
                 }
             });
-        }else{
+        } else {
             int visibleItemCount = layoutManager.getChildCount();
             int totalItemCount = layoutManager.getItemCount();
             int pastVisibleItems = layoutManager.findFirstCompletelyVisibleItemPosition();
 
-            if(pastVisibleItems+visibleItemCount >= totalItemCount){
+            if (pastVisibleItems + visibleItemCount >= totalItemCount) {
                 // End of the list is here.
                 //Log.i(TAG, "End of list");
                 getPhotoByKeyword();
@@ -93,37 +92,46 @@ public class ListsOfPhotos extends AppCompatActivity {
         getPhotoByKeyword();
 
 
-
     }
 
-    public void getPhotoByKeyword(){
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag,photoCnt, 10).enqueue(new Callback<PhotoSearch>() {
+    public void getPhotoByKeyword() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag, photoCnt, 10).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
-                    //results[0] = (Results) response.body().getResults();
 
-
-                    //results.add(response.body().getResults(),response.body().getResults().size());
-
-                    if(photoCnt == 1){
-                        results = response.body().getResults();
-                        adapter = new ListPhotoRA(getApplicationContext(), results);
-                        recyclerView.setAdapter(adapter);
-
-
-                    }else{
-                        int count = adapter.getItemCount();
-                        //results.add()
-//                        Log.d("results의 사이즈", results.size() +"");
-//                        for (int i = 0; i < response.body().getResults().size(); i++) {
-//                            results.add(results.size()+i,response.body().getResults().get(i));
-//                        }
-                        //List<Result>
-                        adapter.notifyDataSetChanged();
+                    for (int i = 0; i < response.body().getResults().size(); i++) {
+                        photoUrl.add(response.body().getResults().get(i).getUrls().getRegular());
+                        photoID.add(response.body().getResults().get(i).getId());
                     }
 
-                    ++photoCnt;
+                    if(photoCnt == 1){
+                        adapter = new ListPhotoRA(getApplicationContext(), photoUrl, photoID);
+                        recyclerView.setAdapter(adapter);
+                    }else{
+                        adapter.notifyItemInserted(photoCnt*10);
+                    }
+
+                    photoCnt++;
+
+
+//
+//                    if(photoCnt == 1){
+//                        photoUrl = response.body().getResults();
+//
+//
+//                    }else{
+//                        int count = adapter.getItemCount();
+//                        //photoUrl.add()
+////                        Log.d("results의 사이즈", photoUrl.size() +"");
+////                        for (int i = 0; i < response.body().getResults().size(); i++) {
+////                            photoUrl.add(photoUrl.size()+i,response.body().getResults().get(i));
+////                        }
+//                        //List<Result>
+//                        adapter.notifyDataSetChanged();
+//                    }
+//
+//                    ++photoCnt;
 
                     Log.d("tag1", "잘 가져옴");
 
@@ -145,13 +153,13 @@ public class ListsOfPhotos extends AppCompatActivity {
 
 
         Configuration config = getResources().getConfiguration();
-        if(config.orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
 
             StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);
 
-        }else{
+        } else {
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
 
