@@ -178,6 +178,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         viewTagLists.setAdapter(adapterOfTagLists);
     }
 
+    //TEST
+
     private void getTagLists(Context context) {
         tagLists = TagTools.getTagLists(context);
 
