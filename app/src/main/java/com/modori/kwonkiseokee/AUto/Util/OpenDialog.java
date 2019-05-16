@@ -36,6 +36,8 @@ public class OpenDialog extends Dialog {
     int availCnt;
     int position;
 
+    final String TAG = getClass().getName();
+
 
     public OpenDialog(@NonNull final Context context, final int position, String title, String subtitle) {
         super(context);
