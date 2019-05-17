@@ -168,7 +168,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         goInfo.setOnClickListener(this);
     }
 
-    public void setTagListsView(Context context) {
+    private void setTagListsView(Context context) {
         getTagLists(context);
         addTagLists();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);

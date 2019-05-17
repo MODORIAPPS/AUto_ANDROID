@@ -15,25 +15,36 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class getFromGallery extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "갤러리에서 사진 가져오기";
 
+    Realm realm;
+    List<String> photoList;
     final int PICTURE_REQUEST_CODE = 123;
 
-    ArrayList<String> pickedLists = new ArrayList<>();
+    List<String> pickedLists = new ArrayList<>();
     GetFromGalleryRA adapter;
 
-    RecyclerView recyclerView;
+    RecyclerView newPhotosList;
+    RecyclerView oldPhotosList;
     Button resetBtn;
-    Button copyToDeDirBtn;
+    Button savePhotoBtn;
     Button openGalleryBtn;
+
+    TextView newPhotosCnt, oldPhotosCnt, oldPhotosText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,36 +53,65 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
         initWork();
         resetBtn.setOnClickListener(this);
-        copyToDeDirBtn.setOnClickListener(this);
+        savePhotoBtn.setOnClickListener(this);
         openGalleryBtn.setOnClickListener(this);
     }
 
     public void initWork() {
         resetBtn = findViewById(R.id.resetBtn);
-        copyToDeDirBtn = findViewById(R.id.copyToDeDirBtn);
+        savePhotoBtn = findViewById(R.id.savePhotoBtn);
         openGalleryBtn = findViewById(R.id.openGalleryBtn);
-        recyclerView = findViewById(R.id.recyclerview);
+        newPhotosList = findViewById(R.id.newPhotos);
+        oldPhotosList = findViewById(R.id.oldPhotos);
 
-
+        newPhotosCnt = findViewById(R.id.newPhotosCnt);
+        oldPhotosCnt = findViewById(R.id.oldPhotosCnt);
+        oldPhotosText = findViewById(R.id.oldPhotosText);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        GridLayoutManager gridLayoutManager1 = new GridLayoutManager(this, 3);
+
+        newPhotosList.setLayoutManager(gridLayoutManager);
+        oldPhotosList.setLayoutManager(gridLayoutManager1);
+
+        realm = Realm.getDefaultInstance();
+        photoList = getPhotoList();
+
+        adapter = new GetFromGalleryRA(this, photoList, oldPhotosClicked, 0);
+        oldPhotosList.setAdapter(adapter);
+
+        if (photoList.size() == 0) {
+            oldPhotosText.setText("사진이 없습니다. 새 사진을 추가하세요.");
+            oldPhotosList.setVisibility(View.GONE);
+        }
+        oldPhotosCnt.setText(photoList.size() + "");
+        newPhotosCnt.setText("0");
+
+
+        Log.d(TAG, "저장되어 있는 사진 수" + photoList.size());
 
 
     }
 
     public void setRecyclerView() {
-        adapter = new GetFromGalleryRA(this, pickedLists, onClickItem);
-        recyclerView.setAdapter(adapter);
+        adapter = new GetFromGalleryRA(this, pickedLists, newPhotosClicked, 1);
+        newPhotosList.setAdapter(adapter);
+        newPhotosCnt.setText(pickedLists.size() + "");
+
 
     }
-    private View.OnClickListener onClickItem = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            String str = (String) v.getTag();
-            Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
-        }
-    };
+
+//    private View.OnClickListener newPhotosClicked = (v, photoUri) -> {
+//        //String str = (String) v.getTag();
+//        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+//        makeDeleteDialog(false,photoUri);
+//    };
+//
+//    private View.OnClickListener oldPhotosClicked = (v, photoUri) -> {
+//        //String str = (String) v.getTag();
+//        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+//        makeDeleteDialog(true, photoUri);
+//    };
 
 
     @Override
@@ -81,8 +121,8 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                 makeResetDialog();
                 break;
 
-            case R.id.copyToDeDirBtn:
-                makeCopyDialog();
+            case R.id.savePhotoBtn:
+                makeSaveDialog();
                 break;
 
             case R.id.openGalleryBtn:
@@ -100,7 +140,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("가져온 사진 초기화")        // 제목 설정
-                .setMessage("갤러리에서 가져온 사진을 초기화 합니까>")        // 메세지 설정
+                .setMessage("갤러리에서 가져온 사진을 초기화 합니까?")        // 메세지 설정
                 .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
@@ -118,16 +158,15 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    public void makeCopyDialog() {
+    public void makeSaveDialog() {
         AlertDialog.Builder copyBuilder = new AlertDialog.Builder(this);
 
-        copyBuilder.setTitle("가져온 사진을 복사")        // 제목 설정
-                .setMessage("갤러리에서 가져온 사진을 앱 폴더로 복사합니다. 앱폴더는 " +
-                        "sdcard/AUtoGallery로 저장됩니다.")        // 메세지 설정
+        copyBuilder.setTitle("가져온 사진을 저장")        // 제목 설정
+                .setMessage("갤러리에서 가져온 사진을 모두 저장합니다.")       // 메세지 설정
                 .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        //삭제
+                        savePhotos(pickedLists);
                     }
                 }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -155,7 +194,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                     Log.d("1개 선택됨", data.getDataString());
                     pickedLists.add(String.valueOf(data.getData()));
 
-                    Log.d(TAG,data.getDataString());
+                    Log.d(TAG, data.getDataString());
                     setRecyclerView();
 
 
@@ -180,6 +219,35 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                 Log.d("통과 상태", String.valueOf(data));
             }
         }
+    }
+
+
+    private void savePhotos(List<String> photoList) {
+
+        for (int i = 0; i < photoList.size(); i++) {
+            realm.beginTransaction();
+
+            DevicePhotoDTO photoInfo = realm.createObject(DevicePhotoDTO.class);
+            photoInfo.setPhotoID_d("testID");
+
+            photoInfo.setPhotoUri_d(photoList.get(i));
+            Log.d(TAG, photoList.get(0));
+
+            realm.commitTransaction();
+
+        }
+
+    }
+
+    //사진 정보 리스트 반환
+    private List<String> getPhotoList() {
+        List<String> onlyPhotoUri = new ArrayList<>();
+        RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
+        for (int i = 0; i < realmResults.size(); i++) {
+            onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+        }
+        //return realm.where(DevicePhotoDTO.class).findAll();
+        return onlyPhotoUri;
     }
 
 

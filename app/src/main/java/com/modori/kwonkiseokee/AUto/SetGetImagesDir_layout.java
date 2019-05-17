@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.bluetooth.BluetoothClass;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -23,7 +24,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 public class SetGetImagesDir_layout extends AppCompatActivity implements View.OnClickListener {
 
@@ -84,6 +92,11 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         setToUserPick.setOnClickListener(this);
 
         permissionCheck();
+
+        Realm.init(this);
+
+
+
 
     }
 
@@ -253,6 +266,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         editor.putInt("GetSetting", GET_SETTING);
         editor.apply();
     }
+
 
     @Override
     protected void onStop() {
