@@ -36,7 +36,8 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     final int PICTURE_REQUEST_CODE = 123;
 
     List<String> pickedLists = new ArrayList<>();
-    GetFromGalleryRA adapter;
+    GetFromGalleryRA photoNewAdapter, photoOldAdapter;
+
 
     RecyclerView newPhotosList;
     RecyclerView oldPhotosList;
@@ -77,8 +78,8 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         realm = Realm.getDefaultInstance();
         photoList = getPhotoList();
 
-        adapter = new GetFromGalleryRA(this, photoList, oldPhotosClicked, 0);
-        oldPhotosList.setAdapter(adapter);
+        photoOldAdapter = new GetFromGalleryRA(this, photoList, oldPhotosClicked);
+        oldPhotosList.setAdapter(photoOldAdapter);
 
         if (photoList.size() == 0) {
             oldPhotosText.setText("사진이 없습니다. 새 사진을 추가하세요.");
@@ -94,24 +95,77 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setRecyclerView() {
-        adapter = new GetFromGalleryRA(this, pickedLists, newPhotosClicked, 1);
-        newPhotosList.setAdapter(adapter);
+        photoNewAdapter = new GetFromGalleryRA(this, pickedLists, newPhotosClicked);
+        newPhotosList.setAdapter(photoNewAdapter);
         newPhotosCnt.setText(pickedLists.size() + "");
+
+        photoList = getPhotoList();
+
+        photoOldAdapter = new GetFromGalleryRA(this, photoList, oldPhotosClicked);
+        oldPhotosList.setAdapter(photoOldAdapter);
+        oldPhotosCnt.setText(photoList.size() + "");
 
 
     }
 
-//    private View.OnClickListener newPhotosClicked = (v, photoUri) -> {
-//        //String str = (String) v.getTag();
-//        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
-//        makeDeleteDialog(false,photoUri);
-//    };
+    private View.OnClickListener newPhotosClicked = (v) -> {
+        //String str = (String) v.getTag();
+        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+        makeDeleteDialog(false, photoNewAdapter.getPhotoUri());
+    };
+
+    private View.OnClickListener oldPhotosClicked = (v) -> {
+        //String str = (String) v.getTag();
+        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+        makeDeleteDialog(true, photoOldAdapter.getPhotoUri());
+    };
+
+    public void makeDeleteDialog(boolean dataType, String photoUri) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("사진 삭제")        // 제목 설정
+                .setMessage("목록에서 사진을 삭제할까요?")        // 메세지 설정
+                .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
+                .setPositiveButton("확인", (dialog, whichButton) -> {
+                    if (dataType) {
+//                        realm.executeTransactionAsync(new Realm.Transaction() {
+//                            @Override
+//                            public void execute(Realm realm) {
+//                                RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).findAll();
+//                                DevicePhotoDTO devicePhotoDTO = photoDTOS.where().equalTo("photoID_d", photoOldAdapter.getPhotoUri()).findFirst();
+//                                Log.d(TAG, photoOldAdapter.getPhotoUri());
+//                                //devicePhotoDTO.();
+//                                //photoOldAdapter.notifyDataSetChanged();
 //
-//    private View.OnClickListener oldPhotosClicked = (v, photoUri) -> {
-//        //String str = (String) v.getTag();
-//        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
-//        makeDeleteDialog(true, photoUri);
-//    };
+//                            }
+//                        });
+                        //
+                        realm.beginTransaction();
+                        RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoOldAdapter.getPhotoUri()).findAll();
+                        Log.d(TAG, photoDTOS.toString());
+                        Log.d(TAG, photoOldAdapter.getPhotoUri());
+                        photoDTOS.deleteAllFromRealm();
+                        realm.commitTransaction();
+
+
+
+
+                        setRecyclerView();
+
+
+
+                    } else {
+                        // new Photos
+                        pickedLists.remove(photoNewAdapter.getPhotoUri());
+                        photoNewAdapter.notifyDataSetChanged();
+
+                    }
+                    //삭제
+                }).setNegativeButton("취소", (dialog, whichButton) -> dialog.cancel());
+
+        AlertDialog dialog = builder.create();    // 알림창 객체 생성
+        dialog.show();    // 알림창 띄우기
+    }
 
 
     @Override
@@ -167,6 +221,12 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         savePhotos(pickedLists);
+                        newPhotosCnt.setText("0");
+
+                        pickedLists = new ArrayList<>();
+                        photoList = new ArrayList<>();
+
+                        setRecyclerView();
                     }
                 }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {

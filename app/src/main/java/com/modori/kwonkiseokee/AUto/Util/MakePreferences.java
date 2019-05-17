@@ -15,7 +15,7 @@ public class MakePreferences {
 
     }
 
-    static MakePreferences getInstance() {
+    public static MakePreferences getInstance() {
         if (instance == null) {
             Log.d("MakePreferences", "새 객체 생성됨");
             instance = new MakePreferences();
@@ -28,7 +28,7 @@ public class MakePreferences {
         return settings;
     }
 
-    SharedPreferences.Editor getEditor() {
+    public SharedPreferences.Editor getEditor() {
 
         return editor;
     }

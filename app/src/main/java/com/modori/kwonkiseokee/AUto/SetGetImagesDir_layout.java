@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
+import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
 import java.util.ArrayList;
@@ -94,6 +97,23 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         permissionCheck();
 
         Realm.init(this);
+        Realm realm = Realm.getDefaultInstance();
+        List<String> onlyPhotoUri = new ArrayList<>();
+        RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
+        for (int i = 0; i < realmResults.size(); i++) {
+            onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+        }
+
+        if (onlyPhotoUri.size() != 0){
+            warningNoImagesText.setVisibility(View.GONE);
+            listOfPictures.setLayoutManager(new GridLayoutManager(this,3));
+            listOfPictures.setAdapter(new GetFromGalleryRA(this, onlyPhotoUri));
+        }
+
+
+
+
+
 
 
 
@@ -266,7 +286,6 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         editor.putInt("GetSetting", GET_SETTING);
         editor.apply();
     }
-
 
     @Override
     protected void onStop() {

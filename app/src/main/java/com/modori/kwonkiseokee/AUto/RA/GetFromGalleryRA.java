@@ -21,21 +21,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import io.realm.Realm;
 
-public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.ViewHolder> implements View.OnClickListener {
+public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.ViewHolder>{
 
     private List<String> imageLists;
     private Context context;
     private View.OnClickListener onClickItem;
-    private boolean dataType;
     private Realm realm;
 
     String photoUri;
 
-    public GetFromGalleryRA(Context context, List<String> imageLists, View.OnClickListener onClickItem, boolean dataType) {
+    public GetFromGalleryRA(Context context, List<String> imageLists, View.OnClickListener onClickItem) {
         this.context = context;
         this.imageLists = imageLists;
         this.onClickItem = onClickItem;
-        this.dataType = dataType;
     }
 
     public GetFromGalleryRA(Context context, List<String> imageLists) {
@@ -54,9 +52,10 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String item = imageLists.get(position);
-        Glide.with(context).load(Uri.parse(item)).into(holder.pick_ImagesView);
 
-        holder.pick_ImagesView.setOnClickListener(this);
+        Glide.with(context).load(Uri.parse(item)).into(holder.pick_ImagesView);
+        photoUri = item;
+        holder.pick_ImagesView.setOnClickListener(onClickItem);
 
 
         Log.d("어댑터 들어옴", item);
@@ -67,50 +66,12 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
         return imageLists.size();
     }
 
+    public String getPhotoUri(){
 
-    @Override
-    public void onClick(View v) {
-        if (dataType) {
-            makeDeleteDialog(true, photoUri);
-
-        }else{
-            makeDeleteDialog(false, photoUri);
-
-            // 새로운 사진
-
-
-        }
+        return photoUri;
     }
 
 
-    public void makeDeleteDialog(boolean dataType, String photoUri) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-        builder.setTitle("사진 삭제")        // 제목 설정
-                .setMessage("목록에서 사진을 삭제할까요?")        // 메세지 설정
-                .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                .setPositiveButton("확인", (dialog, whichButton) -> {
-                    if (dataType) {
-                        realm.executeTransactionAsync(new Realm.Transaction() {
-                            @Override
-                            public void execute(Realm realm) {
-                                DevicePhotoDTO photoDTO = realm.where(DevicePhotoDTO.class).equalTo("photoUri", photoUri).findFirst();
-                                if (photoDTO.isValid()) {
-                                    photoDTO.deleteFromRealm();
-                                }
-                            }
-                        });
-
-                    } else {
-                        // new Photos
-
-                    }
-                    //삭제
-                }).setNegativeButton("취소", (dialog, whichButton) -> dialog.cancel());
-
-        AlertDialog dialog = builder.create();    // 알림창 객체 생성
-        dialog.show();    // 알림창 띄우기
-    }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {

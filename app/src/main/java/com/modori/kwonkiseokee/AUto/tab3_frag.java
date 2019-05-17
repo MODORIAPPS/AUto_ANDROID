@@ -18,10 +18,14 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.Util.calTimes;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +34,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -55,22 +62,22 @@ public class tab3_frag extends Fragment {
     Button saveBtn;
     ImageView goGetImageSettings;
 
-    View actView_layout;
-    TextView numPickerView;
-    TextView viewCycle;
-    TextView viewBootLaunch;
-    TextView actStats;
-    TextView showGetCnt;
-    TextView showGetFromWhat;
+    private View actView_layout;
+    private TextView numPickerView;
+    private TextView viewCycle;
+    private TextView viewBootLaunch;
+    private TextView actStats;
+    private TextView showGetCnt;
+    private TextView showGetFromWhat;
 
     //Switch 위에서 아래 순서
-    SwitchCompat actCheckSwitch;
-    SwitchCompat bootLaunchSwitch;
-    SwitchCompat shuffleSwitch;
+    private SwitchCompat actCheckSwitch;
+    private SwitchCompat bootLaunchSwitch;
+    private SwitchCompat shuffleSwitch;
 
-    NumberPicker inputCycleDay;
-    NumberPicker inputCycleHour;
-    NumberPicker inputCycleMin;
+    private NumberPicker inputCycleDay;
+    private NumberPicker inputCycleHour;
+    private NumberPicker inputCycleMin;
 
     int day;
     int hour;
@@ -129,6 +136,7 @@ public class tab3_frag extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        MakePreferences.getInstance().setSettings(context);
 
 
     }
@@ -163,15 +171,27 @@ public class tab3_frag extends Fragment {
         switch (settings.getInt("GetSetting", 0)){
             case 0:
                 showGetFromWhat.setText("사용자가 지정한 폴더에서 불러오고 있습니다.");
+                showGetCnt.setText(+FileManager.availableImages(context) + " 개의 사진 찾음");
+
                 break;
             case 1:
                 showGetFromWhat.setText("사용자가 직접 선택한 사진별로 불러오고 있습니다.");
+
+                Realm realm = Realm.getDefaultInstance();
+                List<String> onlyPhotoUri = new ArrayList<>();
+                RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
+                for (int i = 0; i < realmResults.size(); i++) {
+                    onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+                }
+
+                showGetCnt.setText(onlyPhotoUri.size() + " 개의 사진 찾음");
+
                 break;
 
             case 2:
         }
 
-        showGetCnt.setText(+FileManager.availableImages(context) + " 개의 사진 찾음");
+
 
 
 
@@ -281,7 +301,8 @@ public class tab3_frag extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab3_frag, container, false);
-
+        context = getActivity();
+        Realm.init(context);
         initWorks();
         timePickerSetup();
         initSet();
@@ -409,7 +430,7 @@ public class tab3_frag extends Fragment {
 
     }
 
-    public static void setAutoChangeSlide(int _cycle) {
+    private static void setAutoChangeSlide(int _cycle) {
 
         //http://webs.co.kr/index.php?mid=Android&document_srl=3312655 배경화면이 제때 바뀌지 않는 이유
 
@@ -436,7 +457,7 @@ public class tab3_frag extends Fragment {
 
     }
 
-    public void saveFunction() {
+    private void saveFunction() {
 
 
         isActivate = actCheckSwitch.isChecked();
@@ -481,16 +502,30 @@ public class tab3_frag extends Fragment {
 
             String dialogOkay = getResources().getString(R.string.dialogOkay);
 
+            int imageN;
+            if(MakePreferences.getInstance().getSettings().getInt("GetSetting", 0) == 0){
+                imageN = FileManager.availableImages(context);
 
-            int imageN = FileManager.availableImages(context);
+            }else{
+                Realm.init(context);
+                Realm realm = Realm.getDefaultInstance();
+                List<String> onlyPhotoUri = new ArrayList<>();
+                RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
+                for (int i = 0; i < realmResults.size(); i++) {
+                    onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+                }
+
+                imageN = onlyPhotoUri.size();
+                //return realm.where(DevicePhotoDTO.class).findAll();
+            }
+
+
             if (imageN == 0) {
                 //이미지가 없는 경우
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(dialog1Title).setMessage(dialog1Con);
-                builder.setPositiveButton(dialogOkay, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                builder.setPositiveButton(dialogOkay, (dialog, which) -> {
+
                 });
                 builder.show();
 
@@ -501,10 +536,7 @@ public class tab3_frag extends Fragment {
                 //이미지가 1~2개인 경우
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(dialog2Title).setMessage(dialog2Con);
-                builder.setPositiveButton(dialogOkay, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                builder.setPositiveButton(dialogOkay, (dialog, which) -> {
                 });
                 builder.show();
                 setAutoChangeSlide(cycle);
