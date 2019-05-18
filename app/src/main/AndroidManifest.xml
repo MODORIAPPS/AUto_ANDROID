@@ -4,10 +4,9 @@
     package="com.modori.kwonkiseokee.AUto"
     android:versionName="1.5.4">
     <!-- 버전 코드 설명 https://mainia.tistory.com/4925 -->
-
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -19,10 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".showPhotoOnly"></activity>
         <activity android:name=".getFromGallery" />
         <activity android:name=".SetGetImagesDir_layout" />
         <activity android:name=".PhotoDetail" />
-        <activity android:name=".ListsOfPhotos" android:configChanges="screenSize|orientation" />
+        <activity
+            android:name=".ListsOfPhotos"
+            android:configChanges="screenSize|orientation" />
         <activity android:name=".LicensePage" />
         <activity android:name=".SplashActivity" />
         <activity android:name=".SelectFolder" />
@@ -33,8 +35,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
 
         <receiver android:name=".Service.SetWallpaperJob" />
         <receiver
@@ -47,8 +47,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-
     </application>
 
 </manifest>

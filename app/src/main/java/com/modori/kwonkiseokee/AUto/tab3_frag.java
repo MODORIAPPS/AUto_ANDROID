@@ -524,8 +524,11 @@ public class tab3_frag extends Fragment {
                 //이미지가 없는 경우
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(dialog1Title).setMessage(dialog1Con);
-                builder.setPositiveButton(dialogOkay, (dialog, which) -> {
+                builder.setPositiveButton(dialogOkay, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
                 });
                 builder.show();
 
@@ -536,7 +539,10 @@ public class tab3_frag extends Fragment {
                 //이미지가 1~2개인 경우
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(dialog2Title).setMessage(dialog2Con);
-                builder.setPositiveButton(dialogOkay, (dialog, which) -> {
+                builder.setPositiveButton(dialogOkay, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
                 });
                 builder.show();
                 setAutoChangeSlide(cycle);

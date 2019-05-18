@@ -80,8 +80,8 @@ public class OpenDialog extends Dialog {
         });
     }
 
-    private void availableTagCheck(String inputTag, int position) {
-        ProgressDialog mProgressDialog = new ProgressDialog(mContext);
+    private void availableTagCheck(final String inputTag, final int position) {
+        final ProgressDialog mProgressDialog = new ProgressDialog(mContext);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("유효한 태그인지 검사하고 있습니다.");
         mProgressDialog.show();

@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.modori.kwonkiseokee.AUto.RA.Tab2_tagListsRA;
 import com.modori.kwonkiseokee.AUto.Util.TagTools;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
@@ -134,13 +132,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         tag5Gridview = view.findViewById(R.id.tag5Gridview);
         tag6Gridview = view.findViewById(R.id.tag6Gridview);
 
-        YoYo.with(Techniques.FadeIn).playOn(tag1Gridview);
-        YoYo.with(Techniques.FadeIn).playOn(tag2Gridview);
-        YoYo.with(Techniques.FadeIn).playOn(tag3Gridview);
-        YoYo.with(Techniques.FadeIn).playOn(tag4Gridview);
-        YoYo.with(Techniques.FadeIn).playOn(tag5Gridview);
-        YoYo.with(Techniques.FadeIn).playOn(tag6Gridview);
-
         grid1 = view.findViewById(R.id.grid1);
         grid2 = view.findViewById(R.id.grid2);
         grid3 = view.findViewById(R.id.grid3);
@@ -225,8 +216,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    YoYo.with(Techniques.FadeIn).playOn(tag1Gridview);
-
                         Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag1Gridview);
                         Log.d("tag1", "잘 가져옴");
 
@@ -247,7 +236,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                 if (response.isSuccessful()) {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
-                    YoYo.with(Techniques.FadeIn).playOn(tag2Gridview);
 
                     Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag2Gridview);
                     Log.d("tag2", "잘 가져옴");
@@ -269,7 +257,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    YoYo.with(Techniques.FadeIn).playOn(tag3Gridview);
 
                     Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag3Gridview);
                     Log.d("tag3", "잘 가져옴");
@@ -290,7 +277,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    YoYo.with(Techniques.FadeIn).playOn(tag4Gridview);
 
                     Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag4Gridview);
                     Log.d("tag4", "잘 가져옴");
@@ -311,7 +297,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    YoYo.with(Techniques.FadeIn).playOn(tag5Gridview);
 
                     Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag5Gridview);
                     Log.d("tag5", "잘 가져옴");
@@ -333,7 +318,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    YoYo.with(Techniques.FadeIn).playOn(tag6Gridview);
 
                     Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag6Gridview);
                     Log.d("tag6", "잘 가져옴");

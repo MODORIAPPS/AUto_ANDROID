@@ -108,26 +108,34 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    private View.OnClickListener newPhotosClicked = (v) -> {
-        //String str = (String) v.getTag();
-        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
-        makeDeleteDialog(false, photoNewAdapter.getPhotoUri());
+    private View.OnClickListener newPhotosClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //String str = (String) v.getTag();
+            //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+            getFromGallery.this.makeDeleteDialog(false, photoNewAdapter.getPhotoUri());
+        }
     };
 
-    private View.OnClickListener oldPhotosClicked = (v) -> {
-        //String str = (String) v.getTag();
-        //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
-        makeDeleteDialog(true, photoOldAdapter.getPhotoUri());
+    private View.OnClickListener oldPhotosClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //String str = (String) v.getTag();
+            //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+            getFromGallery.this.makeDeleteDialog(true, photoOldAdapter.getPhotoUri());
+        }
     };
 
-    public void makeDeleteDialog(boolean dataType, String photoUri) {
+    public void makeDeleteDialog(final boolean dataType, String photoUri) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("사진 삭제")        // 제목 설정
                 .setMessage("목록에서 사진을 삭제할까요?")        // 메세지 설정
                 .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                .setPositiveButton("확인", (dialog, whichButton) -> {
-                    if (dataType) {
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        if (dataType) {
 //                        realm.executeTransactionAsync(new Realm.Transaction() {
 //                            @Override
 //                            public void execute(Realm realm) {
@@ -139,29 +147,32 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 //
 //                            }
 //                        });
-                        //
-                        realm.beginTransaction();
-                        RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoOldAdapter.getPhotoUri()).findAll();
-                        Log.d(TAG, photoDTOS.toString());
-                        Log.d(TAG, photoOldAdapter.getPhotoUri());
-                        photoDTOS.deleteAllFromRealm();
-                        realm.commitTransaction();
+                            //
+                            realm.beginTransaction();
+                            RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoOldAdapter.getPhotoUri()).findAll();
+                            Log.d(TAG, photoDTOS.toString());
+                            Log.d(TAG, photoOldAdapter.getPhotoUri());
+                            photoDTOS.deleteAllFromRealm();
+                            realm.commitTransaction();
 
 
+                            getFromGallery.this.setRecyclerView();
 
 
-                        setRecyclerView();
+                        } else {
+                            // new Photos
+                            pickedLists.remove(photoNewAdapter.getPhotoUri());
+                            photoNewAdapter.notifyDataSetChanged();
 
-
-
-                    } else {
-                        // new Photos
-                        pickedLists.remove(photoNewAdapter.getPhotoUri());
-                        photoNewAdapter.notifyDataSetChanged();
-
+                        }
+                        //삭제
                     }
-                    //삭제
-                }).setNegativeButton("취소", (dialog, whichButton) -> dialog.cancel());
+                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.cancel();
+            }
+        });
 
         AlertDialog dialog = builder.create();    // 알림창 객체 생성
         dialog.show();    // 알림창 띄우기

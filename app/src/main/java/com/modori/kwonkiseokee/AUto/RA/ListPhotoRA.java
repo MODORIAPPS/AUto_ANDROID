@@ -13,8 +13,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.modori.kwonkiseokee.AUto.PhotoDetail;
 import com.modori.kwonkiseokee.AUto.R;
 
@@ -42,11 +40,8 @@ public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ListPhotoRA.ViewHolder holder, final int position) {
         String photoUrl = this.photoUrl.get(position);
-        String photoID = this.photoID.get(position);
+        final String photoID = this.photoID.get(position);
 
-
-        YoYo.with(Techniques.FadeIn).playOn(holder.imageCleanView);
-        YoYo.with(Techniques.FadeIn).playOn(holder.photoCardofList);
 
         Glide.with(context).load(photoUrl).centerCrop().into(holder.imageCleanView);
 
