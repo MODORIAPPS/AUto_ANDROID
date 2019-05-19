@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorAccent"
-            android:text="모두 삭제"
+            android:text="@string/allDelteBtn"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#FFBC42"
-            android:text="저장"
+            android:text="@string/saveBtn"
             android:textColor="@color/white"
             android:textSize="12sp"
 
@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#30A9DE"
-            android:text="갤러리 열기"
+            android:text="@string/openGallery"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -65,12 +65,13 @@
                 android:id="@+id/oldPhotosText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="저장되어 있는 사진 목록"
+                android:text="@string/oldPhotosText"
                 android:textColor="@color/semiBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/oldPhotosCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,18 +114,20 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/newPhotosText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="새롭게 선택한 사진"
+                android:text="@string/newPhotosText"
                 android:textColor="@color/semiBlack"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/newPhotosCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:text="n개"
                 android:textColor="@color/semiBlack"
                 android:textSize="20sp"

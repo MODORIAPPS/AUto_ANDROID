@@ -16,13 +16,15 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/appicon_rounded"
         android:supportsRtl="true"
+        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".showPhotoOnly"></activity>
+        <activity android:name=".showPhotoOnly" />
         <activity android:name=".getFromGallery" />
         <activity android:name=".SetGetImagesDir_layout" />
         <activity android:name=".PhotoDetail" />
         <activity
+            android:theme="@style/Theme.AppCompat.Light"
             android:name=".ListsOfPhotos"
             android:configChanges="screenSize|orientation" />
         <activity android:name=".LicensePage" />

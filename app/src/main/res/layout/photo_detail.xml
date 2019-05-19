@@ -10,9 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#00727272"
@@ -29,16 +27,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/goBackBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/left_arrow_icon"
-                    android:tint="@color/semiBlack" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/goBackBtn"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/left_arrow_icon"
+                        android:tint="@color/semiBlack" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                    <ImageView
+                        android:layout_marginEnd="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/info_icon"
+                        android:tint="@color/semiBlack"
+                        android:id="@+id/goInfo"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp" />
+                </RelativeLayout>
+
+
             </androidx.appcompat.widget.Toolbar>
 
 
@@ -275,7 +287,7 @@
                 android:layout_margin="15sp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
-                android:backgroundTint="#3F51B5"
+                android:backgroundTint="@color/semiBlack"
                 android:src="@drawable/up_arrow_icon" />
         </FrameLayout>
 

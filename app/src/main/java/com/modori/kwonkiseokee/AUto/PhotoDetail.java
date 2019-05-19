@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,6 +29,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
+import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
 
@@ -35,6 +38,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.channels.IllegalChannelGroupException;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -43,7 +49,7 @@ import retrofit2.Response;
 
 public class PhotoDetail extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView detailImageView, goBackBtn;
+    ImageView detailImageView, goBackBtn, goInfo;
     Context context;
     String photoID, downloadUrl, regularUrl;
     String authorProfileUrl, authorName;
@@ -58,6 +64,14 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     Animation fab_open, fab_close;
     Boolean isFabOpen = false;
     FloatingActionButton fab1, fab2, fab3;
+
+    String filename;
+
+
+    boolean action = false;
+
+    int CHANGE_TYPE;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,6 +88,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         fab2 = findViewById(R.id.fab2);
         fab3 = findViewById(R.id.fab3);
 
+        goInfo = findViewById(R.id.goInfo);
+
         context = this;
         goBackBtn = findViewById(R.id.goBackBtn);
 
@@ -87,17 +103,16 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         imagePColorV = findViewById(R.id.imagePColorV);
         photoDescriptionV = findViewById(R.id.photoDescription);
         photoSizeV = findViewById(R.id.photoSizeV);
-
+        filename = photoID + "_" + "Full_" + ".jpeg";
 
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
+        goInfo.setOnClickListener(this);
 
 
         if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(PhotoDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) { // asks primission to use the devices camera
-
-            //what ever you want to do ..
-            Log.d("권한 확인됨", "권한 확인됬더ㅏ고1");
+            Log.d(TAG, "쓰기 권한 확인");
 
         } else {
             requestWritePermission(PhotoDetail.this);
@@ -141,21 +156,13 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        goBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PhotoDetail.this.finish();
-            }
-        });
+        goBackBtn.setOnClickListener(v -> PhotoDetail.this.finish());
 
-        detailImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 사진 만 보는 곳으로 이동
-                Intent goPhotoOnly = new Intent(PhotoDetail.this, showPhotoOnly.class);
-                goPhotoOnly.putExtra("photoUrl", regularUrl);
-                PhotoDetail.this.startActivity(goPhotoOnly);
-            }
+        detailImageView.setOnClickListener(v -> {
+            // 사진 만 보는 곳으로 이동
+            Intent goPhotoOnly = new Intent(PhotoDetail.this, showPhotoOnly.class);
+            goPhotoOnly.putExtra("photoUrl", regularUrl);
+            PhotoDetail.this.startActivity(goPhotoOnly);
         });
 
 
@@ -191,13 +198,32 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
             case R.id.fab2:
                 anim();
-                new downloadImage().execute(downloadUrl);
+                action = false;
+                if (FileManager.alreadyDownloaded(filename)) {
+                    //이미 있는 경우
+                    Toast.makeText(PhotoDetail.this, "이미 파일이 존재합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    new downloadImage().execute(downloadUrl);
+
+                }
 
                 break;
 
             case R.id.fab3:
                 anim();
+                action = true;
+                fab3Action();
                 break;
+
+            case R.id.goInfo:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.PhotoDetail_DialogTitle);
+                builder.setMessage(R.string.PhotoDetail_DialogMessage);
+                builder.setPositiveButton(R.string.PhotoDetail_DialogOk,
+                        (dialog, which) -> {
+                        });
+
+                builder.show();
         }
     }
 
@@ -229,7 +255,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(PhotoDetail.this);
-            pDialog.setMessage("이미지를 다운로드 하는 중..");
+            pDialog.setMessage(getString(R.string.PhotoDeatil_Downloading));
             pDialog.show();
         }
 
@@ -246,11 +272,14 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         }
 
         protected void onPostExecute(Bitmap image) {
-            String filename = photoID + "_" + "Full_" + ".jpeg";
 
             if (image != null) {
                 saveImage(image, filename);
+                if (action) {
+                    SetWallpaperJob.setWallPaper(context, image, CHANGE_TYPE);
+                }
                 pDialog.dismiss();
+
 
             } else {
                 pDialog.dismiss();
@@ -259,6 +288,49 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
             }
         }
+    }
+
+    private void fab3Action() {
+
+        List<String> ListItems = new ArrayList<>();
+        ListItems.add(getString(R.string.PhotoDetail_DialogItem1));
+        ListItems.add(getString(R.string.PhotoDetail_DialogItem2));
+        ListItems.add(getString(R.string.PhotoDetail_DialogItem3));
+        CharSequence[] items = ListItems.toArray(new String[ListItems.size()]);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.PhotoDetail_DialogTitle2);
+        builder.setItems(items, (dialog, pos) -> {
+            //String selectedText = items[pos].toString();
+
+            switch (pos) {
+                case 0:
+                    CHANGE_TYPE = WallpaperManager.FLAG_LOCK;
+                    break;
+
+
+                case 1:
+                    CHANGE_TYPE = WallpaperManager.FLAG_SYSTEM;
+                    break;
+
+                case 2:
+                    CHANGE_TYPE = 999;
+                    break;
+
+            }
+
+            if (FileManager.alreadyDownloaded(filename)) {
+                SetWallpaperJob.setWallPaper(context, FileManager.getBitmapFromPath(filename), CHANGE_TYPE);
+            } else {
+                new downloadImage().execute(downloadUrl);
+
+            }
+
+
+        });
+        builder.show();
+
+
     }
 
     private static void requestWritePermission(final Context context) {

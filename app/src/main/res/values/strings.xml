@@ -21,6 +21,50 @@
     <string name="tab_2">discover</string>
     <string name="tab_3">Auto Settings</string>
 
+    <!-- SetGetImageDir -->
+    <string name="SetGetImagedir_ResorV">The resolution of this device</string>
+    <string name="SetGetImagedir_GetV">Method of Load Photos</string>
+    <string name="SetGetImagedir_GetsV">Select the folder where the pictures are located.</string>
+
+    <string name="SetGetImageDir_ERROR1">The image file could not be found in the specified path.</string>
+    <string name="SetGetImageDir_ERROR2">No image, please add image.</string>
+
+    <string name="SetGetImageDir_detailSet1Title">Directly select pictures</string>
+    <string name="SetGetImageDir_detailSet1Con">Open the gallery to select the pictures.</string>
+    <string name="SetGetImageDir_detailSet1Con2">List of selected pictures.</string>
+
+    <!-- get_from_gallery_layout -->
+    <string name="allDelteBtn">Delete All</string>
+    <string name="saveBtn">Save</string>
+    <string name="openGallery">Open Gallery</string>
+    <string name="oldPhotosText">List of saved pictures</string>
+    <string name="newPhotosText">The newly selected pictures.</string>
+
+
+    <!-- PhotoDetail -->
+    <string name="PhotoDetail_DialogTitle">About this Page</string>
+    <string name="PhotoDetail_DialogMessage">It is not recommended for data network environments because it is high quality when you download pictures.</string>
+    <string name="PhotoDetail_DialogOk">OK</string>
+
+    <string name="PhotoDetail_DialogTitle2">The location of the background screen you want to change</string>
+    <string name="PhotoDetail_DialogItem1">Only LockScreen</string>
+    <string name="PhotoDetail_DialogItem2">Only DefaultScreen</string>
+    <string name="PhotoDetail_DialogItem3">All</string>
+
+    <string name="PhotoDeatil_Downloading">Downlading image...</string>
+
+
+    <!-- ListsPfPhotos -->
+    <string name="ListsPfPhotos_DialogTitle">About this Page</string>
+    <string name="ListsPfPhotos_DialogMessage">You can click a picture to see more information.</string>
+    <string name="ListsPfPhotos_DialogOk">OK</string>
+
+    <!-- tab2_frag -->
+    <string name="tab2_toolbarText">Explore new pictures</string>
+    <string name="tab2_DialogTitle">About this Page</string>
+    <string name="tab2_DialogMessage">You can change it by typing in the keyword you want by pressing a keyword, and the pictures you import through the keyword changes are shown below. You can call up to six keywords at the same time.</string>
+    <string name="tab2_DialogOk">OK</string>
+
 
     <!-- tab3_frag -->
     <string name="tab3_detailSet1Title">AutoPlay After Boot</string>
@@ -43,11 +87,16 @@
     <string name="tab3_t5">open directory selector</string>
     <string name="tab3_t6">Save changes</string>
 
-
     <string name="tab3_snackBar1">Your changes have been saved. Start the service.</string>
     <string name="tab3_snackBar2">Your changes have been saved.</string>
 
     <string name="tab3_alertStartService">Service started</string>
+
+    <string name="tab3_detailSet4Title">Method of Load Photos</string>
+
+    <string name="tab3_showGetFromWhat1">Importing from selected folder.</string>
+    <string name="tab3_showGetFromWhat2">Importing photos of your choice.</string>
+    <string name="tab3_showPictGetCnt"> photos</string>
 
     <!--라이선스 표시 페이지-->
     <string name="mainTitle">Always for new moods. </string>

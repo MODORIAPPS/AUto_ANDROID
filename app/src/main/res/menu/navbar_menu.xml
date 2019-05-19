@@ -9,10 +9,10 @@
         android:title="@string/tab_1" />
     <item
         android:id="@+id/goPhotos"
-        android:icon="@drawable/photos_icon"
+        android:icon="@drawable/explore_icon"
         android:title="@string/tab_2" />
     <item
         android:id="@+id/goAutoSet"
-        android:icon="@drawable/setauto_icon"
+        android:icon="@drawable/ic_replay_5_black_24dp"
         android:title="@string/tab_3" />
 </menu>

@@ -1,11 +1,15 @@
 package com.modori.kwonkiseokee.AUto;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -24,9 +28,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListsOfPhotos extends AppCompatActivity {
+public class ListsOfPhotos extends Activity {
 
-    View goBack;
+    View goBack, goInfo;
     RecyclerView recyclerView;
     String tag;
     int photoCnt = 1;
@@ -44,16 +48,19 @@ public class ListsOfPhotos extends AppCompatActivity {
 
         goBack = findViewById(R.id.goBack);
         recyclerView = findViewById(R.id.recyclerView);
+        goInfo = findViewById(R.id.goInfo_list);
 
 
         Intent intent = getIntent();
         tag = intent.getExtras().getString("photoID");
 
-        //GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        //StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+
+        goInfo.setOnClickListener(v -> {
+           makeDialog();
+        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -105,11 +112,11 @@ public class ListsOfPhotos extends AppCompatActivity {
                         photoID.add(response.body().getResults().get(i).getId());
                     }
 
-                    if(photoCnt == 1){
+                    if (photoCnt == 1) {
                         adapter = new ListPhotoRA(getApplicationContext(), photoUrl, photoID);
                         recyclerView.setAdapter(adapter);
-                    }else{
-                        adapter.notifyItemInserted(photoCnt*10);
+                    } else {
+                        adapter.notifyItemInserted(photoCnt * 10);
                     }
 
                     photoCnt++;
@@ -156,8 +163,9 @@ public class ListsOfPhotos extends AppCompatActivity {
         if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
 
-            StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            GridLayoutManager layoutManager = new GridLayoutManager(this,2);
             recyclerView.setLayoutManager(layoutManager);
+            adapter.notifyDataSetChanged();
 
         } else {
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -166,5 +174,16 @@ public class ListsOfPhotos extends AppCompatActivity {
         }
 
 
+    }
+
+    private void makeDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.ListsPfPhotos_DialogTitle);
+        builder.setMessage(R.string.ListsPfPhotos_DialogMessage);
+        builder.setPositiveButton(R.string.ListsPfPhotos_DialogOk,
+                (dialog, which) -> {
+                });
+
+        builder.show();
     }
 }

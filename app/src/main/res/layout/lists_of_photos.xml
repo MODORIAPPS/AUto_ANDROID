@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/blueEnabled">
+        android:background="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,16 +23,17 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/left_arrow_icon"
-                android:tint="@color/white" />
+                android:tint="@color/semiBlack" />
 
-            <!--<ImageView-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_alignParentEnd="true"-->
-            <!--android:src="@drawable/assistant_icon"-->
-            <!--android:tint="@color/white"-->
-            <!--android:layout_marginEnd="10dp"-->
-            <!--android:layout_width="30dp"-->
-            <!--android:layout_height="30dp" />-->
+            <ImageView
+                android:layout_marginEnd="15dp"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/goInfo_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/info_icon"
+                android:tint="@color/semiBlack" />
 
 
         </RelativeLayout>
@@ -42,6 +43,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:background="#EEEEEE"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/photo_item">

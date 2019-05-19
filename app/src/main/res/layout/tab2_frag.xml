@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="5dp"
-                    android:text="새 사진 탐색"
+                    android:text="@string/tab2_toolbarText"
                     android:textColor="@color/semiBlack"
                     android:textSize="20sp"
                     android:textStyle="normal" />

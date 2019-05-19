@@ -57,4 +57,5 @@ public class BootReceiver extends BroadcastReceiver {
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), _cycle * 60000, sender);
     }
 
+
 }

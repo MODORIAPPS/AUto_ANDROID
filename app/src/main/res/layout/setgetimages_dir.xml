@@ -63,7 +63,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
-            android:text="이 기기의 해상도"
+            android:text="@string/SetGetImagedir_ResorV"
             android:textColor="@color/littleBlack"
             android:textStyle="normal" />
 
@@ -104,7 +104,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
-            android:text="불러오는 방법"
+            android:text="@string/SetGetImagedir_GetV"
             android:textColor="@color/littleBlack"
             android:textStyle="normal" />
 
@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/detailSet2Title"
                         android:layout_alignParentStart="true"
-                        android:text="사진이 있는 폴더를 직접 선택합니다."
+                        android:text="@string/SetGetImagedir_GetsV"
                         android:textColor="@color/littleBlack"
                         android:textStyle="normal" />
 
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/selectedPathLinear"
                     android:layout_marginTop="5dp"
-                    android:text="지정하신 경로에서 이미지 파일을 찾을 수 없습니다."
+                    android:text="@string/SetGetImageDir_ERROR1"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold" />
 
@@ -261,7 +261,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
-                            android:text="직접 선택한 사진으로 지정"
+                            android:text="@string/SetGetImageDir_detailSet1Title"
                             android:textColor="@color/semiBlack"
                             android:textSize="23sp"
                             android:textStyle="normal" />
@@ -273,7 +273,7 @@
                             android:layout_below="@id/detailSet1Title"
                             android:layout_alignParentStart="true"
                             android:maxWidth="250dp"
-                            android:text="갤러리를 열어 사진들을 선택합니다."
+                            android:text="@string/SetGetImageDir_detailSet1Con"
                             android:textColor="@color/littleBlack"
                             android:textStyle="normal" />
 
@@ -311,7 +311,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="10dp"
                         android:maxWidth="250dp"
-                        android:text="폴더 내부에 있는 사진 리스트"
+                        android:text="@string/tab3_detailSet1Con"
                         android:textColor="@color/semiBlack"
                         android:textSize="15sp"
                         android:textStyle="normal" />
@@ -322,7 +322,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/detailSet1Con2"
                         android:layout_marginTop="5dp"
-                        android:text="이미지 없음. 이미지를 추가하세요."
+                        android:text="@string/SetGetImageDir_ERROR2"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold" />
 

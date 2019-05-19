@@ -1,12 +1,17 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.Util;
 
 import android.Manifest;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.File;
@@ -45,7 +50,7 @@ public class FileManager {
     }
 
 
-    static int availableImages(Context context) {
+    public static int availableImages(Context context) {
         int imagesCnt = 0;
 
         SharedPreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
@@ -76,11 +81,35 @@ public class FileManager {
         return imagesCnt;
     }
 
-    static int availableDefaultImages() {
-        //MakePreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
-        //String SelectedPath = settings.getString("SelectedPath", "sdcard/");
-        //Log.d("파일의 형식", SelectedPath);
+    public static boolean alreadyDownloaded(String filename) {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AUtoImages/";
 
+        File file = new File(path + filename);
+        if (file.exists()) {
+            return true;
+        }
+        return false;
+
+
+    }
+
+    public static Bitmap getBitmapFromPath(String filename) {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AUtoImages/"+filename;
+       // File file = new File(path + filename);
+        Log.d("FilePath", path);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+
+        Bitmap src = BitmapFactory.decodeFile(path, options);
+
+        //return Bitmap.createScaledBitmap(src, 2560, 1440, true);
+        return src;
+
+    }
+
+
+    public static int availableDefaultImages() {
         final String strSDPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
         File file = new File(strSDPath + "/AUtoGallery");

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.bluetooth.BluetoothClass;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,20 +19,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
-import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
+import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class SetGetImagesDir_layout extends AppCompatActivity implements View.OnClickListener {
@@ -68,11 +65,16 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
     String SelectedPath;
 
+    GetFromGalleryRA adapter;
+
 
     ArrayList<String> imageFilesDe = new ArrayList<>();
 
 
     public void initWork() {
+
+
+
         goPickGallery = findViewById(R.id.goPickGallery);
         listOfPictures = findViewById(R.id.listsOfPictures);
         openFolderBtn = findViewById(R.id.openFolderBtn);
@@ -104,18 +106,17 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
             onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
         }
 
-        if (onlyPhotoUri.size() != 0){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        listOfPictures.setLayoutManager(linearLayoutManager);
+
+
+        if (onlyPhotoUri.size() != 0) {
             warningNoImagesText.setVisibility(View.GONE);
-            listOfPictures.setLayoutManager(new GridLayoutManager(this,3));
-            listOfPictures.setAdapter(new GetFromGalleryRA(this, onlyPhotoUri));
+            listOfPictures.setLayoutManager(new GridLayoutManager(this, 3));
+            adapter = new GetFromGalleryRA(this, onlyPhotoUri);
+            listOfPictures.setAdapter(adapter);
         }
-
-
-
-
-
-
-
 
 
     }
@@ -140,7 +141,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
             returnStr = width + " * " + height + " [QHD] ";
 
         } else {
-            returnStr = "해상도가 너무 높거나 낮으면 힘듭니다.";
+            returnStr = width + " * " + height + " [OVER] ";
         }
 
         return returnStr;
@@ -157,7 +158,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 warningNoImagesPath.setVisibility(View.INVISIBLE);
             }
         } else {
-            int imagesCnt = FileManager.availableDefaultImages();
+            int imagesCnt = (int) FileManager.availableDefaultImages();
             if (imagesCnt == 0) {
                 Log.d("파일 탐색기 결과", "AutoGallery에 사진 없음");
                 warningNoImagesText.setVisibility(View.VISIBLE);
@@ -171,14 +172,11 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setimages_dir);
+        setContentView(R.layout.setgetimages_dir);
         initWork();
 
         settings = this.getSharedPreferences(PREFS_FILE, 0);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        listOfPictures.setLayoutManager(linearLayoutManager);
 
         String resorStr = getDeviceResor();
         showDeviceResor.setText(resorStr);
@@ -194,14 +192,14 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         showCurrDir.setText(SelectedPath);
 
         GET_SETTING = settings.getInt("GetSetting", 0);
-        switch (GET_SETTING){
+        switch (GET_SETTING) {
             case 0:
                 setToDir.setChecked(true);
-                getFromWhatText.setText("사용자가 지정한 폴더에서 불러오고 있습니다.");
+                getFromWhatText.setText(getString(R.string.tab3_showGetFromWhat1));
                 break;
             case 1:
                 setToUserPick.setChecked(true);
-                getFromWhatText.setText("사용자가 선택한 사진을 불러오고 있습니다.");
+                getFromWhatText.setText(getString(R.string.tab3_showGetFromWhat2));
                 break;
 
             case 2:
@@ -211,11 +209,11 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         setToDir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(setToDir.isChecked()){
+                if (setToDir.isChecked()) {
                     //눌려있지 않았던 경우
                     setToUserPick.setChecked(false);
                     GET_SETTING = 0;
-                }else{
+                } else {
                     setToUserPick.setChecked(true);
                     GET_SETTING = 1;
                 }
@@ -225,18 +223,16 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         setToUserPick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(setToUserPick.isChecked()){
+                if (setToUserPick.isChecked()) {
                     //눌려있지 않았던 경우
                     setToDir.setChecked(false);
                     GET_SETTING = 1;
-                }else{
+                } else {
                     setToDir.setChecked(true);
                     GET_SETTING = 0;
                 }
             }
         });
-
-
 
 
     }
@@ -299,6 +295,13 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         saveSetting();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveSetting();
+        initWork();
+    }
+
     // 권한 체크
     public void permissionCheck() {
         //읽기 권한 체크
@@ -316,6 +319,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         }
 
     }
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {

@@ -23,6 +23,7 @@ import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -51,7 +52,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.get_from_gallery_layout);
-
+        Realm.init(this);
         initWork();
         resetBtn.setOnClickListener(this);
         savePhotoBtn.setOnClickListener(this);
@@ -78,12 +79,12 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         realm = Realm.getDefaultInstance();
         photoList = getPhotoList();
 
-        photoOldAdapter = new GetFromGalleryRA(this, photoList, oldPhotosClicked);
+        photoOldAdapter = new GetFromGalleryRA(this, photoList, true);
         oldPhotosList.setAdapter(photoOldAdapter);
 
         if (photoList.size() == 0) {
-            oldPhotosText.setText("사진이 없습니다. 새 사진을 추가하세요.");
-            oldPhotosList.setVisibility(View.GONE);
+            //oldPhotosText.setText("사진이 없습니다. 새 사진을 추가하세요.");
+            //oldPhotosList.setVisibility(View.GONE);
         }
         oldPhotosCnt.setText(photoList.size() + "");
         newPhotosCnt.setText("0");
@@ -95,36 +96,36 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setRecyclerView() {
-        photoNewAdapter = new GetFromGalleryRA(this, pickedLists, newPhotosClicked);
+        photoNewAdapter = new GetFromGalleryRA(this, pickedLists, false);
         newPhotosList.setAdapter(photoNewAdapter);
         newPhotosCnt.setText(pickedLists.size() + "");
 
         photoList = getPhotoList();
 
-        photoOldAdapter = new GetFromGalleryRA(this, photoList, oldPhotosClicked);
+        photoOldAdapter = new GetFromGalleryRA(this, photoList, true);
         oldPhotosList.setAdapter(photoOldAdapter);
         oldPhotosCnt.setText(photoList.size() + "");
 
 
     }
 
-    private View.OnClickListener newPhotosClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //String str = (String) v.getTag();
-            //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
-            getFromGallery.this.makeDeleteDialog(false, photoNewAdapter.getPhotoUri());
-        }
-    };
-
-    private View.OnClickListener oldPhotosClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //String str = (String) v.getTag();
-            //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
-            getFromGallery.this.makeDeleteDialog(true, photoOldAdapter.getPhotoUri());
-        }
-    };
+//    private View.OnClickListener newPhotosClicked = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            //String str = (String) v.getTag();
+//            //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+//            getFromGallery.this.makeDeleteDialog(false, photoNewAdapter.getPhotoUri());
+//        }
+//    };
+//
+//    private View.OnClickListener oldPhotosClicked = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            //String str = (String) v.getTag();
+//            //Toast.makeText(getFromGallery.this, str, Toast.LENGTH_SHORT).show();
+//            getFromGallery.this.makeDeleteDialog(true, photoOldAdapter.;);
+//        }
+//    };
 
     public void makeDeleteDialog(final boolean dataType, String photoUri) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -136,18 +137,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if (dataType) {
-//                        realm.executeTransactionAsync(new Realm.Transaction() {
-//                            @Override
-//                            public void execute(Realm realm) {
-//                                RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).findAll();
-//                                DevicePhotoDTO devicePhotoDTO = photoDTOS.where().equalTo("photoID_d", photoOldAdapter.getPhotoUri()).findFirst();
-//                                Log.d(TAG, photoOldAdapter.getPhotoUri());
-//                                //devicePhotoDTO.();
-//                                //photoOldAdapter.notifyDataSetChanged();
-//
-//                            }
-//                        });
-                            //
+
                             realm.beginTransaction();
                             RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoOldAdapter.getPhotoUri()).findAll();
                             Log.d(TAG, photoDTOS.toString());
@@ -161,18 +151,14 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
                         } else {
                             // new Photos
-                            pickedLists.remove(photoNewAdapter.getPhotoUri());
-                            photoNewAdapter.notifyDataSetChanged();
+//                            pickedLists.remove(photoNewAdapter.getPhotoUri());
+//                            photoNewAdapter.notifyDataSetChanged();
+//                            newPhotosCnt.setText(pickedLists.size() + "");
 
                         }
                         //삭제
                     }
-                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
+                }).setNegativeButton("취소", (dialog, whichButton) -> dialog.cancel());
 
         AlertDialog dialog = builder.create();    // 알림창 객체 생성
         dialog.show();    // 알림창 띄우기
@@ -239,11 +225,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
                         setRecyclerView();
                     }
-                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
+                }).setNegativeButton("취소", (dialog, whichButton) -> dialog.cancel());
 
         AlertDialog copyDialog = copyBuilder.create();    // 알림창 객체 생성
         copyDialog.show();    // 알림창 띄우기

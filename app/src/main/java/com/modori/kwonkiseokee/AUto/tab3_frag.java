@@ -18,6 +18,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.Util.calTimes;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
@@ -167,15 +168,17 @@ public class tab3_frag extends Fragment {
         //String str = " 23fwe";
 
         numPickerView.setText(str);
+        String getCntT = getString(R.string.tab3_showPictGetCnt);
 
-        switch (settings.getInt("GetSetting", 0)){
+
+        switch (settings.getInt("GetSetting", 0)) {
             case 0:
-                showGetFromWhat.setText("사용자가 지정한 폴더에서 불러오고 있습니다.");
-                showGetCnt.setText(+FileManager.availableImages(context) + " 개의 사진 찾음");
+                showGetFromWhat.setText(getString(R.string.tab3_showGetFromWhat1));
+                showGetCnt.setText(+FileManager.availableImages(context) + " " + getCntT);
 
                 break;
             case 1:
-                showGetFromWhat.setText("사용자가 직접 선택한 사진별로 불러오고 있습니다.");
+                showGetFromWhat.setText(getString(R.string.tab3_showGetFromWhat2));
 
                 Realm realm = Realm.getDefaultInstance();
                 List<String> onlyPhotoUri = new ArrayList<>();
@@ -183,16 +186,12 @@ public class tab3_frag extends Fragment {
                 for (int i = 0; i < realmResults.size(); i++) {
                     onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
                 }
-
-                showGetCnt.setText(onlyPhotoUri.size() + " 개의 사진 찾음");
+                showGetCnt.setText(onlyPhotoUri.size() + " " + getCntT);
 
                 break;
 
             case 2:
         }
-
-
-
 
 
         // numPickerView.setText(_DAY + "  " + _day + " " + _HOUR + "  " + _hour + " " + _MIN + "  " + _min);
@@ -457,6 +456,15 @@ public class tab3_frag extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        initWorks();
+        initSet();
+
+
+    }
+
     private void saveFunction() {
 
 
@@ -503,10 +511,10 @@ public class tab3_frag extends Fragment {
             String dialogOkay = getResources().getString(R.string.dialogOkay);
 
             int imageN;
-            if(MakePreferences.getInstance().getSettings().getInt("GetSetting", 0) == 0){
+            if (MakePreferences.getInstance().getSettings().getInt("GetSetting", 0) == 0) {
                 imageN = FileManager.availableImages(context);
 
-            }else{
+            } else {
                 Realm.init(context);
                 Realm realm = Realm.getDefaultInstance();
                 List<String> onlyPhotoUri = new ArrayList<>();

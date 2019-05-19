@@ -372,9 +372,9 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             case R.id.goInfo:
                 //show Dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("이 페이지 설명");
-                builder.setMessage("키워드를 눌러 원하는 키워드를 입력하여 변경할 수 있으며 변경된 키워드를 통해 불러온 사진이 아래 표시됩니다. 최대 6개의 키워드를 동시에 불러올 수 있습니다.");
-                builder.setPositiveButton("알겠습니다.",
+                builder.setTitle(R.string.tab2_DialogTitle);
+                builder.setMessage(R.string.tab2_DialogMessage);
+                builder.setPositiveButton(R.string.tab2_DialogOk,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                             }

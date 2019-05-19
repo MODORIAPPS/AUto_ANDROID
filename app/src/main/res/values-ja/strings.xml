@@ -25,6 +25,50 @@
     <string name="tab_2">探索</string>
     <string name="tab_3">自動設定</string>
 
+    <!-- get_from_gallery_layout -->
+    <string name="allDelteBtn">すべて削除</string>
+    <string name="saveBtn">保存</string>
+    <string name="openGallery">ギャラリー開く</string>
+    <string name="oldPhotosText">保存されている写真の目録</string>
+    <string name="newPhotosText">新しく選択した写真</string>
+
+    <!-- SetGetImageDir -->
+    <string name="SetGetImagedir_ResorV">この端末の解像度</string>
+    <string name="SetGetImagedir_GetV">ロードの方法</string>
+    <string name="SetGetImagedir_GetsV">写真があるファイルを直接選びます。</string>
+
+    <string name="SetGetImageDir_ERROR1">指定された経路でイメージファイルを見つけることができません。</string>
+    <string name="SetGetImageDir_ERROR2">イメージはありません。イメージを追加してください。</string>
+
+    <string name="SetGetImageDir_detailSet1Title">直接選択した写真に指定</string>
+    <string name="SetGetImageDir_detailSet1Con">ギャラリーを開いて写真を選択します。</string>
+    <string name="SetGetImageDir_detailSet1Con2">選択した写真一覧</string>
+
+
+    <!-- PhotoDetail -->
+    <string name="PhotoDetail_DialogTitle">このページについて</string>
+    <string name="PhotoDetail_DialogMessage">写真をダウンロードする場合, 高画質なので,データネットワーク環境では推奨しません。</string>
+    <string name="PhotoDetail_DialogOk">はい</string>
+
+    <string name="PhotoDetail_DialogTitle2">変更する背景画面の位置</string>
+    <string name="PhotoDetail_DialogItem1">ロック画面のみ</string>
+    <string name="PhotoDetail_DialogItem2">一般画面のみ</string>
+    <string name="PhotoDetail_DialogItem3">すべて</string>
+
+    <string name="PhotoDeatil_Downloading">イメージをダウンロードしています。。。</string>
+
+
+    <!-- ListsPfPhotos -->
+    <string name="ListsPfPhotos_DialogTitle">このページについて</string>
+    <string name="ListsPfPhotos_DialogMessage">写真をクリックして詳しい情報が確認できます。</string>
+    <string name="ListsPfPhotos_DialogOk">はい</string>
+
+    <!-- tab2_frag -->
+    <string name="tab2_toolbarText">新たな写真を探索</string>
+    <string name="tab2_DialogTitle">このページについて</string>
+    <string name="tab2_DialogMessage">キーワードをクリックし,目的のキーワードを入力し,変更することができ,変更されたキーワードから呼ばれた写真が下に表示されます。 最大6つのキーワードを同時に読み込むことができます。</string>
+    <string name="tab2_DialogOk">はい</string>
+
     <!-- tab3_frag -->
     <string name="tab3_detailSet1Title">再起動のあと自動実行</string>
     <string name="tab3_detailSet1Con">再起動のあと自動にサビスを実行します。</string>
@@ -50,6 +94,12 @@
     <string name="tab3_snackBar2">保存しました。</string>
 
     <string name="tab3_alertStartService">サビスが開始され</string>
+
+    <string name="tab3_detailSet4Title">写真のロード方法</string>
+
+    <string name="tab3_showGetFromWhat1">選択したフォルダからロードしています。</string>
+    <string name="tab3_showGetFromWhat2">選択した写真たちをロードしています。</string>
+    <string name="tab3_showPictGetCnt">　個の写真探したこと</string>
 
     <!--라이선스 표시 페이지-->
     <string name="mainTitle">いつも新たな気持ちのために。</string>

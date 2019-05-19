@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
@@ -40,38 +41,33 @@ public class SetWallpaperJob extends BroadcastReceiver {
     Realm realm;
 
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO Auto-generated method stub
-        MakePreferences.getInstance().setSettings(context);
-        Realm.init(context);
+        Context mContext = context.getApplicationContext();
+        MakePreferences.getInstance().setSettings(mContext);
+        Realm.init(mContext);
         realm = Realm.getDefaultInstance();
 
         //load preferences
         SelectedPath = MakePreferences.getInstance().getSettings().getString("SelectedPath", "/system");
         ShuffleMode = MakePreferences.getInstance().getSettings().getBoolean("ShuffleMode", false);
+        int getIndex = MakePreferences.getInstance().getSettings().getInt("GET_INDEX", 0);
 
         Log.d("SetWallpaperJob", "신호 받음");
+
         GET_SETTING = MakePreferences.getInstance().getSettings().getInt("GetSetting", 0);
         if (GET_SETTING == 0) {
             // 사용자가 선택한 폴더에서 불러온다.
             try {
 
-
                 String FileName;
-
                 File file = new File(SelectedPath);
-
                 File[] imageFiles = file.listFiles();
-
                 for (int i = 0; i < imageFiles.length; i++) {
-
                     file = imageFiles[i];
-
                     Log.d("찾는 for 문 진입 ", String.valueOf(i));
                     //File file = files[i];
-
                     if (file.canRead()) {
                         for (int k = 0; k <= 3; k++) {
                             String checkFile = okFileExtensions[k];
@@ -82,10 +78,7 @@ public class SetWallpaperJob extends BroadcastReceiver {
                         }
                     }
                 }
-
-                //
                 if (imageFiles.length > 0) {
-
                     if (ShuffleMode) {
                         final Random myRandom = new Random();
                         FileNumber = myRandom.nextInt(imageFiles.length);
@@ -97,7 +90,7 @@ public class SetWallpaperJob extends BroadcastReceiver {
                         FileNumber = 0;
 
                     final WallpaperManager wallpaperManager =
-                            WallpaperManager.getInstance(context);
+                            WallpaperManager.getInstance(mContext);
 
 
                     Bitmap myBitmap =
@@ -106,12 +99,12 @@ public class SetWallpaperJob extends BroadcastReceiver {
                     wallpaperManager.setBitmap(myBitmap);
 
                 } else {
-                    String alert = context.getResources().getString(R.string.noImageAlert);
+                    String alert = mContext.getResources().getString(R.string.noImageAlert);
                     throw new Exception(alert);
                 }
 
             } catch (Exception ae) {
-                Toast.makeText(context, ae.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, ae.getMessage(), Toast.LENGTH_LONG).show();
             }
         } else if (GET_SETTING == 1) {
             // 사용자가 갤러리에서 선택한 사진을 불러온다.
@@ -122,16 +115,33 @@ public class SetWallpaperJob extends BroadcastReceiver {
                 onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
             }
 
+
+            if(ShuffleMode){
+                Random random = new Random();
+                getIndex = random.nextInt(onlyPhotoUri.size()+1);
+            }else{
+                if (getIndex >= onlyPhotoUri.size()-1) {
+                    getIndex = 0;
+                    MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
+                } else {
+                    ++getIndex;
+                    MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
+                }
+
+            }
+
+            getIndex = MakePreferences.getInstance().getSettings().getInt("GET_INDEX", 0);
+
             Bitmap bitmap = null;
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(onlyPhotoUri.get(0)));
+                bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(onlyPhotoUri.get(getIndex)));
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d(TAG, e.getMessage());
             }
 
             WallpaperManager wallpaperManager =
-                    WallpaperManager.getInstance(context);
+                    WallpaperManager.getInstance(mContext);
 
             try {
                 wallpaperManager.setBitmap(bitmap);
@@ -158,5 +168,35 @@ public class SetWallpaperJob extends BroadcastReceiver {
             return name.endsWith(ext);
         }
     }
+
+    public static void setWallPaper(Context context, Bitmap image, int flag) {
+
+        Context mContext = context.getApplicationContext();
+
+        final WallpaperManager wallpaperManager =
+                WallpaperManager.getInstance(mContext);
+
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                if (flag > 90) {
+                    wallpaperManager.setBitmap(image);
+
+                }
+                wallpaperManager.setBitmap(image, null, true, flag);
+                return;
+            }
+
+            wallpaperManager.setBitmap(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void cropImage(String photoUri) {
+
+    }
+
+
 
 }//end main class
