@@ -50,13 +50,14 @@ public class SetWallpaperJob extends BroadcastReceiver {
         realm = Realm.getDefaultInstance();
 
         //load preferences
+        GET_SETTING = MakePreferences.getInstance().getSettings().getInt("GetSetting", 0);
         SelectedPath = MakePreferences.getInstance().getSettings().getString("SelectedPath", "/system");
         ShuffleMode = MakePreferences.getInstance().getSettings().getBoolean("ShuffleMode", false);
-        int getIndex = MakePreferences.getInstance().getSettings().getInt("GET_INDEX", 0);
+        //int getIndex = MakePreferences.getInstance().getSettings().getInt("GET_INDEX", 0);
+        int getIndex = 0;
 
         Log.d("SetWallpaperJob", "신호 받음");
 
-        GET_SETTING = MakePreferences.getInstance().getSettings().getInt("GetSetting", 0);
         if (GET_SETTING == 0) {
             // 사용자가 선택한 폴더에서 불러온다.
             try {
@@ -115,22 +116,25 @@ public class SetWallpaperJob extends BroadcastReceiver {
                 onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
             }
 
+            Log.d("OnlyPhotoUri", String.valueOf(onlyPhotoUri));
+
 
             if(ShuffleMode){
                 Random random = new Random();
                 getIndex = random.nextInt(onlyPhotoUri.size()+1);
             }else{
-                if (getIndex >= onlyPhotoUri.size()-1) {
+                if (getIndex > onlyPhotoUri.size()-1) {
                     getIndex = 0;
                     MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
                 } else {
-                    ++getIndex;
+                    getIndex = getIndex + 1;
                     MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
                 }
 
             }
 
-            getIndex = MakePreferences.getInstance().getSettings().getInt("GET_INDEX", 0);
+            //getIndex = MakePreferences.getInstance().getSettings().getInt("GET_INDEX", 0);
+            Log.d("getIndex", "Indexis"+getIndex);
 
             Bitmap bitmap = null;
             try {

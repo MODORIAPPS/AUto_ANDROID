@@ -15,17 +15,6 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/resetBtn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorAccent"
-            android:text="@string/allDelteBtn"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <Button
             android:id="@+id/savePhotoBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -71,7 +60,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/oldPhotosCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +67,8 @@
                 android:text="n개"
                 android:textColor="@color/semiBlack"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -102,10 +91,10 @@
         android:background="@drawable/gray_shape" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
+        android:orientation="vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
@@ -123,7 +112,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/newPhotosCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,7 +119,8 @@
                 android:text="n개"
                 android:textColor="@color/semiBlack"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

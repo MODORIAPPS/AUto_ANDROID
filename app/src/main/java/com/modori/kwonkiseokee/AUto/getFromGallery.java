@@ -42,7 +42,6 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
     RecyclerView newPhotosList;
     RecyclerView oldPhotosList;
-    Button resetBtn;
     Button savePhotoBtn;
     Button openGalleryBtn;
 
@@ -54,13 +53,11 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.get_from_gallery_layout);
         Realm.init(this);
         initWork();
-        resetBtn.setOnClickListener(this);
         savePhotoBtn.setOnClickListener(this);
         openGalleryBtn.setOnClickListener(this);
     }
 
     public void initWork() {
-        resetBtn = findViewById(R.id.resetBtn);
         savePhotoBtn = findViewById(R.id.savePhotoBtn);
         openGalleryBtn = findViewById(R.id.openGalleryBtn);
         newPhotosList = findViewById(R.id.newPhotos);
@@ -168,10 +165,6 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.resetBtn:
-                makeResetDialog();
-                break;
-
             case R.id.savePhotoBtn:
                 makeSaveDialog();
                 break;
@@ -186,36 +179,13 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
         }
     }
-
-    public void makeResetDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle("가져온 사진 초기화")        // 제목 설정
-                .setMessage("갤러리에서 가져온 사진을 초기화 합니까?")        // 메세지 설정
-                .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //삭제
-                    }
-                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
-
-        AlertDialog dialog = builder.create();    // 알림창 객체 생성
-        dialog.show();    // 알림창 띄우기
-
-
-    }
-
     public void makeSaveDialog() {
         AlertDialog.Builder copyBuilder = new AlertDialog.Builder(this);
 
-        copyBuilder.setTitle("가져온 사진을 저장")        // 제목 설정
-                .setMessage("갤러리에서 가져온 사진을 모두 저장합니다.")       // 메세지 설정
+        copyBuilder.setTitle(getString(R.string.saveDialogTitle))        // 제목 설정
+                .setMessage(getString(R.string.saveDialogMessage))       // 메세지 설정
                 .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.saveDialogPosi), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         savePhotos(pickedLists);
                         newPhotosCnt.setText("0");
@@ -225,7 +195,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
                         setRecyclerView();
                     }
-                }).setNegativeButton("취소", (dialog, whichButton) -> dialog.cancel());
+                }).setNegativeButton(getString(R.string.saveDialogNega), (dialog, whichButton) -> dialog.cancel());
 
         AlertDialog copyDialog = copyBuilder.create();    // 알림창 객체 생성
         copyDialog.show();    // 알림창 띄우기

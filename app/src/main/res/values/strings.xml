@@ -40,6 +40,11 @@
     <string name="oldPhotosText">List of saved pictures</string>
     <string name="newPhotosText">The newly selected pictures.</string>
 
+    <string name="saveDialogTitle">Save imported pictures</string>
+    <string name="saveDialogMessage">Save all of the pictures that you have imported from the gallery.</string>
+    <string name="saveDialogPosi">OK</string>
+    <string name="saveDialogNega">Cancel</string>
+
 
     <!-- PhotoDetail -->
     <string name="PhotoDetail_DialogTitle">About this Page</string>

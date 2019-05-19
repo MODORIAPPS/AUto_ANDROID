@@ -40,6 +40,11 @@
     <string name="oldPhotosText">저장되어 있는 사진 목록</string>
     <string name="newPhotosText">새롭게 선택한 사진</string>
 
+    <string name="saveDialogTitle">사진</string>
+    <string name="saveDialogMessage">갤러리에서 가져온 사진을 모두 저장합니다.</string>
+    <string name="saveDialogPosi">네</string>
+    <string name="saveDialogNega">취소</string>
+
     <!-- PhotoDetail -->
     <string name="PhotoDetail_DialogTitle">이 페이지 설명</string>
     <string name="PhotoDetail_DialogMessage">사진을 다운로드 할경우 고화질이므로 데이터 네트워크 환경에서는 권장하지 않습니다.</string>

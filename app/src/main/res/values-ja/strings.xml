@@ -32,6 +32,11 @@
     <string name="oldPhotosText">保存されている写真の目録</string>
     <string name="newPhotosText">新しく選択した写真</string>
 
+    <string name="saveDialogTitle">写真保存</string>
+    <string name="saveDialogMessage">ギャラリーから持ってきた写真をすべて保存します。</string>
+    <string name="saveDialogPosi">はい</string>
+    <string name="saveDialogNega">キャンセル</string>
+
     <!-- SetGetImageDir -->
     <string name="SetGetImagedir_ResorV">この端末の解像度</string>
     <string name="SetGetImagedir_GetV">ロードの方法</string>
