@@ -11,7 +11,7 @@ android {
         applicationId "com.modori.kwonkiseokee.AUto"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 4
+        versionCode 5
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

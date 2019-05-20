@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.modori.kwonkiseokee.AUto"
-    android:versionName="1.5.4">
+    android:versionName="1.6.6">
     <!-- 버전 코드 설명 https://mainia.tistory.com/4925 -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -12,9 +12,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/appicon_default"
+        android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/appicon_rounded"
+        android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme"
@@ -28,7 +28,6 @@
             android:name=".ListsOfPhotos"
             android:configChanges="screenSize|orientation" />
         <activity android:name=".LicensePage" />
-        <activity android:name=".SplashActivity" />
         <activity android:name=".SelectFolder" />
         <activity android:name=".MainActivity">
             <intent-filter>

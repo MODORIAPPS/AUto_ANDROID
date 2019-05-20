@@ -4,27 +4,17 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
-import com.modori.kwonkiseokee.AUto.ViewPager.SplashViewpagerAdapter;
-import com.modori.kwonkiseokee.AUto.ViewPager.ViewPagerAdapter;
 
 import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
 
@@ -46,11 +36,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = this.getSharedPreferences(PREFS_FILE, 0);
         boolean firstLaunch = settings.getBoolean("FirstLaunch", false);
         SharedPreferences.Editor editor = settings.edit();
-
-        if (!firstLaunch) {
-            Intent intent = new Intent(this, SplashActivity.class);
-            startActivity(intent);
-        }
 
         permissionCheck();
 

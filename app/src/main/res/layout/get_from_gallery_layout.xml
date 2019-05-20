@@ -22,7 +22,7 @@
             android:background="#FFBC42"
             android:text="@string/saveBtn"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="17sp"
 
             android:textStyle="bold" />
 
@@ -34,7 +34,7 @@
             android:background="#30A9DE"
             android:text="@string/openGallery"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
     </LinearLayout>
 
