@@ -31,6 +31,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
+import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
 
@@ -49,7 +50,7 @@ import retrofit2.Response;
 
 public class PhotoDetail extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView detailImageView, goBackBtn, goInfo;
+    ImageView detailImageView, goBackBtn, goInfo, goSettings;
     Context context;
     String photoID, downloadUrl, regularUrl;
     String authorProfileUrl, authorName;
@@ -66,20 +67,24 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     FloatingActionButton fab1, fab2, fab3;
 
     String filename;
+    PhotoSearchID results;
 
 
     boolean action = false;
 
     int CHANGE_TYPE;
+    int DOWNLOAD_TYPE = 1;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_detail);
+
         Intent intent = getIntent();
         photoID = intent.getExtras().getString("id");
-
+        context = this;
+        MakePreferences.getInstance().setSettings(context);
         Log.d("받은 id", photoID);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
@@ -87,12 +92,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         fab1 = findViewById(R.id.fab1);
         fab2 = findViewById(R.id.fab2);
         fab3 = findViewById(R.id.fab3);
-
         goInfo = findViewById(R.id.goInfo);
-
-        context = this;
         goBackBtn = findViewById(R.id.goBackBtn);
-
         detailImageView = findViewById(R.id.detailImageView);
         heartCntV = findViewById(R.id.heartCnt);
         downloadCntV = findViewById(R.id.downloadsCnt);
@@ -103,12 +104,15 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         imagePColorV = findViewById(R.id.imagePColorV);
         photoDescriptionV = findViewById(R.id.photoDescription);
         photoSizeV = findViewById(R.id.photoSizeV);
-        filename = photoID + "_" + "Full_" + ".jpeg";
+        goSettings = findViewById(R.id.goSetting);
 
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
         goInfo.setOnClickListener(this);
+        goSettings.setOnClickListener(this);
+
+        DOWNLOAD_TYPE = MakePreferences.getInstance().getSettings().getInt("DOWNLOAD_TYPE", 1);
 
 
         if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(PhotoDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) { // asks primission to use the devices camera
@@ -125,8 +129,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             public void onResponse(Call<PhotoSearchID> call, Response<PhotoSearchID> response) {
                 if (response.isSuccessful()) {
                     //photoUrl[0] = (Results) response.body().getResults();
-                    PhotoSearchID results = response.body();
-                    downloadUrl = results.getUrls().getFull();
+                    results = response.body();
+                    //downloadUrl = results.getUrls().getFull();
                     regularUrl = results.getUrls().getRegular();
 
                     heartCntV.setText(results.getLikes() + "");
@@ -144,6 +148,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                     Log.d("포토 디테일", "잘 가져옴");
                     Log.d("포토 디테일 id ", results.getId());
                     Glide.with(getApplicationContext()).load(results.getUrls().getRegular()).into(detailImageView);
+
+                    getDownloadUrl(results);
 
 
                 }
@@ -198,6 +204,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
             case R.id.fab2:
                 anim();
+                downloadUrl = getDownloadUrl(results);
                 action = false;
                 if (FileManager.alreadyDownloaded(filename)) {
                     //이미 있는 경우
@@ -224,6 +231,11 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                         });
 
                 builder.show();
+                break;
+
+            case R.id.goSetting:
+                settingAction();
+                break;
         }
     }
 
@@ -290,6 +302,50 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    private void settingAction() {
+        List<String> ListItems = new ArrayList<>();
+        ListItems.add("RAW");
+        ListItems.add("FULL");
+        ListItems.add("REGULAR");
+        CharSequence[] items = ListItems.toArray(new String[ListItems.size()]);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("사진 다운로드 품질을 선택하세요.");
+        //builder.setMessage("이 설정은 유지됩니다. 언제든지 변경할 수 있습니다.");
+        builder.setItems(items, (dialog, pos) -> {
+            //String selectedText = items[pos].toString();
+            switch (pos) {
+                case 0:
+                    // RAW
+                    DOWNLOAD_TYPE = 0;
+                    break;
+
+
+                case 1:
+                    // FULL
+                    DOWNLOAD_TYPE = 1;
+                    break;
+
+                case 2:
+                    // REGULAR
+                    DOWNLOAD_TYPE = 2;
+                    break;
+
+                default:
+                    break;
+
+            }
+
+            Log.d("DOWNLOAD_TYPE상태", DOWNLOAD_TYPE + "");
+
+            getDownloadUrl(results);
+            MakePreferences.getInstance().getSettings().edit().putInt("DOWNLOAD_TYPE", DOWNLOAD_TYPE).apply();
+
+
+        });
+        builder.show();
+    }
+
     private void fab3Action() {
 
         List<String> ListItems = new ArrayList<>();
@@ -322,6 +378,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             if (FileManager.alreadyDownloaded(filename)) {
                 SetWallpaperJob.setWallPaper(context, FileManager.getBitmapFromPath(filename), CHANGE_TYPE);
             } else {
+                downloadUrl = getDownloadUrl(results);
                 new downloadImage().execute(downloadUrl);
 
             }
@@ -330,6 +387,30 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         });
         builder.show();
 
+
+    }
+
+    private String getDownloadUrl(PhotoSearchID results) {
+        int DOWNLOAD_TYPE = MakePreferences.getInstance().getSettings().getInt("DOWNLOAD_TYPE", 1);
+
+        if (DOWNLOAD_TYPE == 0) {
+            // FULL
+            downloadUrl = results.getUrls().getRaw();
+            filename = photoID + "_" + "Raw_" + ".jpeg";
+
+        } else if (DOWNLOAD_TYPE == 1) {
+            filename = photoID + "_" + "Full_" + ".jpeg";
+            downloadUrl = results.getUrls().getFull();
+        } else if (DOWNLOAD_TYPE == 2) {
+            filename = photoID + "_" + "Regular_" + ".jpeg";
+
+            downloadUrl = results.getUrls().getRegular();
+        }
+
+        Log.d("DOWNLOAD_TYPE", DOWNLOAD_TYPE + "");
+        Log.d("DOWNLOAD_URL", downloadUrl);
+
+        return downloadUrl;
 
     }
 
@@ -348,5 +429,6 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
+
 
 }
