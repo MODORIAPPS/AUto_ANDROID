@@ -213,12 +213,22 @@
                     android:text="#FED09B"
                     android:textColor="@color/semiBlack" />
 
-                <ImageView
+                <View
                     android:id="@+id/imagePColorV"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp" />
+
+                <Button
+                    android:id="@+id/copyColorBtn"
+                    android:layout_width="65dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/background_theme"
+                    android:text="COPY"
+                    android:textColor="@color/gray" />
 
 
             </LinearLayout>
@@ -255,9 +265,10 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout
+
             android:layout_width="111dp"
             android:layout_height="437dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
@@ -269,6 +280,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
+
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="160dp"
                 android:src="@drawable/settings_system_icon"
@@ -293,7 +305,7 @@
                 app:pressedTranslationZ="12dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab1"
+                android:id="@+id/actionFab1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"

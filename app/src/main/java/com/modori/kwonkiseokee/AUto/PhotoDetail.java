@@ -2,6 +2,7 @@ package com.modori.kwonkiseokee.AUto;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -9,6 +10,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +63,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
     TextView heartCntV, downloadCntV, authorNameV;
     TextView uploadedDateV, photoColorV, photoDescriptionV, photoSizeV;
-    ImageView imagePColorV;
+    View imagePColorV, infoLayout;
     CircleImageView authorProfile;
 
     Animation fab_open, fab_close;
@@ -69,6 +73,9 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     String filename;
     PhotoSearchID results;
 
+    Toolbar toolbar;
+
+    Button copyColorBtn;
 
     boolean action = false;
 
@@ -89,7 +96,10 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
 
-        fab1 = findViewById(R.id.fab1);
+        copyColorBtn = findViewById(R.id.copyColorBtn);
+        infoLayout = findViewById(R.id.linearLayout);
+        toolbar = findViewById(R.id.toolbar);
+        fab1 = findViewById(R.id.actionFab1);
         fab2 = findViewById(R.id.fab2);
         fab3 = findViewById(R.id.fab3);
         goInfo = findViewById(R.id.goInfo);
@@ -106,6 +116,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         photoSizeV = findViewById(R.id.photoSizeV);
         goSettings = findViewById(R.id.goSetting);
 
+        copyColorBtn.setOnClickListener(this);
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
         fab3.setOnClickListener(this);
@@ -113,6 +124,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         goSettings.setOnClickListener(this);
 
         DOWNLOAD_TYPE = MakePreferences.getInstance().getSettings().getInt("DOWNLOAD_TYPE", 1);
+
+        fab1.setClickable(false);
 
 
         if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(PhotoDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) { // asks primission to use the devices camera
@@ -141,7 +154,10 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                     photoDescriptionV.setText(results.getDescription());
                     uploadedDateV.setText(results.getCreate_at());
                     photoColorV.setText(results.getColor());
-                    imagePColorV.setBackgroundColor(Color.parseColor(results.getColor()));
+
+                    int color  = Color.parseColor(results.getColor());
+
+                    imagePColorV.setBackgroundColor(color);
                     photoSizeV.setText(results.getWidth() + " * " + results.getHeight());
 
 
@@ -150,6 +166,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                     Glide.with(getApplicationContext()).load(results.getUrls().getRegular()).into(detailImageView);
 
                     getDownloadUrl(results);
+                    fab1.setClickable(true);
 
 
                 }
@@ -197,9 +214,16 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fab1:
+            case R.id.actionFab1:
                 Log.d("fab1", "눌림");
-                anim();
+                if (!fab1.isClickable()) {
+                    Toast.makeText(PhotoDetail.this, "사진을 다 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    anim();
+
+                }
+
                 break;
 
             case R.id.fab2:
@@ -235,6 +259,10 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
             case R.id.goSetting:
                 settingAction();
+                break;
+
+            case R.id.copyColorBtn:
+                setClipBoardLink(context, results.getColor());
                 break;
         }
     }
@@ -273,9 +301,10 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
         protected Bitmap doInBackground(String... args) {
             try {
-                mBitmap = BitmapFactory
-                        .decodeStream((InputStream) new URL(args[0])
-                                .getContent());
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+
+                mBitmap = BitmapFactory.decodeStream((InputStream) new URL(args[0]).getContent());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -429,6 +458,17 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
+
+    public static void setClipBoardLink(Context context , String link){
+
+        ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("label", link);
+        clipboardManager.setPrimaryClip(clipData);
+        Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
+
+    }
+
+
 
 
 }

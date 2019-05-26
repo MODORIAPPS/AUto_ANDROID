@@ -98,10 +98,25 @@ public class FileManager {
        // File file = new File(path + filename);
         Log.d("FilePath", path);
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        Bitmap myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName, options);
+//
+//        Log.d("이미지의 폭" , options.outWidth+"");
+//        Log.d("이미지의 높이" , options.outHeight+"");
+//
+//        options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight);
+//        myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName);
 
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
         Bitmap src = BitmapFactory.decodeFile(path, options);
+
+        options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight);
+
+        src = BitmapFactory.decodeFile(path);
+
+
 
         //return Bitmap.createScaledBitmap(src, 2560, 1440, true);
         return src;
@@ -168,5 +183,23 @@ public class FileManager {
         imageUri = Uri.fromFile(imageFiles[position]);
 
         return imageUri;
+    }
+
+    public static int makeBitmapSmall(int outWidth, int outHeight){
+
+        int screenWidth = 1440;
+        int screenHeight = 2560;
+
+        // 원본 이미지 비율인 1로 초기화
+        int size = 1;
+
+        // 해상도가 깨지지 않을만한 요구되는 사이즈까지 2의 배수의 값으로 원본 이미지를 나눈다.
+        while(outWidth < screenWidth|| outHeight < screenHeight){
+            outWidth = outWidth / 2;
+            outHeight = outHeight / 2;
+
+            size = size * 2;
+        }
+        return size;
     }
 }

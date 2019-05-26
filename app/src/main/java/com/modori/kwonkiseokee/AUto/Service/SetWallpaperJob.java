@@ -27,11 +27,11 @@ import java.util.Random;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import static com.modori.kwonkiseokee.AUto.Util.FileManager.makeBitmapSmall;
+
 public class SetWallpaperJob extends BroadcastReceiver {
 
     private final String[] okFileExtensions = new String[]{"jpg", "jpeg", "png", "gif"};
-
-
     public static final String PREFS_FILE = "PrefsFile";
     String SelectedPath;
     String TAG = "SetWallpaperJob";
@@ -93,9 +93,17 @@ public class SetWallpaperJob extends BroadcastReceiver {
                     final WallpaperManager wallpaperManager =
                             WallpaperManager.getInstance(mContext);
 
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inJustDecodeBounds = true;
+                    Bitmap myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName, options);
 
-                    Bitmap myBitmap =
-                            BitmapFactory.decodeFile(SelectedPath + "/" + FileName);
+                    Log.d("이미지의 폭" , options.outWidth+"");
+                    Log.d("이미지의 높이" , options.outHeight+"");
+
+                    options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight);
+                    myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName);
+
+
 
                     wallpaperManager.setBitmap(myBitmap);
 
@@ -133,12 +141,15 @@ public class SetWallpaperJob extends BroadcastReceiver {
 
             }
 
-            //getIndex = MakePreferences.getInstance().getSettings().getInt("GET_INDEX", 0);
             Log.d("getIndex", "Indexis"+getIndex);
+
+
+
 
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(onlyPhotoUri.get(getIndex)));
+
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d(TAG, e.getMessage());
@@ -160,18 +171,17 @@ public class SetWallpaperJob extends BroadcastReceiver {
 
     }//end onReceive
 
-
-    private class OnlyExt implements FilenameFilter {
-        String ext;
-
-        public OnlyExt(String ext) {
-            this.ext = "." + ext;
-        }
-
-        public boolean accept(File dir, String name) {
-            return name.endsWith(ext);
-        }
-    }
+//    private class OnlyExt implements FilenameFilter {
+//        String ext;
+//
+//        public OnlyExt(String ext) {
+//            this.ext = "." + ext;
+//        }
+//
+//        public boolean accept(File dir, String name) {
+//            return name.endsWith(ext);
+//        }
+//    }
 
     public static void setWallPaper(Context context, Bitmap image, int flag) {
 
@@ -197,10 +207,11 @@ public class SetWallpaperJob extends BroadcastReceiver {
     }
 
 
+
     public void cropImage(String photoUri) {
 
     }
 
 
 
-}//end main class
+}

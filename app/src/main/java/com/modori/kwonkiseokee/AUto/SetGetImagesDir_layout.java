@@ -114,7 +114,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         if (onlyPhotoUri.size() != 0) {
             warningNoImagesText.setVisibility(View.GONE);
             listOfPictures.setLayoutManager(new GridLayoutManager(this, 3));
-            adapter = new GetFromGalleryRA(this, onlyPhotoUri);
+            adapter = new GetFromGalleryRA(this, onlyPhotoUri,true);
             listOfPictures.setAdapter(adapter);
         }
 
@@ -206,31 +206,25 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 getFromWhatText.setText("사용자가 다운로드 받은 사진을 불러오고 있습니다.");
         }
 
-        setToDir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (setToDir.isChecked()) {
-                    //눌려있지 않았던 경우
-                    setToUserPick.setChecked(false);
-                    GET_SETTING = 0;
-                } else {
-                    setToUserPick.setChecked(true);
-                    GET_SETTING = 1;
-                }
+        setToDir.setOnClickListener(v -> {
+            if (setToDir.isChecked()) {
+                //눌려있지 않았던 경우
+                setToUserPick.setChecked(false);
+                GET_SETTING = 0;
+            } else {
+                setToUserPick.setChecked(true);
+                GET_SETTING = 1;
             }
         });
 
-        setToUserPick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (setToUserPick.isChecked()) {
-                    //눌려있지 않았던 경우
-                    setToDir.setChecked(false);
-                    GET_SETTING = 1;
-                } else {
-                    setToDir.setChecked(true);
-                    GET_SETTING = 0;
-                }
+        setToUserPick.setOnClickListener(v -> {
+            if (setToUserPick.isChecked()) {
+                //눌려있지 않았던 경우
+                setToDir.setChecked(false);
+                GET_SETTING = 1;
+            } else {
+                setToDir.setChecked(true);
+                GET_SETTING = 0;
             }
         });
 
