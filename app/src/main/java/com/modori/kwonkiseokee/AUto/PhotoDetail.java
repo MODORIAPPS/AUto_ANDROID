@@ -62,7 +62,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     String TAG = "포토 디테일 액티비티";
 
     TextView heartCntV, downloadCntV, authorNameV;
-    TextView uploadedDateV, photoColorV, photoDescriptionV, photoSizeV;
+    TextView uploadedDateV, photoColorV, photoDescriptionV, photoSizeV, downloadTypeView;
     View imagePColorV, infoLayout;
     CircleImageView authorProfile;
 
@@ -115,6 +115,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         photoDescriptionV = findViewById(R.id.photoDescription);
         photoSizeV = findViewById(R.id.photoSizeV);
         goSettings = findViewById(R.id.goSetting);
+        downloadTypeView = findViewById(R.id.downloadTypeView);
 
         copyColorBtn.setOnClickListener(this);
         fab1.setOnClickListener(this);
@@ -128,6 +129,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         fab1.setClickable(false);
 
 
+        setDownloadTypeView();
         if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(PhotoDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) { // asks primission to use the devices camera
             Log.d(TAG, "쓰기 권한 확인");
 
@@ -155,7 +157,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                     uploadedDateV.setText(results.getCreate_at());
                     photoColorV.setText(results.getColor());
 
-                    int color  = Color.parseColor(results.getColor());
+                    int color = Color.parseColor(results.getColor());
 
                     imagePColorV.setBackgroundColor(color);
                     photoSizeV.setText(results.getWidth() + " * " + results.getHeight());
@@ -189,6 +191,29 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         });
 
 
+    }
+
+    private void setDownloadTypeView() {
+        String mdownloadType;
+        int downloadtype = MakePreferences.getInstance().getSettings().getInt("DOWNLOAD_TYPE", 1);
+        switch (downloadtype) {
+            case 0:
+                mdownloadType = "RAW";
+                break;
+            case 1:
+                mdownloadType = "FULL";
+                break;
+            case 2:
+                mdownloadType = "REGULAR";
+                break;
+
+            default:
+                mdownloadType = "NOT";
+                break;
+
+        }
+
+        downloadTypeView.setText(mdownloadType);
     }
 
     private void saveImage(Bitmap imageToSave, String fileName) {
@@ -369,6 +394,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
             getDownloadUrl(results);
             MakePreferences.getInstance().getSettings().edit().putInt("DOWNLOAD_TYPE", DOWNLOAD_TYPE).apply();
+            setDownloadTypeView();
 
 
         });
@@ -459,16 +485,14 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public static void setClipBoardLink(Context context , String link){
+    public static void setClipBoardLink(Context context, String link) {
 
-        ClipboardManager clipboardManager = (ClipboardManager)context.getSystemService(context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(context.CLIPBOARD_SERVICE);
         ClipData clipData = ClipData.newPlainText("label", link);
         clipboardManager.setPrimaryClip(clipData);
         Toast.makeText(context, "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show();
 
     }
-
-
 
 
 }
