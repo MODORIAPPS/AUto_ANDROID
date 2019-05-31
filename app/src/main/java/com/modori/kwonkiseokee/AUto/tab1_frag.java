@@ -14,6 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
@@ -28,6 +31,7 @@ public class tab1_frag extends Fragment {
     RecyclerView pickedRV;
     Context mContext;
     TextView noImagesWarning2;
+    AdView adView;
 
     View view;
     @Nullable
@@ -36,6 +40,16 @@ public class tab1_frag extends Fragment {
         view = inflater.inflate(R.layout.tab1_frag, container,false);
         mContext = getActivity();
         Realm.init(mContext);
+
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        String ads_app = getResources().getString(R.string.ads_app);
+        MobileAds.initialize(mContext, ads_app);
+        adView = view.findViewById(R.id.adView_frag1);
+        adView.loadAd(adRequest);
+
+
+
 
         pickedRV = view.findViewById(R.id.pickedRV);
         noImagesWarning2 = view.findViewById(R.id.noPickedImagesWarning);
@@ -68,5 +82,11 @@ public class tab1_frag extends Fragment {
             GetFromGalleryRA adapter = new GetFromGalleryRA(mContext, onlyPhotoUri, true);
             pickedRV.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
     }
 }

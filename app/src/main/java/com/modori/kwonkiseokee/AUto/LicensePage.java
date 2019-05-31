@@ -20,7 +20,6 @@ public class LicensePage extends AppCompatActivity implements View.OnClickListen
     ImageView backBtn;
     ImageView githubBtn;
 
-    TextView credit1;
     TextView credit2;
 
 
@@ -32,12 +31,10 @@ public class LicensePage extends AppCompatActivity implements View.OnClickListen
 
         backBtn = findViewById(R.id.backBtn);
         githubBtn = findViewById(R.id.githubBtn);
-        credit1 = findViewById(R.id.credit1);
         credit2 = findViewById(R.id.credit2);
 
         githubBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
-        credit1.setOnClickListener(this);
         credit2.setOnClickListener(this);
     }
 
@@ -48,11 +45,6 @@ public class LicensePage extends AppCompatActivity implements View.OnClickListen
 
             case R.id.backBtn:
                 finish();
-                break;
-
-            case R.id.credit1:
-                Intent credit1 = new Intent(Intent.ACTION_VIEW, Uri.parse("https://raw.githubusercontent.com/airbnb/lottie-android/master/LICENSE"));
-                startActivity(credit1);
                 break;
 
             case R.id.credit2:

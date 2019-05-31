@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -18,7 +20,14 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme"
+        android:largeHeap="true"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
+
+
         <activity android:name=".showPhotoOnly" />
         <activity android:name=".getFromGallery" />
         <activity android:name=".SetGetImagesDir_layout" />
@@ -29,7 +38,7 @@
             android:configChanges="screenSize|orientation" />
         <activity android:name=".LicensePage" />
         <activity android:name=".SelectFolder" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

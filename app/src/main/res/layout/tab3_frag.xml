@@ -33,13 +33,14 @@
 
 
             <ImageView
+                android:tint="@android:color/black"
                 android:layout_marginEnd="10dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/goInfo"
                 android:src="@drawable/info_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>

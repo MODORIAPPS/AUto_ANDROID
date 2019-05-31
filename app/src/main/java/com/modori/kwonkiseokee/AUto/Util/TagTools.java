@@ -46,6 +46,18 @@ public class TagTools {
 
     }
 
+    public static void resetTags(Context context){
+        MakePreferences.getInstance().setSettings(context);
+
+        MakePreferences.getInstance().getEditor().putString("tag1", "Landscape").apply();
+        MakePreferences.getInstance().getEditor().putString("tag2", "Office").apply();
+        MakePreferences.getInstance().getEditor().putString("tag3", "Milkyway").apply();
+        MakePreferences.getInstance().getEditor().putString("tag4", "Yosemite").apply();
+        MakePreferences.getInstance().getEditor().putString("tag5", "Roads").apply();
+        MakePreferences.getInstance().getEditor().putString("tag6", "home").apply();
+
+    }
+
     public static List<String> getTagLists(Context context) {
         makeTagLists(context);
         return tagLists;

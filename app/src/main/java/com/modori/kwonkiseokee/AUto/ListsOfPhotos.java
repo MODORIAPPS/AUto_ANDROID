@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.modori.kwonkiseokee.AUto.RA.ListPhotoRA;
+import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 
@@ -50,6 +51,18 @@ public class ListsOfPhotos extends Activity {
         recyclerView = findViewById(R.id.recyclerView);
         goInfo = findViewById(R.id.goInfo_list);
 
+        if (NETWORKS.getNetWorkType(this) == 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("연결된 네트워크가 없습니다.");
+            builder.setMessage("네트워크에 연결되어 있는지 확인해보세요.");
+            builder.setPositiveButton(R.string.tab2_DialogOk,
+                    (dialog, which) -> {
+
+                    });
+
+            builder.show();
+
+        }
 
         Intent intent = getIntent();
         tag = intent.getExtras().getString("photoID");
@@ -59,21 +72,18 @@ public class ListsOfPhotos extends Activity {
         recyclerView.setHasFixedSize(true);
 
         goInfo.setOnClickListener(v -> {
-           makeDialog();
+            makeDialog();
         });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if (!recyclerView.canScrollVertically(-1)) {
-                        //Log.i(TAG, "Top of list");
-                    } else if (!recyclerView.canScrollVertically(1)) {
-                        //Log.i(TAG, "End of list");
-                        getPhotoByKeyword();
-                    } else {
-                        //Log.i(TAG, "idle");
-                    }
+            recyclerView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                if (!recyclerView.canScrollVertically(-1)) {
+                    //Log.i(TAG, "Top of list");
+                } else if (!recyclerView.canScrollVertically(1)) {
+                    //Log.i(TAG, "End of list");
+                    getPhotoByKeyword();
+                } else {
+                    //Log.i(TAG, "idle");
                 }
             });
         } else {
@@ -163,7 +173,7 @@ public class ListsOfPhotos extends Activity {
         if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
 
-            GridLayoutManager layoutManager = new GridLayoutManager(this,2);
+            GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
             recyclerView.setLayoutManager(layoutManager);
             adapter.notifyDataSetChanged();
 
@@ -176,7 +186,7 @@ public class ListsOfPhotos extends Activity {
 
     }
 
-    private void makeDialog(){
+    private void makeDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.ListsPfPhotos_DialogTitle);
         builder.setMessage(R.string.ListsPfPhotos_DialogMessage);

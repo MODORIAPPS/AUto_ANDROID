@@ -450,6 +450,11 @@ public class tab3_frag extends Fragment {
 
         AlarmManager am = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
         am.cancel(sender);
+
+        actCheckSwitch.setChecked(false);
+        actView_layout.setBackgroundResource(R.drawable.background_theme_title_disable);
+        actStats.setText(R.string.tab3_ActStateDisabled);
+
     }
 
     public void showDialog() {
@@ -540,6 +545,7 @@ public class tab3_frag extends Fragment {
                 });
                 builder.show();
 
+
                 unSetAutoChangeSlide();
 
 
@@ -566,6 +572,7 @@ public class tab3_frag extends Fragment {
             //save 활동 끝
 
         } else {
+
             unSetAutoChangeSlide();
             Snackbar.make(mainlayout, R.string.tab3_snackBar2, Snackbar.LENGTH_SHORT).show();
 

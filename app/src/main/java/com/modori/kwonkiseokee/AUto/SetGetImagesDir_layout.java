@@ -23,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
@@ -181,9 +184,6 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         String resorStr = getDeviceResor();
         showDeviceResor.setText(resorStr);
 
-//        GetFromGalleryRA adapter = new GetFromGalleryRA(this, imageFilesDe);
-//        listOfPictures.setAdapter(adapter);
-
         checkAvailImages(true);
 
         // load prefernces
@@ -205,6 +205,13 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
             case 2:
                 getFromWhatText.setText("사용자가 다운로드 받은 사진을 불러오고 있습니다.");
         }
+
+        AdView adView = findViewById(R.id.adView);
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        String ads_app = getResources().getString(R.string.ads_app);
+        MobileAds.initialize(this, ads_app);
+        adView.loadAd(adRequest);
 
         setToDir.setOnClickListener(v -> {
             if (setToDir.isChecked()) {

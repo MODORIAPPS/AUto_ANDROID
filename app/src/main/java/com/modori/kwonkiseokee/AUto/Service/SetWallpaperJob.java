@@ -97,12 +97,12 @@ public class SetWallpaperJob extends BroadcastReceiver {
                     options.inJustDecodeBounds = true;
                     Bitmap myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName, options);
 
-                    Log.d("이미지의 폭" , options.outWidth+"");
-                    Log.d("이미지의 높이" , options.outHeight+"");
+                    Log.d("이미지의 폭", options.outWidth + "");
+                    Log.d("이미지의 높이", options.outHeight + "");
 
-                    options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight);
-                    myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName);
-
+                    options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight, 1080, 1920);
+                    options.inJustDecodeBounds = false;
+                    myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName, options);
 
 
                     wallpaperManager.setBitmap(myBitmap);
@@ -127,11 +127,11 @@ public class SetWallpaperJob extends BroadcastReceiver {
             Log.d("OnlyPhotoUri", String.valueOf(onlyPhotoUri));
 
 
-            if(ShuffleMode){
+            if (ShuffleMode) {
                 Random random = new Random();
-                getIndex = random.nextInt(onlyPhotoUri.size()+1);
-            }else{
-                if (getIndex > onlyPhotoUri.size()-1) {
+                getIndex = random.nextInt(onlyPhotoUri.size() + 1);
+            } else {
+                if (getIndex > onlyPhotoUri.size() - 1) {
                     getIndex = 0;
                     MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
                 } else {
@@ -141,9 +141,7 @@ public class SetWallpaperJob extends BroadcastReceiver {
 
             }
 
-            Log.d("getIndex", "Indexis"+getIndex);
-
-
+            Log.d("getIndex", "Indexis" + getIndex);
 
 
             Bitmap bitmap = null;
@@ -192,26 +190,22 @@ public class SetWallpaperJob extends BroadcastReceiver {
 
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                if (flag > 90) {
-                    wallpaperManager.setBitmap(image);
+                if (flag == WallpaperManager.FLAG_SYSTEM) {
+                    wallpaperManager.setBitmap(image, null, true, WallpaperManager.FLAG_SYSTEM);
+                }else if(flag == WallpaperManager.FLAG_LOCK){
+                    wallpaperManager.setBitmap(image, null, true, WallpaperManager.FLAG_LOCK);
 
+                }else{
+                    wallpaperManager.setBitmap(image,null,true);
                 }
-                wallpaperManager.setBitmap(image, null, true, flag);
-                return;
-            }
+            } else {
+                wallpaperManager.setBitmap(image);
 
-            wallpaperManager.setBitmap(image);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-
-    public void cropImage(String photoUri) {
-
-    }
-
 
 
 }

@@ -136,17 +136,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/credit1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="https://airbnb.io/lottie/"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="normal" />
-
-                <TextView
                     android:id="@+id/credit2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

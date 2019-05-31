@@ -1,5 +1,8 @@
 <resources>
 
+    <string name="ads_app" translatable="false">YOUR_CODE</string>
+    <string name="ads_code1" translatable="false">YOUR_CODE</string>
+
     <!--영어 버전-->
     <string name="app_name">AUto - a new mood every day</string>
     <string name="version_name">1.5.2</string>

@@ -93,26 +93,16 @@ public class FileManager {
 
     }
 
-    public static Bitmap getBitmapFromPath(String filename) {
+    public static Bitmap getBitmapFromPath(String filename,int screenWidth, int screenHeight) {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AUtoImages/"+filename;
        // File file = new File(path + filename);
         Log.d("FilePath", path);
-
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inJustDecodeBounds = true;
-//        Bitmap myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName, options);
-//
-//        Log.d("이미지의 폭" , options.outWidth+"");
-//        Log.d("이미지의 높이" , options.outHeight+"");
-//
-//        options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight);
-//        myBitmap = BitmapFactory.decodeFile(SelectedPath + "/" + FileName);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         Bitmap src = BitmapFactory.decodeFile(path, options);
 
-        options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight);
+        options.inSampleSize = makeBitmapSmall(options.outWidth, options.outHeight,screenWidth, screenHeight);
 
         src = BitmapFactory.decodeFile(path);
 
@@ -185,20 +175,19 @@ public class FileManager {
         return imageUri;
     }
 
-    public static int makeBitmapSmall(int outWidth, int outHeight){
-
-        int screenWidth = 1440;
-        int screenHeight = 2560;
+    public static int makeBitmapSmall(int outWidth, int outHeight, int screenWidth, int screenHeight){
 
         // 원본 이미지 비율인 1로 초기화
         int size = 1;
 
         // 해상도가 깨지지 않을만한 요구되는 사이즈까지 2의 배수의 값으로 원본 이미지를 나눈다.
-        while(outWidth < screenWidth|| outHeight < screenHeight){
-            outWidth = outWidth / 2;
-            outHeight = outHeight / 2;
+        if (outHeight > screenHeight || outWidth > screenWidth) {
 
-            size = size * 2;
+            if (outWidth > outHeight) {
+                size = Math.round((float) outHeight / (float) screenHeight);
+            } else {
+                size = Math.round((float) outWidth / (float) screenWidth);
+            }
         }
         return size;
     }

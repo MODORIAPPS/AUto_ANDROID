@@ -20,10 +20,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -34,8 +38,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
+import com.modori.kwonkiseokee.AUto.Util.DEVICE_INFO;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
+import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
 import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
 
@@ -77,10 +83,14 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
     Button copyColorBtn;
 
+    private ProgressDialog pDialog;
+
     boolean action = false;
 
     int CHANGE_TYPE;
     int DOWNLOAD_TYPE = 1;
+
+    int displayWidth, displayHeight;
 
 
     @Override
@@ -124,9 +134,33 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         goInfo.setOnClickListener(this);
         goSettings.setOnClickListener(this);
 
+        if(NETWORKS.getNetWorkType(context) == 0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("연결된 네트워크가 없습니다.");
+            builder.setMessage("네트워크에 연결되어 있는지 확인해보세요.");
+            builder.setPositiveButton(R.string.tab2_DialogOk,
+                    (dialog, which) -> {
+
+                    });
+
+            builder.show();
+
+        }else if(NETWORKS.getNetWorkType(context) == 2){
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("모바일 네트워크에 연결되어 있습니다.");
+            builder.setMessage("고용량 사진을 다운로드 받으므로 추가 데이터 통화료가 발생할 수 있습니다.");
+            builder.setPositiveButton(R.string.tab2_DialogOk,
+                    (dialog, which) -> {
+
+                    });
+
+            builder.show();
+        }
+
         DOWNLOAD_TYPE = MakePreferences.getInstance().getSettings().getInt("DOWNLOAD_TYPE", 1);
 
         fab1.setClickable(false);
+        setUpDialog();
 
 
         setDownloadTypeView();
@@ -137,6 +171,9 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             requestWritePermission(PhotoDetail.this);
         }
 
+        Display display = getWindowManager().getDefaultDisplay();
+        displayWidth = display.getWidth();
+        displayHeight = display.getHeight();
 
         ApiClient.getPhotoById().getPhotoByID(photoID).enqueue(new Callback<PhotoSearchID>() {
 
@@ -277,6 +314,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                 builder.setMessage(R.string.PhotoDetail_DialogMessage);
                 builder.setPositiveButton(R.string.PhotoDetail_DialogOk,
                         (dialog, which) -> {
+
                         });
 
                 builder.show();
@@ -311,46 +349,71 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    private void setUpDialog() {
+        pDialog = new ProgressDialog(PhotoDetail.this);
+        pDialog.setMessage(getString(R.string.PhotoDeatil_Downloading));
+    }
+
     public class downloadImage extends AsyncTask<String, String, Bitmap> {
 
-        ProgressDialog pDialog;
         Bitmap mBitmap;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(PhotoDetail.this);
-            pDialog.setMessage(getString(R.string.PhotoDeatil_Downloading));
+            if(pDialog == null){
+                setUpDialog();
+            }
             pDialog.show();
         }
 
         protected Bitmap doInBackground(String... args) {
-            try {
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
+            BitmapFactory.Options options;
 
-                mBitmap = BitmapFactory.decodeStream((InputStream) new URL(args[0]).getContent());
+            try {
+
+                Log.d("DEVICE_TOTAL_RAM", String.valueOf(DEVICE_INFO.getDeviceTotalRam(context)));
+                Log.d("DEVICE_FREE_RAM", String.valueOf(DEVICE_INFO.getDeviceFreeRam(context)));
+                options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                InputStream testStream = (InputStream) new URL(args[0]).getContent();
+                mBitmap = BitmapFactory.decodeStream(testStream, null, options);
+
+                options.inSampleSize = FileManager.makeBitmapSmall(options.outWidth, options.outHeight, displayWidth, displayHeight);
+                options.inJustDecodeBounds = false;
+                Log.d("inSampleSize", String.valueOf(options.inSampleSize));
+
+
+
+                try (InputStream inputStream = (InputStream) new URL(args[0]).getContent()) {
+                    mBitmap = BitmapFactory.decodeStream(inputStream, null, options);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             return mBitmap;
         }
 
         protected void onPostExecute(Bitmap image) {
+
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+                pDialog = null;
+            }
 
             if (image != null) {
                 saveImage(image, filename);
                 if (action) {
                     SetWallpaperJob.setWallPaper(context, image, CHANGE_TYPE);
                 }
-                pDialog.dismiss();
 
 
             } else {
-                pDialog.dismiss();
                 Toast.makeText(PhotoDetail.this, "이미지가 존재하지 않습니다.",
                         Toast.LENGTH_SHORT).show();
+
 
             }
         }
@@ -431,7 +494,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             }
 
             if (FileManager.alreadyDownloaded(filename)) {
-                SetWallpaperJob.setWallPaper(context, FileManager.getBitmapFromPath(filename), CHANGE_TYPE);
+                SetWallpaperJob.setWallPaper(context, FileManager.getBitmapFromPath(filename, displayWidth, displayHeight), CHANGE_TYPE);
             } else {
                 downloadUrl = getDownloadUrl(results);
                 new downloadImage().execute(downloadUrl);
@@ -442,6 +505,16 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         });
         builder.show();
 
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (pDialog != null) {
+            pDialog.dismiss();
+            pDialog = null;
+        }
 
     }
 
@@ -472,13 +545,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     private static void requestWritePermission(final Context context) {
         if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             new AlertDialog.Builder(context)
-                    .setMessage("This app needs permission to use The phone Camera in order to activate the Scanner")
-                    .setPositiveButton("Allow", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                        }
-                    }).show();
+                    .setMessage("쓰기 권한이 필요합니다.")
+                    .setPositiveButton("네", (dialog, which) -> ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1)).show();
 
         } else {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
