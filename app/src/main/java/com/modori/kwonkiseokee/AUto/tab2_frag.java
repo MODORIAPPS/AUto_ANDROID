@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.modori.kwonkiseokee.AUto.RA.Tab2_tagListsRA;
 import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
 import com.modori.kwonkiseokee.AUto.Util.TagTools;
@@ -101,6 +104,12 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.tab2_frag, container, false);
         context = getActivity();
         ButterKnife.bind(this, view);
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        String ads_app = getResources().getString(R.string.ads_app);
+        MobileAds.initialize(context, ads_app);
+        AdView adView = view.findViewById(R.id.adView_frag1);
+        adView.loadAd(adRequest);
 
         tagLists = new ArrayList<>();
         initWork();

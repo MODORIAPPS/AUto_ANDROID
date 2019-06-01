@@ -1,7 +1,8 @@
 <resources>
 
-    <string name="ads_app" translatable="false">YOUR_CODE</string>
-    <string name="ads_code1" translatable="false">YOUR_CODE</string>
+    <string name="ads_app" translatable="false">앱의 광고 ID</string>
+    <string name="ads_code1" translatable="false">배너광고 ID</string>
+    <string name="InterstitialAd" translatable="false">전면광고 ID</string>
 
     <!--영어 버전-->
     <string name="app_name">AUto - a new mood every day</string>

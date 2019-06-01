@@ -206,13 +206,6 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 getFromWhatText.setText("사용자가 다운로드 받은 사진을 불러오고 있습니다.");
         }
 
-        AdView adView = findViewById(R.id.adView);
-
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-        String ads_app = getResources().getString(R.string.ads_app);
-        MobileAds.initialize(this, ads_app);
-        adView.loadAd(adRequest);
-
         setToDir.setOnClickListener(v -> {
             if (setToDir.isChecked()) {
                 //눌려있지 않았던 경우

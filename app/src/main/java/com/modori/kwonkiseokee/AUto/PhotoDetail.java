@@ -37,6 +37,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 import com.modori.kwonkiseokee.AUto.Util.DEVICE_INFO;
@@ -89,10 +93,11 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
     boolean action = false;
 
-    int CHANGE_TYPE;
-    int DOWNLOAD_TYPE = 1;
+    int DOWNLOAD_TYPE = 1, CHANGE_TYPE, ADS_COUNTER;
 
     int displayWidth, displayHeight;
+
+    private InterstitialAd interstitialAd;
 
 
     @Override
@@ -136,7 +141,23 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         goInfo.setOnClickListener(this);
         goSettings.setOnClickListener(this);
 
-        if(NETWORKS.getNetWorkType(context) == 0){
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+        String ads_app = getResources().getString(R.string.ads_app);
+        MobileAds.initialize(getApplicationContext(), ads_app);
+        AdView adView = findViewById(R.id.adView_frag1);
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+
+        //테스트 코드
+        interstitialAd.setAdUnitId(getString(R.string.InterstitialAd));
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+        ADS_COUNTER = MakePreferences.getInstance().getSettings().getInt("ADS_COUNTER", 1);
+
+
+        if (NETWORKS.getNetWorkType(context) == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(R.string.noNetworkErrorTitle);
             builder.setMessage(getString(R.string.noNetworkErrorContent));
@@ -147,7 +168,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
             builder.show();
 
-        }else if(NETWORKS.getNetWorkType(context) == 2){
+        } else if (NETWORKS.getNetWorkType(context) == 2) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(R.string.mobileNetworkWarningTitle));
             builder.setMessage(getString(R.string.mobileNetworkWarningContent));
@@ -190,7 +211,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                     heartCntV.setText(results.getLikes() + "");
                     downloadCntV.setText(results.getDownloads() + "");
 
-                    if(context != null){
+                    if (context != null) {
                         Glide.with(getApplicationContext()).load(results.getUser().getProfile_image().getMedium()).into(authorProfile);
                     }
 
@@ -367,7 +388,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if(pDialog == null){
+            if (pDialog == null) {
                 setUpDialog();
             }
             pDialog.show();
@@ -388,7 +409,6 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                 options.inSampleSize = FileManager.makeBitmapSmall(options.outWidth, options.outHeight, displayWidth, displayHeight);
                 options.inJustDecodeBounds = false;
                 Log.d("inSampleSize", String.valueOf(options.inSampleSize));
-
 
 
                 try (InputStream inputStream = (InputStream) new URL(args[0]).getContent()) {
@@ -413,10 +433,19 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                 saveImage(image, filename);
                 if (action) {
                     try {
+                        if (ADS_COUNTER == 3) {
+                            if (interstitialAd.isLoaded()) {
+                                interstitialAd.show();
+                                MakePreferences.getInstance().setSettings(context);
+                                MakePreferences.getInstance().getSettings().edit().putInt("ADS_COUNTER", 1).apply();
+
+                            }
+                        }
                         SetWallpaperJob.setWallPaper(context, image, CHANGE_TYPE);
+
                     } catch (IOException e) {
                         e.printStackTrace();
-                        Log.d("배경화면 적용 실패",e.getMessage());
+                        Log.d("배경화면 적용 실패", e.getMessage());
                         Toast.makeText(PhotoDetail.this, "Failed to set image", Toast.LENGTH_SHORT).show();
 
                     }
@@ -508,10 +537,18 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
             if (FileManager.alreadyDownloaded(filename)) {
                 try {
+                    if (ADS_COUNTER == 3) {
+                        if (interstitialAd.isLoaded()) {
+                            interstitialAd.show();
+                            MakePreferences.getInstance().setSettings(context);
+                            MakePreferences.getInstance().getSettings().edit().putInt("ADS_COUNTER", 1).apply();
+
+                        }
+                    }
                     SetWallpaperJob.setWallPaper(context, FileManager.getBitmapFromPath(filename, displayWidth, displayHeight), CHANGE_TYPE);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d("배경화면 적용 실패",e.getMessage());
+                    Log.d("배경화면 적용 실패", e.getMessage());
 
                 }
             } else {

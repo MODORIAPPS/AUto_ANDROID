@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
@@ -45,8 +48,6 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     Button savePhotoBtn;
     Button openGalleryBtn;
 
-    TextView newPhotosCnt, oldPhotosCnt, oldPhotosText;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +61,9 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     public void initWork() {
         savePhotoBtn = findViewById(R.id.savePhotoBtn);
         openGalleryBtn = findViewById(R.id.openGalleryBtn);
+
         newPhotosList = findViewById(R.id.newPhotos);
         oldPhotosList = findViewById(R.id.oldPhotos);
-
-        newPhotosCnt = findViewById(R.id.newPhotosCnt);
-        oldPhotosCnt = findViewById(R.id.oldPhotosCnt);
-        oldPhotosText = findViewById(R.id.oldPhotosText);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         GridLayoutManager gridLayoutManager1 = new GridLayoutManager(this, 3);
@@ -79,12 +77,11 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         photoOldAdapter = new GetFromGalleryRA(this, photoList, true);
         oldPhotosList.setAdapter(photoOldAdapter);
 
-        if (photoList.size() == 0) {
-            //oldPhotosText.setText("사진이 없습니다. 새 사진을 추가하세요.");
-            //oldPhotosList.setVisibility(View.GONE);
-        }
-        oldPhotosCnt.setText(photoList.size() + "");
-        newPhotosCnt.setText("0");
+//        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+//        String ads_app = getResources().getString(R.string.ads_app);
+//        MobileAds.initialize(getApplicationContext(), ads_app);
+//        AdView adView = findViewById(R.id.adView_frag1);
+//        adView.loadAd(adRequest);
 
 
         Log.d(TAG, "저장되어 있는 사진 수" + photoList.size());
@@ -95,13 +92,13 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     public void setRecyclerView() {
         photoNewAdapter = new GetFromGalleryRA(this, pickedLists, false);
         newPhotosList.setAdapter(photoNewAdapter);
-        newPhotosCnt.setText(pickedLists.size() + "");
+        //newPhotosCnt.setText(pickedLists.size() + "");
 
         photoList = getPhotoList();
 
         photoOldAdapter = new GetFromGalleryRA(this, photoList, true);
         oldPhotosList.setAdapter(photoOldAdapter);
-        oldPhotosCnt.setText(photoList.size() + "");
+        //oldPhotosCnt.setText(photoList.size() + "");
 
 
     }
@@ -188,7 +185,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                 .setPositiveButton(getString(R.string.saveDialogPosi), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         savePhotos(pickedLists);
-                        newPhotosCnt.setText("0");
+                        //newPhotosCnt.setText("0");
 
                         pickedLists = new ArrayList<>();
                         photoList = new ArrayList<>();

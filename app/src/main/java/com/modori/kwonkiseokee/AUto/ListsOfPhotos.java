@@ -173,9 +173,9 @@ public class ListsOfPhotos extends Activity {
         if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
 
-            GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-            recyclerView.setLayoutManager(layoutManager);
-            adapter.notifyDataSetChanged();
+//            GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+//            recyclerView.setLayoutManager(layoutManager);
+//            adapter.notifyDataSetChanged();
 
         } else {
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);

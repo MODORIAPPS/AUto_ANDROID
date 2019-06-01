@@ -183,6 +183,12 @@ public class SetWallpaperJob extends BroadcastReceiver {
 
     public static void setWallPaper(Context context, Bitmap image, int flag) throws IOException {
 
+        MakePreferences.getInstance().setSettings(context);
+        int ADS_COUNTER = MakePreferences.getInstance().getSettings().getInt("ADS_COUNTER", 1);
+        ++ADS_COUNTER;
+        MakePreferences.getInstance().getSettings().edit().putInt("ADS_COUNTER", ADS_COUNTER).apply();
+        // ADS_COUNTER를 증가하고, 3이 되면 PhotoDetail 에서 전면광고표시
+
         Context mContext = context.getApplicationContext();
 
         WallpaperManager wallpaperManager =
