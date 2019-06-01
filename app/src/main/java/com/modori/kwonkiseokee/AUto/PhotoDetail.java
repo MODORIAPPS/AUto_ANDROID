@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.ClipData;
@@ -47,6 +48,7 @@ import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.channels.IllegalChannelGroupException;
@@ -136,8 +138,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
         if(NETWORKS.getNetWorkType(context) == 0){
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("연결된 네트워크가 없습니다.");
-            builder.setMessage("네트워크에 연결되어 있는지 확인해보세요.");
+            builder.setTitle(R.string.noNetworkErrorTitle);
+            builder.setMessage(getString(R.string.noNetworkErrorContent));
             builder.setPositiveButton(R.string.tab2_DialogOk,
                     (dialog, which) -> {
 
@@ -147,8 +149,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
         }else if(NETWORKS.getNetWorkType(context) == 2){
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("모바일 네트워크에 연결되어 있습니다.");
-            builder.setMessage("고용량 사진을 다운로드 받으므로 추가 데이터 통화료가 발생할 수 있습니다.");
+            builder.setTitle(getString(R.string.mobileNetworkWarningTitle));
+            builder.setMessage(getString(R.string.mobileNetworkWarningContent));
             builder.setPositiveButton(R.string.tab2_DialogOk,
                     (dialog, which) -> {
 
@@ -187,7 +189,11 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
                     heartCntV.setText(results.getLikes() + "");
                     downloadCntV.setText(results.getDownloads() + "");
-                    Glide.with(context).load(results.getUser().getProfile_image().getMedium()).into(authorProfile);
+
+                    if(context != null){
+                        Glide.with(getApplicationContext()).load(results.getUser().getProfile_image().getMedium()).into(authorProfile);
+                    }
+
                     authorNameV.setText(results.getUser().getUsername());
 
                     photoDescriptionV.setText(results.getDescription());
@@ -406,7 +412,14 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             if (image != null) {
                 saveImage(image, filename);
                 if (action) {
-                    SetWallpaperJob.setWallPaper(context, image, CHANGE_TYPE);
+                    try {
+                        SetWallpaperJob.setWallPaper(context, image, CHANGE_TYPE);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.d("배경화면 적용 실패",e.getMessage());
+                        Toast.makeText(PhotoDetail.this, "Failed to set image", Toast.LENGTH_SHORT).show();
+
+                    }
                 }
 
 
@@ -427,7 +440,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
         CharSequence[] items = ListItems.toArray(new String[ListItems.size()]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("사진 다운로드 품질을 선택하세요.");
+        builder.setTitle(getString(R.string.PhotoDetail_SelectQua));
         //builder.setMessage("이 설정은 유지됩니다. 언제든지 변경할 수 있습니다.");
         builder.setItems(items, (dialog, pos) -> {
             //String selectedText = items[pos].toString();
@@ -494,7 +507,13 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             }
 
             if (FileManager.alreadyDownloaded(filename)) {
-                SetWallpaperJob.setWallPaper(context, FileManager.getBitmapFromPath(filename, displayWidth, displayHeight), CHANGE_TYPE);
+                try {
+                    SetWallpaperJob.setWallPaper(context, FileManager.getBitmapFromPath(filename, displayWidth, displayHeight), CHANGE_TYPE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("배경화면 적용 실패",e.getMessage());
+
+                }
             } else {
                 downloadUrl = getDownloadUrl(results);
                 new downloadImage().execute(downloadUrl);

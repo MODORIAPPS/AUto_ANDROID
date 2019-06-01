@@ -181,30 +181,30 @@ public class SetWallpaperJob extends BroadcastReceiver {
 //        }
 //    }
 
-    public static void setWallPaper(Context context, Bitmap image, int flag) {
+    public static void setWallPaper(Context context, Bitmap image, int flag) throws IOException {
 
         Context mContext = context.getApplicationContext();
 
-        final WallpaperManager wallpaperManager =
+        WallpaperManager wallpaperManager =
                 WallpaperManager.getInstance(mContext);
 
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                if (flag == WallpaperManager.FLAG_SYSTEM) {
-                    wallpaperManager.setBitmap(image, null, true, WallpaperManager.FLAG_SYSTEM);
-                }else if(flag == WallpaperManager.FLAG_LOCK){
-                    wallpaperManager.setBitmap(image, null, true, WallpaperManager.FLAG_LOCK);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            if (flag == WallpaperManager.FLAG_SYSTEM) {
+                wallpaperManager.setBitmap(image, null, true, WallpaperManager.FLAG_SYSTEM);
+            }else if(flag == WallpaperManager.FLAG_LOCK){
+                wallpaperManager.setBitmap(image, null, true, WallpaperManager.FLAG_LOCK);
 
-                }else{
-                    wallpaperManager.setBitmap(image,null,true);
-                }
-            } else {
-                wallpaperManager.setBitmap(image);
-
+            }else{
+                wallpaperManager.setBitmap(image,null,true);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }else{
+            wallpaperManager.setBitmap(image);
+            String errString = context.getString(R.string.SetWallpaperJob);
+            Toast.makeText(context,errString, Toast.LENGTH_LONG).show();
         }
+
+
+
     }
 
 

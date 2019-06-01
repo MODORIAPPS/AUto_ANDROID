@@ -133,6 +133,7 @@ public class OpenDialog extends Dialog {
 
                                 }
                                 MakePreferences.getInstance().getEditor().apply();
+
                                 Toast.makeText(mContext, "새 태그가 추가되었습니다.", Toast.LENGTH_SHORT).show();
                                 dismiss();
 

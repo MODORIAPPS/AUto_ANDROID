@@ -53,8 +53,8 @@ public class ListsOfPhotos extends Activity {
 
         if (NETWORKS.getNetWorkType(this) == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("연결된 네트워크가 없습니다.");
-            builder.setMessage("네트워크에 연결되어 있는지 확인해보세요.");
+            builder.setTitle(getString(R.string.noNetworkErrorTitle));
+            builder.setMessage(getString(R.string.noNetworkErrorContent));
             builder.setPositiveButton(R.string.tab2_DialogOk,
                     (dialog, which) -> {
 

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.modori.kwonkiseokee.AUto"
-    android:versionName="1.6.6">
+    android:versionName="1.7.0">
     <!-- 버전 코드 설명 https://mainia.tistory.com/4925 -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -31,7 +31,8 @@
         <activity android:name=".showPhotoOnly" />
         <activity android:name=".getFromGallery" />
         <activity android:name=".SetGetImagesDir_layout" />
-        <activity android:name=".PhotoDetail" />
+        <activity android:name=".PhotoDetail"
+            android:configChanges="screenSize|orientation"/>
         <activity
             android:theme="@style/Theme.AppCompat.Light"
             android:name=".ListsOfPhotos"

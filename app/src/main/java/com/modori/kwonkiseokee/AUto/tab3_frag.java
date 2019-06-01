@@ -457,9 +457,6 @@ public class tab3_frag extends Fragment {
 
     }
 
-    public void showDialog() {
-
-    }
 
     @Override
     public void onPause() {

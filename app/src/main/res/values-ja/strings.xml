@@ -9,6 +9,17 @@
     <string name="noImageAlert">イメージを探すに失敗しました。</string>
 
 
+
+    <!-- Global Warning Section -->
+    <string name="noNetworkErrorTitle">連結されているネットワークはありません。</string>
+    <string name="noNetworkErrorContent">ネットワークに接続されているか確認してください。</string>
+
+    <string name="mobileNetworkWarningTitle">モバイルネットワークにつながっています。</string>
+    <string name="mobileNetworkWarningContent">高用量の写真をダウンロードするので,追加データ通話料が発生する場合があります。</string>
+
+    <string name="SetWallpaperJob">この機器は,バージョンが低く分離適用ができないため,すべて適用しました。</string>
+
+
     <!--스플래쉬 스크린 뷰페이저 튜토리얼-->
 
 
@@ -21,7 +32,7 @@
     <string name="tap2_subTitle"> 以降にパッチにもっと素敵になります。</string>
 
     <!-- TabLayout -->
-    <string name="tab_1">準備中</string>
+    <string name="tab_1">自分の写真</string>
     <string name="tab_2">探索</string>
     <string name="tab_3">自動設定</string>
 
@@ -62,17 +73,29 @@
 
     <string name="PhotoDeatil_Downloading">イメージをダウンロードしています。。。</string>
 
+    <string name="PhotoDetail_SelectQua">ダウンロード品質を選んでください。</string>
+    <string name="PhotoDetail_AlreadyExist">イメージは既に存在します。</string>
+
 
     <!-- ListsPfPhotos -->
     <string name="ListsPfPhotos_DialogTitle">このページについて</string>
     <string name="ListsPfPhotos_DialogMessage">写真をクリックして詳しい情報が確認できます。</string>
     <string name="ListsPfPhotos_DialogOk">はい</string>
 
+    <!-- tab1_frag -->
+    <string name="tab1_gallerySmall">ギャラリーで</string>
+    <string name="tab1_galleryTitle">自分が選びた写真</string>
+    <string name="tab1_galleryContent">ギャラリーを開けて選びた写真</string>
+    <string name="tab1_galleryWarning">写真を探しませんでした。</string>
+
     <!-- tab2_frag -->
     <string name="tab2_toolbarText">新たな写真を探索</string>
     <string name="tab2_DialogTitle">このページについて</string>
     <string name="tab2_DialogMessage">キーワードをクリックし,目的のキーワードを入力し,変更することができ,変更されたキーワードから呼ばれた写真が下に表示されます。 最大6つのキーワードを同時に読み込むことができます。</string>
     <string name="tab2_DialogOk">はい</string>
+
+    <string name="tab2_resetTitle">キーワードを初期化しましょうか？</string>
+    <string name="tab2_resetContent">キーワードのリストを初期化すると、戻られません。</string>
 
     <!-- tab3_frag -->
     <string name="tab3_detailSet1Title">再起動のあと自動実行</string>

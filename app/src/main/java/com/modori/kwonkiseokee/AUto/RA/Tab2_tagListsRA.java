@@ -57,6 +57,8 @@ public class Tab2_tagListsRA extends RecyclerView.Adapter<Tab2_tagListsRA.ViewHo
                 DisplayMetrics dm = mContext.getResources().getDisplayMetrics(); //디바이스 화면크기를 구하기위해
                 int width = dm.widthPixels; //디바이스 화면 너비
                 int height = dm.heightPixels; //디바이스 화면 높이
+
+
                 openDialog = new OpenDialog(mContext,position, title, subtitle);
                 WindowManager.LayoutParams wm = openDialog.getWindow().getAttributes();  //다이얼로그의 높이 너비 설정하기위해
                 wm.copyFrom(openDialog.getWindow().getAttributes());  //여기서 설정한값을 그대로 다이얼로그에 넣겠다는의미

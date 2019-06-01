@@ -315,7 +315,6 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
         } else {
             //권한이 있는 경우
-            //Toast.makeText(MainActivity.this, "읽기 권한이 있었구만?", Toast.LENGTH_SHORT).show();
 
         }
 

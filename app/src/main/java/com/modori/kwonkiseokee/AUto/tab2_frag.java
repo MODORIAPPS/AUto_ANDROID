@@ -44,17 +44,13 @@ import retrofit2.Response;
 public class tab2_frag extends Fragment implements View.OnClickListener {
 
     private List<Results> results = new ArrayList<>();
-    //Results[] photoUrl = new Results[5];
 
     public Context context;
 
-
     public static final String PREFS_FILE = "PrefsFile";
-
 
     //TagLists
     private List<String> tagLists;
-    Tab2_tagListsRA adapterOfTagLists;
 
     private static String tag1 = null;
     private static String tag2 = null;
@@ -65,16 +61,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
 
     //Widgets
-    RecyclerView viewTagLists;
-    View goInfo, goReset;
-
-    // GridView
-    View grid1;
-    View grid2;
-    View grid3;
-    View grid4;
-    View grid5;
-    View grid6;
+    private RecyclerView viewTagLists;
 
     //GridViews of tags
     private ImageView tag1Gridview;
@@ -104,8 +91,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     TextView view_tag6Grid;
 
 
-    private Toolbar toolbar;
-
     View view;
 
     Intent intent;
@@ -121,8 +106,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         initWork();
         if (NETWORKS.getNetWorkType(context) == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("연결된 네트워크가 없습니다.");
-            builder.setMessage("네트워크에 연결되어 있는지 확인해보세요.");
+            builder.setTitle(getString(R.string.noNetworkErrorTitle));
+            builder.setMessage(getString(R.string.noNetworkErrorContent));
             builder.setPositiveButton(R.string.tab2_DialogOk,
                     (dialog, which) -> {
 
@@ -139,8 +124,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
         intent = new Intent(getActivity(), ListsOfPhotos.class);
 
-        goInfo = view.findViewById(R.id.goInfo);
-        goReset = view.findViewById(R.id.goReset);
+        View goInfo = view.findViewById(R.id.goInfo);
+        View goReset = view.findViewById(R.id.goReset);
 
         tag1Gridview = view.findViewById(R.id.tag1Gridview);
         tag2Gridview = view.findViewById(R.id.tag2Gridview);
@@ -149,15 +134,16 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         tag5Gridview = view.findViewById(R.id.tag5Gridview);
         tag6Gridview = view.findViewById(R.id.tag6Gridview);
 
-        grid1 = view.findViewById(R.id.grid1);
-        grid2 = view.findViewById(R.id.grid2);
-        grid3 = view.findViewById(R.id.grid3);
-        grid4 = view.findViewById(R.id.grid4);
-        grid5 = view.findViewById(R.id.grid5);
-        grid6 = view.findViewById(R.id.grid6);
+        // GridView
+        View grid1 = view.findViewById(R.id.grid1);
+        View grid2 = view.findViewById(R.id.grid2);
+        View grid3 = view.findViewById(R.id.grid3);
+        View grid4 = view.findViewById(R.id.grid4);
+        View grid5 = view.findViewById(R.id.grid5);
+        View grid6 = view.findViewById(R.id.grid6);
 
 
-        toolbar = view.findViewById(R.id.toolbar2);
+        Toolbar toolbar = view.findViewById(R.id.toolbar2);
         viewTagLists = view.findViewById(R.id.viewTagLists);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -184,7 +170,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         viewTagLists.setLayoutManager(layoutManager);
 
-        adapterOfTagLists = new Tab2_tagListsRA(context, tagLists);
+        Tab2_tagListsRA adapterOfTagLists = new Tab2_tagListsRA(context, tagLists);
         viewTagLists.setAdapter(adapterOfTagLists);
     }
 
@@ -399,8 +385,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
             case R.id.goReset:
                 AlertDialog.Builder resetDialog = new AlertDialog.Builder(context);
-                resetDialog.setTitle("키워드 목록을 초기화 합니다.");
-                resetDialog.setMessage("키워드 목록을 초기화하며, 되돌릴 수 없습니다.");
+                resetDialog.setTitle(getString(R.string.tab2_resetTitle));
+                resetDialog.setMessage(getString(R.string.tab2_resetContent));
                 resetDialog.setPositiveButton(R.string.tab2_DialogOk,
                         (dialog, which) -> {
                             TagTools.resetTags(context);
