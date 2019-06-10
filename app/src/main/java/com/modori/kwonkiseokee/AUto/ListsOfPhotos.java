@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.modori.kwonkiseokee.AUto.RA.ListPhotoRA;
 import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
@@ -36,6 +37,7 @@ public class ListsOfPhotos extends Activity {
     String tag;
     int photoCnt = 1;
     ListPhotoRA adapter;
+    TextView showGetPicCnt;
 
     //List<PhotoSearch> results = new ArrayList<>();
     List<String> photoUrl = new ArrayList<>();
@@ -50,6 +52,7 @@ public class ListsOfPhotos extends Activity {
         goBack = findViewById(R.id.goBack);
         recyclerView = findViewById(R.id.recyclerView);
         goInfo = findViewById(R.id.goInfo_list);
+        showGetPicCnt = findViewById(R.id.showPictGetCnt);
 
         if (NETWORKS.getNetWorkType(this) == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -131,24 +134,9 @@ public class ListsOfPhotos extends Activity {
 
                     photoCnt++;
 
+                    String getStr = getResources().getString(R.string.tab3_showPictGetCnt);
+                    showGetPicCnt.setText(response.body().getTotal() + " " +getStr);
 
-//
-//                    if(photoCnt == 1){
-//                        photoUrl = response.body().getResults();
-//
-//
-//                    }else{
-//                        int count = adapter.getItemCount();
-//                        //photoUrl.add()
-////                        Log.d("results의 사이즈", photoUrl.size() +"");
-////                        for (int i = 0; i < response.body().getResults().size(); i++) {
-////                            photoUrl.add(photoUrl.size()+i,response.body().getResults().get(i));
-////                        }
-//                        //List<Result>
-//                        adapter.notifyDataSetChanged();
-//                    }
-//
-//                    ++photoCnt;
 
                     Log.d("tag1", "잘 가져옴");
 

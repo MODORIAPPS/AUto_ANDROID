@@ -25,7 +25,7 @@
     <string name="SetWallpaperJob">이 기기는 버전이 낮아 분리적용이 불가하므로 모두 적용하였습니다.</string>
 
     <!-- TabLayout -->
-    <string name="tab_1">내 사진</string>
+    <string name="tab_1">내 앨범</string>
     <string name="tab_2">탐색하기</string>
     <string name="tab_3">자동 설정</string>
 
@@ -75,7 +75,7 @@
     <string name="ListsPfPhotos_DialogOk">알겠습니다.</string>
 
     <!-- tab1_frag -->
-    <string name="tab1_gallerySmall">갤러리에서</string>
+    <string name="tab1_gallerySmall">내 앨범 리스트</string>
     <string name="tab1_galleryTitle">내가 선택한 사진</string>
     <string name="tab1_galleryContent">갤러리를 열어 선택한 사진</string>
     <string name="tab1_galleryWarning">어떠한 사진도 찾을 수 없었습니다.</string>

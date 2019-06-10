@@ -45,19 +45,16 @@ public class ListPhotoRA extends RecyclerView.Adapter<ListPhotoRA.ViewHolder> {
 
         Glide.with(context).load(photoUrl).centerCrop().into(holder.imageCleanView);
 
-        holder.photoCardofList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Context context = v.getContext();
-                Log.d("ListPhotoRA", String.valueOf(position));
+        holder.photoCardofList.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Log.d("ListPhotoRA", String.valueOf(position));
 
-                Intent intent = new Intent(context, PhotoDetail.class);
-                intent.putExtra("id", photoID);
-                Log.d("id", photoID);
+            Intent intent = new Intent(context, PhotoDetail.class);
+            intent.putExtra("id", photoID);
+            Log.d("id", photoID);
 
-                context.startActivity(intent);
+            context.startActivity(intent);
 
-            }
         });
     }
 
