@@ -30,9 +30,9 @@
 
 
     <!-- TabLayout -->
-    <string name="tab_1">pictures</string>
-    <string name="tab_2">discover</string>
-    <string name="tab_3">Auto Settings</string>
+    <string name="tab_1">Pictures</string>
+    <string name="tab_2">Discover</string>
+    <string name="tab_3">Auto settings</string>
 
     <!-- SetGetImageDir -->
     <string name="SetGetImagedir_ResorV">The resolution of this device</string>
@@ -82,7 +82,7 @@
 
     <!-- tab1_frag -->
     <string name="tab1_gallerySmall">From gallery</string>
-    <string name="tab1_galleryTitle">A picture of my choices</string>
+    <string name="tab1_galleryTitle">Pictures of my choice</string>
     <string name="tab1_galleryContent">Pictures</string>
     <string name="tab1_galleryWarning">Could not find any pictures.</string>
 
@@ -93,12 +93,12 @@
     <string name="tab2_DialogOk">OK</string>
 
     <string name="tab2_resetTitle">Do you want to initialize the list of keywords?</string>
-    <string name="tab2_resetContent">Initializes the list of keywords and cannot be reversed.</string>
+    <string name="tab2_resetContent">It will initializes the list of keywords and cannot be reversed.</string>
 
 
     <!-- tab3_frag -->
     <string name="tab3_detailSet1Title">AutoPlay After Boot</string>
-    <string name="tab3_detailSet1Con">Start service automatically after booting up.</string>
+    <string name="tab3_detailSet1Con">Start service automatically after booting up</string>
     <string name="tab3_title_BootViewEnabled">AutoPlay After Boot</string>
     <string name="tab3_title_BootViewDisabled">No AutoPlay After Boot</string>
     <string name="tab3_title_cycleView">Period</string>

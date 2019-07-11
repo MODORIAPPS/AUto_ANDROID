@@ -138,6 +138,7 @@ public class tab3_frag extends Fragment {
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         MakePreferences.getInstance().setSettings(context);
+        MakePreferences.getInstance().setSettings(context);
 
 
     }
