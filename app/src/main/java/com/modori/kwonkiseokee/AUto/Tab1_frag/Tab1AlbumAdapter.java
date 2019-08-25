@@ -1,6 +1,7 @@
-package com.modori.kwonkiseokee.AUto.RA;
+package com.modori.kwonkiseokee.AUto.Tab1_frag;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,30 +11,31 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.modori.kwonkiseokee.AUto.AlbumDetail;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.data.AlbumDTO;
 
 import java.util.List;
 
-public class albumRA extends RecyclerView.Adapter<albumRA.ViewHolder> {
+public class Tab1AlbumAdapter extends RecyclerView.Adapter<Tab1AlbumAdapter.ViewHolder> {
 
     private List<AlbumDTO> data;
     private Context context;
 
-    public albumRA(Context context, List<AlbumDTO> albumDAta) {
+    public Tab1AlbumAdapter(Context context, List<AlbumDTO> albumDAta) {
         this.context = context;
         this.data = albumDAta;
     }
 
     @NonNull
     @Override
-    public albumRA.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Tab1AlbumAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.album_item, parent, false);
-        return new albumRA.ViewHolder(view);
+        return new Tab1AlbumAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull albumRA.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull Tab1AlbumAdapter.ViewHolder holder, final int position) {
         AlbumDTO item = data.get(position);
         holder.albumTitle.setText(item.getAlbumTitle());
         holder.albumContent.setText(item.getAlbumContent());
@@ -58,6 +60,15 @@ public class albumRA extends RecyclerView.Adapter<albumRA.ViewHolder> {
             }
         });
 
+        holder.mainItem_View.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AlbumDetail.class);
+                intent.putExtra("AlbumDTO", item);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -67,6 +78,7 @@ public class albumRA extends RecyclerView.Adapter<albumRA.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        View mainItem_View;
         TextView albumTitle;
         TextView albumContent;
         TextView albumCnt;
@@ -78,6 +90,7 @@ public class albumRA extends RecyclerView.Adapter<albumRA.ViewHolder> {
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            mainItem_View = itemView.findViewById(R.id.mainItem_View);
             albumTitle = itemView.findViewById(R.id.albumTitle);
             albumContent = itemView.findViewById(R.id.albumContent);
             playView = itemView.findViewById(R.id.playView);

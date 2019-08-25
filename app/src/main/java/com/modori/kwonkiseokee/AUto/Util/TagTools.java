@@ -1,20 +1,10 @@
 package com.modori.kwonkiseokee.AUto.Util;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-
-import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
-import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.modori.kwonkiseokee.AUto.tab2_frag.PREFS_FILE;
 
 public class TagTools {
 

@@ -10,15 +10,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.modori.kwonkiseokee.AUto.R;
-import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
+import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 
 import retrofit2.Call;

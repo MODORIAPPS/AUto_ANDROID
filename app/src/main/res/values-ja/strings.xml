@@ -61,7 +61,7 @@
     <string name="SetGetImageDir_detailSet1Con2">選択した写真一覧</string>
 
 
-    <!-- PhotoDetail -->
+    <!-- PhotoDetailView -->
     <string name="PhotoDetail_DialogTitle">このページについて</string>
     <string name="PhotoDetail_DialogMessage">写真をダウンロードする場合, 高画質なので,データネットワーク環境では推奨しません。</string>
     <string name="PhotoDetail_DialogOk">はい</string>
@@ -82,7 +82,7 @@
     <string name="ListsPfPhotos_DialogMessage">写真をクリックして詳しい情報が確認できます。</string>
     <string name="ListsPfPhotos_DialogOk">はい</string>
 
-    <!-- tab1_frag -->
+    <!-- tab1Frag -->
     <string name="tab1_gallerySmall">ギャラリーで</string>
     <string name="tab1_galleryTitle">自分が選びた写真</string>
     <string name="tab1_galleryContent">ギャラリーを開けて選びた写真</string>

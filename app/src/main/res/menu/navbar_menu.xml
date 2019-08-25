@@ -8,6 +8,7 @@
         android:icon="@drawable/photos_icon"
         android:title="@string/tab_1" />
     <item
+
         android:id="@+id/goPhotos"
         android:icon="@drawable/explore_icon"
         android:title="@string/tab_2" />

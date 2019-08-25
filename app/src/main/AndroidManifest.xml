@@ -33,10 +33,10 @@
         <activity android:name=".getFromGallery" />
         <activity android:name=".SetGetImagesDir_layout" />
         <activity
-            android:name=".PhotoDetail"
+            android:name=".PhotoDetail.PhotoDetailView"
             android:configChanges="screenSize|orientation" />
         <activity
-            android:name=".ListsOfPhotos"
+            android:name=".ListOfPhotos.ListOfPhotosView"
             android:configChanges="screenSize|orientation"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".LicensePage" />

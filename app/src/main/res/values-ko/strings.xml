@@ -53,7 +53,7 @@
     <string name="saveDialogPosi">네</string>
     <string name="saveDialogNega">취소</string>
 
-    <!-- PhotoDetail -->
+    <!-- PhotoDetailView -->
     <string name="PhotoDetail_DialogTitle">이 페이지 설명</string>
     <string name="PhotoDetail_DialogMessage">사진을 다운로드 할경우 고화질이므로 데이터 네트워크 환경에서는 권장하지 않습니다.</string>
     <string name="PhotoDetail_DialogOk">알겠습니다.</string>
@@ -74,7 +74,7 @@
     <string name="ListsPfPhotos_DialogMessage">사진을 눌러 자세한 정보를 확인할 수 있습니다.</string>
     <string name="ListsPfPhotos_DialogOk">알겠습니다.</string>
 
-    <!-- tab1_frag -->
+    <!-- tab1Frag -->
     <string name="tab1_gallerySmall">내 앨범 리스트</string>
     <string name="tab1_galleryTitle">내가 선택한 사진</string>
     <string name="tab1_galleryContent">갤러리를 열어 선택한 사진</string>

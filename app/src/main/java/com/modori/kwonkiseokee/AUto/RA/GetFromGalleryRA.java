@@ -56,7 +56,9 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String item = imageLists.get(position);
 
-        Glide.with(context).load(Uri.parse(item)).into(holder.pick_ImagesView);
+        Glide.with(context).load(Uri.parse(item))
+
+                .into(holder.pick_ImagesView);
         photoUri = item;
         holder.pick_ImagesView.setOnClickListener(v -> {
             if(type){

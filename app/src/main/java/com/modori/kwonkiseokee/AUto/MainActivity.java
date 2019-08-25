@@ -1,7 +1,6 @@
 package com.modori.kwonkiseokee.AUto;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
@@ -11,10 +10,10 @@ import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.modori.kwonkiseokee.AUto.Tab1_frag.tab1Frag;
 
 import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
 
@@ -42,27 +41,24 @@ public class MainActivity extends AppCompatActivity {
         mainFrame = findViewById(R.id.mainFrame);
         navBar = findViewById(R.id.navBar);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1_frag()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1Frag()).commit();
 
-        navBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.goTranslate:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1_frag()).commit();
-                        return true;
+        navBar.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.goTranslate:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1Frag()).commit();
+                    return true;
 
-                    case R.id.goPhotos:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab2_frag()).commit();
-                        return true;
+                case R.id.goPhotos:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab2_frag()).commit();
+                    return true;
 
-                    case R.id.goAutoSet:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab3_frag()).commit();
-                        return true;
+                case R.id.goAutoSet:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab3_frag()).commit();
+                    return true;
 
-                    default:
-                        return false;
-                }
+                default:
+                    return false;
             }
         });
 

@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto.data.api;
+package com.modori.kwonkiseokee.AUto.RetrofitService.api;
 
 
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;

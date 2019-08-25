@@ -1,34 +1,29 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.PhotoDetail;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -42,20 +37,21 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 import com.modori.kwonkiseokee.AUto.Util.DEVICE_INFO;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
-import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
+import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
+import com.modori.kwonkiseokee.AUto.showPhotoOnly;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.channels.IllegalChannelGroupException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,17 +60,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PhotoDetail extends AppCompatActivity implements View.OnClickListener {
+public class PhotoDetailView extends AppCompatActivity implements View.OnClickListener {
 
     ImageView detailImageView, goBackBtn, goInfo, goSettings;
     Context context;
-    String photoID, downloadUrl, regularUrl;
-    String authorProfileUrl, authorName;
+    String photoID, downloadUrl, regularUrl, authorProfileUrl, authorName;
     int heartCnt, downloadCnt;
     String TAG = "포토 디테일 액티비티";
-
-    TextView heartCntV, downloadCntV, authorNameV;
-    TextView uploadedDateV, photoColorV, photoDescriptionV, photoSizeV, downloadTypeView;
+    TextView uploadedDateV, photoColorV, photoDescriptionV, photoSizeV, downloadTypeView, heartCntV, downloadCntV, authorNameV;
     View imagePColorV, infoLayout;
     CircleImageView authorProfile;
 
@@ -100,10 +93,12 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     private InterstitialAd interstitialAd;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_detail);
+
 
         Intent intent = getIntent();
         photoID = intent.getExtras().getString("id");
@@ -187,11 +182,11 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
 
         setDownloadTypeView();
-        if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(PhotoDetail.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) { // asks primission to use the devices camera
+        if (PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(PhotoDetailView.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) { // asks primission to use the devices camera
             Log.d(TAG, "쓰기 권한 확인");
 
         } else {
-            requestWritePermission(PhotoDetail.this);
+            requestWritePermission(PhotoDetailView.this);
         }
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -229,7 +224,8 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
 
                     Log.d("포토 디테일", "잘 가져옴");
                     Log.d("포토 디테일 id ", results.getId());
-                    Glide.with(getApplicationContext()).load(results.getUrls().getRegular()).into(detailImageView);
+                    Glide.with(getApplicationContext()).load(results.getUrls().getRegular())
+                            .into(detailImageView);
 
                     getDownloadUrl(results);
                     fab1.setClickable(true);
@@ -245,13 +241,13 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             }
         });
 
-        goBackBtn.setOnClickListener(v -> PhotoDetail.this.finish());
+        goBackBtn.setOnClickListener(v -> PhotoDetailView.this.finish());
 
         detailImageView.setOnClickListener(v -> {
             // 사진 만 보는 곳으로 이동
-            Intent goPhotoOnly = new Intent(PhotoDetail.this, showPhotoOnly.class);
+            Intent goPhotoOnly = new Intent(PhotoDetailView.this, showPhotoOnly.class);
             goPhotoOnly.putExtra("photoUrl", regularUrl);
-            PhotoDetail.this.startActivity(goPhotoOnly);
+            PhotoDetailView.this.startActivity(goPhotoOnly);
         });
 
 
@@ -306,7 +302,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
             case R.id.actionFab1:
                 Log.d("fab1", "눌림");
                 if (!fab1.isClickable()) {
-                    Toast.makeText(PhotoDetail.this, "사진을 다 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhotoDetailView.this, "사진을 다 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
 
                 } else {
                     anim();
@@ -321,7 +317,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                 action = false;
                 if (FileManager.alreadyDownloaded(filename)) {
                     //이미 있는 경우
-                    Toast.makeText(PhotoDetail.this, "이미 파일이 존재합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhotoDetailView.this, "이미 파일이 존재합니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     new downloadImage().execute(downloadUrl);
 
@@ -377,7 +373,7 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
     }
 
     private void setUpDialog() {
-        pDialog = new ProgressDialog(PhotoDetail.this);
+        pDialog = new ProgressDialog(PhotoDetailView.this);
         pDialog.setMessage(getString(R.string.PhotoDeatil_Downloading));
     }
 
@@ -446,14 +442,14 @@ public class PhotoDetail extends AppCompatActivity implements View.OnClickListen
                     } catch (IOException e) {
                         e.printStackTrace();
                         Log.d("배경화면 적용 실패", e.getMessage());
-                        Toast.makeText(PhotoDetail.this, "Failed to set image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PhotoDetailView.this, "Failed to set image", Toast.LENGTH_SHORT).show();
 
                     }
                 }
 
 
             } else {
-                Toast.makeText(PhotoDetail.this, "이미지가 존재하지 않습니다.",
+                Toast.makeText(PhotoDetailView.this, "이미지가 존재하지 않습니다.",
                         Toast.LENGTH_SHORT).show();
 
 

@@ -1,6 +1,8 @@
 package com.modori.kwonkiseokee.AUto.data;
 
-public class AlbumDTO {
+import java.io.Serializable;
+
+public class AlbumDTO implements Serializable{
 
     private String albumTitle;
     private String albumContent;

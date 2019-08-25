@@ -1,11 +1,7 @@
 package com.modori.kwonkiseokee.AUto;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,10 +14,13 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.modori.kwonkiseokee.AUto.ListOfPhotos.ListOfPhotosView;
 import com.modori.kwonkiseokee.AUto.RA.Tab2_tagListsRA;
+import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitService;
+import com.modori.kwonkiseokee.AUto.RetrofitService.api.SearchApi;
 import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
 import com.modori.kwonkiseokee.AUto.Util.TagTools;
-import com.modori.kwonkiseokee.AUto.data.api.ApiClient;
+import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 import com.modori.kwonkiseokee.AUto.data.data.Results;
 
@@ -37,6 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +52,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     public static final String PREFS_FILE = "PrefsFile";
 
-    //TagLists
-    private List<String> tagLists;
 
     private static String tag1 = null;
     private static String tag2 = null;
@@ -97,13 +95,29 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     View view;
 
     Intent intent;
+    CircularProgressDrawable circularProgressDrawable;
+
+    private int counter= 0;
+    private ImageView[] gridImages = new ImageView[]{tag1Gridview, tag2Gridview,tag3Gridview,tag4Gridview,tag5Gridview,tag6Gridview};
+    private TextView[] gridTexts = new TextView[]{view_tag1Grid,view_tag2Grid,view_tag3Grid,view_tag4Grid,view_tag5Grid,view_tag6Grid};
+    //TagLists
+    private List<String> tagLists;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab2_frag, container, false);
         context = getActivity();
+        initWork();
         ButterKnife.bind(this, view);
+
+        circularProgressDrawable = new CircularProgressDrawable(context);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.start();
+
+        gridTexts[0] = new TextView(context);
+        gridTexts[0].setText("dd");
 
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         String ads_app = getResources().getString(R.string.ads_app);
@@ -111,8 +125,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         AdView adView = view.findViewById(R.id.adView_frag1);
         adView.loadAd(adRequest);
 
-        tagLists = new ArrayList<>();
-        initWork();
+        //tagLists = new ArrayList<>();
         if (NETWORKS.getNetWorkType(context) == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(R.string.noNetworkErrorTitle));
@@ -126,12 +139,14 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
         }
         getPhotosAsEachTag(tag1, tag2, tag3, tag4, tag5, tag6);
+
+        //getPhotoAsEachTag(tagLists);
         return view;
     }
 
     private void initWork() {
 
-        intent = new Intent(getActivity(), ListsOfPhotos.class);
+        intent = new Intent(getActivity(), ListOfPhotosView.class);
 
         View goInfo = view.findViewById(R.id.goInfo);
         View goReset = view.findViewById(R.id.goReset);
@@ -143,6 +158,15 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         tag5Gridview = view.findViewById(R.id.tag5Gridview);
         tag6Gridview = view.findViewById(R.id.tag6Gridview);
 
+        view_tag1Grid = view.findViewById(R.id.view_tag1Grid);
+        view_tag2Grid = view.findViewById(R.id.view_tag2Grid);
+        view_tag3Grid = view.findViewById(R.id.view_tag3Grid);
+        view_tag4Grid = view.findViewById(R.id.view_tag4Grid);
+        view_tag5Grid = view.findViewById(R.id.view_tag5Grid);
+        view_tag6Grid = view.findViewById(R.id.view_tag6Grid);
+
+
+
         // GridView
         View grid1 = view.findViewById(R.id.grid1);
         View grid2 = view.findViewById(R.id.grid2);
@@ -150,6 +174,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         View grid4 = view.findViewById(R.id.grid4);
         View grid5 = view.findViewById(R.id.grid5);
         View grid6 = view.findViewById(R.id.grid6);
+
+
 
 
         Toolbar toolbar = view.findViewById(R.id.toolbar2);
@@ -187,6 +213,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     private void getTagLists(Context context) {
         tagLists = TagTools.getTagLists(context);
+        System.out.println(tagLists.toString());
 
         tag1 = tagLists.get(0);
         tag2 = tagLists.get(1);
@@ -212,12 +239,58 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     }
 
+//    private void getPhotoAsEachTag(List<String> tagList){
+//
+//
+//
+//        for (int i = 0; i < 6; i++) {
+//            System.out.println(tagLists.size());
+//            RetrofitService.createService(SearchApi.class).getPhotobyKeyward(tagLists.get(i), 1, 1).enqueue(new Callback<PhotoSearch>() {
+//                @Override
+//                public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
+//                    if (response.isSuccessful()) {
+//                        //photoUrl[0] = (Results) response.body().getResults();
+//                        results = response.body().getResults();
+//                        //System.out.println(results.size());
+//                        //setImageView(results.get(0).getUrls().getSmall(), tag1Gridview);
+//                        gridImages[counter] = new ImageView(context);
+//
+//
+////                        Glide.with(context).load(results.get(0).getUrls().getSmall())
+////                                .placeholder(circularProgressDrawable)
+////                                .into(gridImages[counter]);
+//
+//                        System.out.println("이미지 URL : "+ results.get(0).getUrls().getSmall());
+//                        setImageView(results.get(0).getUrls().getSmall(), gridImages[counter]);
+//                                //.into(gridImages[0]);
+//                        gridTexts[counter] = new TextView(context);
+//                        gridTexts[counter].setText(tagLists.get(counter));
+//                        //Log.d("tag1", "잘 가져옴");
+//
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<PhotoSearch> call, Throwable t) {
+//                    //Log.d("tag1 에서 사진 검색 오류", t.getMessage());
+//
+//                }
+//            });
+//
+//
+//            counter = i;
+//
+//
+//        }
+//    }
+
 
     private void getPhotosAsEachTag(String tag1, String tag2, String tag3, String tag4, String tag5, final String tag6) {
 
         Log.d("가져오는 중 ", "태그별 가져오는 중");
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag1, 1, 1).enqueue(new Callback<PhotoSearch>() {
+        RetrofitService.createService(SearchApi.class).getPhotobyKeyward(tag1, 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -225,7 +298,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     results = response.body().getResults();
                     setImageView(results.get(0).getUrls().getSmall(), tag1Gridview);
 
-                    //Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag1Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall())
+                            .placeholder(circularProgressDrawable).into(tag1Gridview);
                     Log.d("tag1", "잘 가져옴");
 
 
@@ -246,8 +320,10 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    setImageView(results.get(0).getUrls().getSmall(), tag2Gridview);
-                    //Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag2Gridview);
+                    //setImageView(results.get(0).getUrls().getSmall(), tag2Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall())
+                            .placeholder(circularProgressDrawable)
+                            .into(tag2Gridview);
                     Log.d("tag2", "잘 가져옴");
 
                 }
@@ -267,8 +343,9 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    setImageView(results.get(0).getUrls().getSmall(), tag3Gridview);
-                    //Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag3Gridview);
+                    //setImageView(results.get(0).getUrls().getSmall(), tag3Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall())
+                            .placeholder(circularProgressDrawable).into(tag3Gridview);
                     Log.d("tag3", "잘 가져옴");
 
                 }
@@ -287,8 +364,9 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    setImageView(results.get(0).getUrls().getSmall(), tag4Gridview);
-                    //Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag4Gridview);
+                    //setImageView(results.get(0).getUrls().getSmall(), tag4Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall())
+                            .placeholder(circularProgressDrawable).into(tag4Gridview);
                     Log.d("tag4", "잘 가져옴");
 
                 }
@@ -307,8 +385,9 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    setImageView(results.get(0).getUrls().getSmall(), tag5Gridview);
-                    //Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag5Gridview);
+                    //setImageView(results.get(0).getUrls().getSmall(), tag5Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall())
+                            .placeholder(circularProgressDrawable).into(tag5Gridview);
                     Log.d("tag5", "잘 가져옴");
 
                 }
@@ -328,8 +407,9 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     //photoUrl[0] = (Results) response.body().getResults();
                     results = response.body().getResults();
 
-                    setImageView(results.get(0).getUrls().getSmall(), tag6Gridview);
-                    //Glide.with(context).load(results.get(0).getUrls().getSmall()).into(tag6Gridview);
+                    //setImageView(results.get(0).getUrls().getSmall(), tag6Gridview);
+                    Glide.with(context).load(results.get(0).getUrls().getSmall())
+                            .placeholder(circularProgressDrawable).into(tag6Gridview);
                     Log.d("tag6", "잘 가져옴");
 
                 }
