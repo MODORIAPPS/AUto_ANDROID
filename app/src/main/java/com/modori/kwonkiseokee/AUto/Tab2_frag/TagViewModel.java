@@ -17,6 +17,10 @@ public class TagViewModel extends AndroidViewModel {
         tagLists = repository.getTagLists();
     }
 
+    public int getSize(){
+        return repository.getSize();
+    }
+
     public void deleteAll(){
         repository.deleteAll();
     }

@@ -22,12 +22,16 @@ public class TagListRepository {
         tagDao.deleteAll();
     }
 
+    public int getSize() {
+        return tagDao.getSize();
+    }
+
     LiveData<List<Tag>> getTagLists() {
         return tagLists;
     }
 
     public void update(String newTag, int targetId) {
-        Tag tag = new Tag(newTag,targetId);
+        Tag tag = new Tag(newTag, targetId);
         new UpdateAsyncTask(tagDao).execute(tag);
     }
 
@@ -64,7 +68,6 @@ public class TagListRepository {
             return null;
         }
     }
-
 
 
 }

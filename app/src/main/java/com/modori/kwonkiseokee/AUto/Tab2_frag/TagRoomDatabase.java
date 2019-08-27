@@ -36,7 +36,7 @@ public abstract class TagRoomDatabase extends RoomDatabase {
             super.onOpen(db);
             // If you want to keep the data through app restarts,
             // comment out the following line.
-            new PopulateDbAsync(INSTANCE).execute();
+            new CheckDbAsync(INSTANCE).execute();
         }
     };
 
@@ -53,16 +53,56 @@ public abstract class TagRoomDatabase extends RoomDatabase {
             // Start the app with a clean database every time.
             // Not needed if you only populate on creation.
             mDao.deleteAll();
-            String[] tags = new String[]{"Landscape", "Office","MilkyWay","Yosemite","Roads", "Home"};
+            String[] tags = new String[]{"Landscape", "Office", "MilkyWay", "Yosemite", "Roads", "Home"};
             Tag tag;
             for (int i = 0; i < 6; i++) {
-                 tag = new Tag(tags[i],i);
-                 mDao.insert(tag);
+                tag = new Tag(tags[i], i);
+                mDao.insert(tag);
             }
 
             return null;
         }
     }
+
+    public static class CheckDbAsync extends AsyncTask<Void, Void, Void> {
+
+        private final TagDao mDao;
+
+        CheckDbAsync(TagRoomDatabase db) {
+            mDao = db.tagDao();
+        }
+
+        @Override
+        protected Void doInBackground(final Void... params) {
+            // Start the app with a clean database every time.
+            // Not needed if you only populate on creation.
+            mDao.deleteAll();
+            String[] tags = new String[]{"Landscape", "Office", "MilkyWay", "Yosemite", "Roads", "Home"};
+            Tag tag;
+            for (int i = 0; i < 6; i++) {
+                tag = new Tag(tags[i], i);
+                mDao.insert(tag);
+            }
+
+            return null;
+        }
+    }
+
+    public static class CheckAsyncTask extends AsyncTask<Tag, Void, Integer> {
+
+        private TagDao mAsyncTaskDao;
+
+        CheckAsyncTask(TagRoomDatabase dao) {
+            mAsyncTaskDao = dao.tagDao();
+        }
+
+        @Override
+        protected Integer doInBackground(final Tag... params) {
+            return mAsyncTaskDao.getSize();
+
+        }
+    }
+
 
 
 

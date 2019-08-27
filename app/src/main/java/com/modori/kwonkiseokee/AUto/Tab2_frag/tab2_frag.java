@@ -25,6 +25,7 @@ import com.modori.kwonkiseokee.AUto.data.data.Results;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,12 +34,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import retrofit2.Call;
@@ -106,15 +104,24 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         context = getActivity();
 
         //adapter = new TagListsAdapter(context);
-
+        int check = 0;
+        try {
+            check = new TagRoomDatabase.CheckAsyncTask(TagRoomDatabase.getDatabase(context)).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         tagViewModel = ViewModelProviders.of(tab2_frag.this).get(TagViewModel.class);
+        if (check == 0) {
+            new TagRoomDatabase.CheckDbAsync(TagRoomDatabase.getDatabase(context)).execute();
+
+        }
         tagViewModel.getTagLists().observe(this, words -> {
 
 
-            if (words == null) {
-                new TagRoomDatabase.PopulateDbAsync(TagRoomDatabase.getDatabase(context)).execute();
-            } else if (words.size() == 6){
+            if (words.size() == 6) {
                 System.out.println(words.size());
                 adapter = new TagListsAdapter(context, words, tagViewModel);
                 tagLists = words;
@@ -406,7 +413,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     resetDialog.setMessage(getString(R.string.tab2_resetContent));
                     resetDialog.setPositiveButton(R.string.tab2_DialogOk,
                             (dialog, which) -> {
-                                new TagRoomDatabase.PopulateDbAsync(TagRoomDatabase.getDatabase(context)).execute();
+                                new TagRoomDatabase.CheckDbAsync(TagRoomDatabase.getDatabase(context)).execute();
 
                                 //setTagListsView(context);
                             }).setNegativeButton(R.string.saveDialogNega,

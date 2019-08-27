@@ -24,4 +24,7 @@ public interface TagDao {
 
     @Query("SELECT * from tag_table")
     LiveData<List<Tag>> getTagLists();
+
+    @Query("SELECT count(*) FROM tag_table")
+    int getSize();
 }
