@@ -126,7 +126,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
-                            android:text="view_tag1Grid"
+                            android:text=""
                             android:textColor="@color/white" />
                     </LinearLayout>
 
@@ -166,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
-                            android:text="view_tag2Grid"
+                            android:text=""
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -216,7 +216,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
-                            android:text="view_tag3Grid"
+                            android:text=""
                             android:textColor="@color/white" />
                     </LinearLayout>
 
@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
-                            android:text="view_tag4Grid"
+                            android:text=""
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -307,7 +307,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
-                            android:text="view_tag4Grid"
+                            android:text=""
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </RelativeLayout>
@@ -347,7 +347,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="10dp"
-                            android:text="view_tag5Grid"
+                            android:text=""
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </RelativeLayout>

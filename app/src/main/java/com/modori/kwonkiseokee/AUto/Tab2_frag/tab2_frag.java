@@ -112,7 +112,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         tagViewModel.getTagLists().observe(this, words -> {
 
 
-            if (words.size() == 0) {
+            if (words == null) {
                 new TagRoomDatabase.PopulateDbAsync(TagRoomDatabase.getDatabase(context)).execute();
             } else if (words.size() == 6){
                 System.out.println(words.size());
