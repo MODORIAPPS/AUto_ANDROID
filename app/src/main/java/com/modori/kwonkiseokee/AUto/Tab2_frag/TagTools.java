@@ -1,7 +1,9 @@
-package com.modori.kwonkiseokee.AUto.Util;
+package com.modori.kwonkiseokee.AUto.Tab2_frag;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +56,12 @@ public class TagTools {
 
     }
 
-    static boolean overLapTagCheck(Context context, String tag) {
+    public static boolean overLapTagCheck(List<Tag> lists, String tag) {
+        System.out.println("받은 태그 : "+ tag);
+        System.out.println("받은 태그리스트  : "+ lists);
         boolean available = false;
-        makeTagLists(context);
-        for (String checkTag : tagLists) {
-            if (checkTag.toUpperCase().equals(tag.toUpperCase())) {
+        for (Tag checkTag : lists) {
+            if (checkTag.getTag().toUpperCase().equals(tag.toUpperCase())) {
                 // 중복된 태그가 있음
                 available = true;
             }
@@ -68,7 +71,7 @@ public class TagTools {
             //중복된 태그가 있는 경우
             return available;
         }
-        return available;
+        return false;
     }
 
 }

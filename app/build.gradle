@@ -55,6 +55,13 @@ dependencies {
 
     // ViewModel
     implementation "android.arch.lifecycle:extensions:2.0.0-beta01"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0-alpha03"
+
+    // Room
+    implementation "androidx.room:room-runtime:2.2.0-beta01"
+    annotationProcessor "androidx.room:room-compiler:2.2.0-beta01"
+    androidTestImplementation "androidx.room:room-testing:2.2.0-beta01"
+
 
     // Google Ads
     implementation 'com.google.firebase:firebase-ads:18.1.1'

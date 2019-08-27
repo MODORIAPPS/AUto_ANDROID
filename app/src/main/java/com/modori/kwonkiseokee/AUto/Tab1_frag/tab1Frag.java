@@ -19,6 +19,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
+import com.modori.kwonkiseokee.AUto.Util.ColumnQty;
 import com.modori.kwonkiseokee.AUto.Util.DEVICE_INFO;
 import com.modori.kwonkiseokee.AUto.data.AlbumDTO;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
@@ -69,7 +70,7 @@ public class tab1Frag extends Fragment {
 
 
     private void setupPickedRV(){
-        int mNoOfColumns = DEVICE_INFO.calculateNoOfColumns(getApplicationContext(), 180);
+        //int mNoOfColumns = ColumnQty.calculateNoOfColumns(getApplicationContext(), 120);
 
         Realm realm = Realm.getDefaultInstance();
         List<String> onlyPhotoUri = new ArrayList<>();
@@ -80,7 +81,8 @@ public class tab1Frag extends Fragment {
 
         //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         //linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext,mNoOfColumns);
+        int mNoOfColumns = ColumnQty.calculateNoOfColumns(getApplicationContext(),130);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mNoOfColumns);
         pickedRV.setLayoutManager(gridLayoutManager);
 
         if(onlyPhotoUri.isEmpty()){

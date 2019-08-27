@@ -28,7 +28,7 @@ public class MakePreferences {
         return settings;
     }
 
-    SharedPreferences.Editor getEditor() {
+    public SharedPreferences.Editor getEditor() {
 
         return editor;
     }

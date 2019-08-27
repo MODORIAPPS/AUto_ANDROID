@@ -57,16 +57,17 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
         String item = imageLists.get(position);
 
         Glide.with(context).load(Uri.parse(item))
-
+                .override(450,450)
+                .centerCrop()
                 .into(holder.pick_ImagesView);
         photoUri = item;
         holder.pick_ImagesView.setOnClickListener(v -> {
-            if(type){
+            if (type) {
                 // oldphoto
-                makeDeleteDialog(type, position,item);
-            }else{
+                makeDeleteDialog(type, position, item);
+            } else {
                 // newphoto
-                makeDeleteDialog(type,position, item);
+                makeDeleteDialog(type, position, item);
 
 
             }
@@ -85,16 +86,14 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
                 .setPositiveButton("확인", (dialog, whichButton) -> {
                     if (dataType) {
 
-                            realm.beginTransaction();
-                            RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoUri).findAll();
-                            Log.d("PhotosDTOS", photoDTOS.toString());
-                            photoDTOS.deleteAllFromRealm();
-                            realm.commitTransaction();
+                        realm.beginTransaction();
+                        RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoUri).findAll();
+                        Log.d("PhotosDTOS", photoDTOS.toString());
+                        photoDTOS.deleteAllFromRealm();
+                        realm.commitTransaction();
 
-                            imageLists.remove(position);
-                            notifyDataSetChanged();
-
-
+                        imageLists.remove(position);
+                        notifyDataSetChanged();
 
 
                     } else {
@@ -118,6 +117,7 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
         AlertDialog dialog = builder.create();    // 알림창 객체 생성
         dialog.show();    // 알림창 띄우기
     }
+
     @Override
     public int getItemCount() {
         return imageLists.size();

@@ -17,7 +17,12 @@ import androidx.annotation.NonNull;
 
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
+import com.modori.kwonkiseokee.AUto.Tab2_frag.Tag;
+import com.modori.kwonkiseokee.AUto.Tab2_frag.TagTools;
+import com.modori.kwonkiseokee.AUto.Tab2_frag.TagViewModel;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,13 +41,23 @@ public class OpenDialog extends Dialog {
 
     final String TAG = getClass().getName();
 
+    private TagViewModel tagViewModel;
+    private List<Tag> tagList;
 
-    public OpenDialog(@NonNull final Context context, final int position, String title, String subtitle) {
+    String oldTag;
+
+
+    public OpenDialog(@NonNull final Context context, final int position, String title, String subtitle,List<Tag> tagLists, TagViewModel viewModel) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setContentView(R.layout.dialog_layout);
         this.mContext = context;
+
+        this.tagViewModel = viewModel;
+
+        this.tagList = tagLists;
+
 
         title_dia = findViewById(R.id.Title_dia);
         subTitle_dia = findViewById(R.id.subTitle_dia);
@@ -55,6 +70,14 @@ public class OpenDialog extends Dialog {
         title_dia.setText(title);
         subTitle_dia.setText(subtitle);
 
+//        tagViewModel.getTagLists().observe(context, words -> {
+//            tagList = words;
+//            System.out.println(words.size());
+//
+//        });
+
+        //System.out.println(tagList.size());
+
         positiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +86,8 @@ public class OpenDialog extends Dialog {
                     warning_dia.setVisibility(View.VISIBLE);
                     warning_dia.setText("잘못된 입력이거나 공백입니다.");
                 } else {
-
-                    availableTagCheck(inputText.getText().toString(), position);
+                    oldTag = inputText.getText().toString();
+                    availableTagCheck(oldTag, position);
 
                 }
             }
@@ -100,37 +123,41 @@ public class OpenDialog extends Dialog {
                             warning_dia.setVisibility(View.VISIBLE);
                             warning_dia.setText("검색된 결과가 없는 태그입니다.");
                         } else {
-                            if (!TagTools.overLapTagCheck(mContext, inputTag)) {
+                            if (!TagTools.overLapTagCheck(tagList, inputTag)) {
                                 Log.d("TAG 처리중", "진입됨");
                                 warning_dia.setVisibility(View.GONE);
-
 
                                 switch (position) {
 
                                     case 0:
-                                        MakePreferences.getInstance().getEditor().putString("tag1", inputTag);
+                                        tagViewModel.update(inputTag,0);
+
                                         break;
                                     case 1:
-                                        MakePreferences.getInstance().getEditor().putString("tag2", inputTag);
+                                        tagViewModel.update(inputTag,1);
+
                                         break;
                                     case 2:
-                                        MakePreferences.getInstance().getEditor().putString("tag3", inputTag);
+                                        tagViewModel.update(inputTag,2);
+
                                         break;
                                     case 3:
-                                        MakePreferences.getInstance().getEditor().putString("tag4", inputTag);
+                                        tagViewModel.update(inputTag,3);
+
                                         break;
                                     case 4:
-                                        MakePreferences.getInstance().getEditor().putString("tag5", inputTag);
+                                        tagViewModel.update(inputTag,4);
                                         break;
                                     case 5:
-                                        MakePreferences.getInstance().getEditor().putString("tag6", inputTag);
+                                        tagViewModel.update(inputTag,5);
+
                                         break;
 
                                     default:
                                         Log.d("TAG 처리중 오류", "예기치 않은 오류 발생");
 
                                 }
-                                MakePreferences.getInstance().getEditor().apply();
+
 
                                 Toast.makeText(mContext, "새 태그가 추가되었습니다.", Toast.LENGTH_SHORT).show();
                                 dismiss();

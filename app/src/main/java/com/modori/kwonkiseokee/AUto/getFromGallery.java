@@ -145,10 +145,6 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
                         } else {
                             // new Photos
-//                            pickedLists.remove(photoNewAdapter.getPhotoUri());
-//                            photoNewAdapter.notifyDataSetChanged();
-//                            newPhotosCnt.setText(pickedLists.size() + "");
-
                         }
                         //삭제
                     }

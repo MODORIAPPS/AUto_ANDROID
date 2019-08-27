@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.Tab2_frag;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +15,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.modori.kwonkiseokee.AUto.ListOfPhotos.ListOfPhotosView;
-import com.modori.kwonkiseokee.AUto.RA.Tab2_tagListsRA;
+import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitService;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.SearchApi;
 import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
-import com.modori.kwonkiseokee.AUto.Util.TagTools;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 import com.modori.kwonkiseokee.AUto.data.data.Results;
@@ -34,12 +33,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,12 +54,14 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     public static final String PREFS_FILE = "PrefsFile";
 
 
-    private static String tag1 = null;
-    private static String tag2 = null;
-    private static String tag3 = null;
-    private static String tag4 = null;
-    private static String tag5 = null;
-    private static String tag6 = null;
+//    private String tag1 = null;
+//    private static String tag2 = null;
+//    private static String tag3 = null;
+//    private static String tag4 = null;
+//    private static String tag5 = null;
+//    private static String tag6 = null;
+
+    private String[] tagArray = new String[6];
 
 
     //Widgets
@@ -73,22 +76,11 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     private ImageView tag6Gridview;
 
     // TextView of GridViews, tags..
-    @BindView(R.id.view_tag1Grid)
     TextView view_tag1Grid;
-
-    @BindView(R.id.view_tag2Grid)
     TextView view_tag2Grid;
-
-    @BindView(R.id.view_tag3Grid)
     TextView view_tag3Grid;
-
-    @BindView(R.id.view_tag4Grid)
     TextView view_tag4Grid;
-
-    @BindView(R.id.view_tag5Grid)
     TextView view_tag5Grid;
-
-    @BindView(R.id.view_tag6Grid)
     TextView view_tag6Grid;
 
 
@@ -97,27 +89,52 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     Intent intent;
     CircularProgressDrawable circularProgressDrawable;
 
-    private int counter= 0;
-    private ImageView[] gridImages = new ImageView[]{tag1Gridview, tag2Gridview,tag3Gridview,tag4Gridview,tag5Gridview,tag6Gridview};
-    private TextView[] gridTexts = new TextView[]{view_tag1Grid,view_tag2Grid,view_tag3Grid,view_tag4Grid,view_tag5Grid,view_tag6Grid};
+    private TagViewModel tagViewModel;
+    private TagListsAdapter adapter;
+
+    private int counter = 0;
+    private ImageView[] gridImages = new ImageView[]{tag1Gridview, tag2Gridview, tag3Gridview, tag4Gridview, tag5Gridview, tag6Gridview};
+    private TextView[] gridTexts = new TextView[]{view_tag1Grid, view_tag2Grid, view_tag3Grid, view_tag4Grid, view_tag5Grid, view_tag6Grid};
     //TagLists
-    private List<String> tagLists;
+    private List<Tag> tagLists;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.tab2_frag, container, false);
         context = getActivity();
+
+        //adapter = new TagListsAdapter(context);
+
+
+        tagViewModel = ViewModelProviders.of(tab2_frag.this).get(TagViewModel.class);
+        tagViewModel.getTagLists().observe(this, words -> {
+
+
+            if (words.size() == 0) {
+                new TagRoomDatabase.PopulateDbAsync(TagRoomDatabase.getDatabase(context)).execute();
+            } else if (words.size() == 6){
+                System.out.println(words.size());
+                adapter = new TagListsAdapter(context, words, tagViewModel);
+                tagLists = words;
+                addToTextTagLists(words);
+                adapter.setTagLists(words);
+                viewTagLists.setAdapter(adapter);
+                getPhotosAsEachTag(words);
+
+            }
+
+
+        });
+
+
         initWork();
-        ButterKnife.bind(this, view);
 
         circularProgressDrawable = new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
         circularProgressDrawable.start();
-
-        gridTexts[0] = new TextView(context);
-        gridTexts[0].setText("dd");
 
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         String ads_app = getResources().getString(R.string.ads_app);
@@ -126,6 +143,23 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         adView.loadAd(adRequest);
 
         //tagLists = new ArrayList<>();
+        netWorkCheck();
+        //getPhotosAsEachTag(tag1, tag2, tag3, tag4, tag5, tag6);
+
+        //getPhotoAsEachTag(tagLists);
+
+
+        return view;
+    }
+
+    private void insertTagLists(TagViewModel viewModel) {
+        String[] tagOrigin = {"Landscape", "Office", "MilkyWay", "Yosemite", "Roads", "home"};
+        for (int i = 0; i < 6; i++) {
+            viewModel.insert(new Tag(tagOrigin[i], i));
+        }
+    }
+
+    private boolean netWorkCheck() {
         if (NETWORKS.getNetWorkType(context) == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(getString(R.string.noNetworkErrorTitle));
@@ -136,12 +170,11 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
                     });
 
             builder.show();
+            return false;
 
         }
-        getPhotosAsEachTag(tag1, tag2, tag3, tag4, tag5, tag6);
 
-        //getPhotoAsEachTag(tagLists);
-        return view;
+        return true;
     }
 
     private void initWork() {
@@ -166,7 +199,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         view_tag6Grid = view.findViewById(R.id.view_tag6Grid);
 
 
-
         // GridView
         View grid1 = view.findViewById(R.id.grid1);
         View grid2 = view.findViewById(R.id.grid2);
@@ -176,17 +208,12 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         View grid6 = view.findViewById(R.id.grid6);
 
 
-
-
         Toolbar toolbar = view.findViewById(R.id.toolbar2);
         viewTagLists = view.findViewById(R.id.viewTagLists);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-
-        setTagListsView(context);
-
 
         grid1.setOnClickListener(this);
         grid2.setOnClickListener(this);
@@ -197,100 +224,28 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         goInfo.setOnClickListener(this);
         goReset.setOnClickListener(this);
 
-    }
-
-    private void setTagListsView(Context context) {
-        getTagLists(context);
-        addTagLists();
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         viewTagLists.setLayoutManager(layoutManager);
 
-        Tab2_tagListsRA adapterOfTagLists = new Tab2_tagListsRA(context, tagLists);
-        viewTagLists.setAdapter(adapterOfTagLists);
     }
 
-    //TEST
 
-    private void getTagLists(Context context) {
-        tagLists = TagTools.getTagLists(context);
-        System.out.println(tagLists.toString());
+    private void addToTextTagLists(List<Tag> tagList) {
 
-        tag1 = tagLists.get(0);
-        tag2 = tagLists.get(1);
-        tag3 = tagLists.get(2);
-        tag4 = tagLists.get(3);
-        tag5 = tagLists.get(4);
-        tag6 = tagLists.get(5);
-
-        Log.d("태그1 정보", tag1 + "");
-
-
+        view_tag1Grid.setText(tagList.get(0).getTag());
+        view_tag2Grid.setText(tagList.get(1).getTag());
+        view_tag3Grid.setText(tagList.get(2).getTag());
+        view_tag4Grid.setText(tagList.get(3).getTag());
+        view_tag5Grid.setText(tagList.get(4).getTag());
+        view_tag6Grid.setText(tagList.get(5).getTag());
     }
 
-    private void addTagLists() {
 
-        view_tag1Grid.setText(tag1);
-        view_tag2Grid.setText(tag2);
-        view_tag3Grid.setText(tag3);
-        view_tag4Grid.setText(tag4);
-        view_tag5Grid.setText(tag5);
-        view_tag6Grid.setText(tag6);
-
-
-    }
-
-//    private void getPhotoAsEachTag(List<String> tagList){
-//
-//
-//
-//        for (int i = 0; i < 6; i++) {
-//            System.out.println(tagLists.size());
-//            RetrofitService.createService(SearchApi.class).getPhotobyKeyward(tagLists.get(i), 1, 1).enqueue(new Callback<PhotoSearch>() {
-//                @Override
-//                public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
-//                    if (response.isSuccessful()) {
-//                        //photoUrl[0] = (Results) response.body().getResults();
-//                        results = response.body().getResults();
-//                        //System.out.println(results.size());
-//                        //setImageView(results.get(0).getUrls().getSmall(), tag1Gridview);
-//                        gridImages[counter] = new ImageView(context);
-//
-//
-////                        Glide.with(context).load(results.get(0).getUrls().getSmall())
-////                                .placeholder(circularProgressDrawable)
-////                                .into(gridImages[counter]);
-//
-//                        System.out.println("이미지 URL : "+ results.get(0).getUrls().getSmall());
-//                        setImageView(results.get(0).getUrls().getSmall(), gridImages[counter]);
-//                                //.into(gridImages[0]);
-//                        gridTexts[counter] = new TextView(context);
-//                        gridTexts[counter].setText(tagLists.get(counter));
-//                        //Log.d("tag1", "잘 가져옴");
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<PhotoSearch> call, Throwable t) {
-//                    //Log.d("tag1 에서 사진 검색 오류", t.getMessage());
-//
-//                }
-//            });
-//
-//
-//            counter = i;
-//
-//
-//        }
-//    }
-
-
-    private void getPhotosAsEachTag(String tag1, String tag2, String tag3, String tag4, String tag5, final String tag6) {
+    private void getPhotosAsEachTag(List<Tag> tagList) {
 
         Log.d("가져오는 중 ", "태그별 가져오는 중");
 
-        RetrofitService.createService(SearchApi.class).getPhotobyKeyward(tag1, 1, 1).enqueue(new Callback<PhotoSearch>() {
+        RetrofitService.createService(SearchApi.class).getPhotobyKeyward(tagList.get(0).getTag(), 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -313,7 +268,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             }
         });
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag2, 1, 1).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tagList.get(1).getTag(), 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -336,7 +291,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             }
         });
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag3, 1, 1).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tagList.get(2).getTag(), 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -357,7 +312,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
             }
         });
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag4, 1, 1).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tagList.get(3).getTag(), 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -378,7 +333,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
             }
         });
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag5, 1, 1).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tagList.get(4).getTag(), 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -400,7 +355,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             }
         });
 
-        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tag6, 1, 1).enqueue(new Callback<PhotoSearch>() {
+        ApiClient.getPhotoByKeyword().getPhotobyKeyward(tagList.get(5).getTag(), 1, 1).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {
@@ -428,69 +383,82 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.grid1:
-                intent.putExtra("photoID", tag1);
-                startActivity(intent);
-                break;
-
-            case R.id.grid2:
-                intent.putExtra("photoID", tag2);
-                startActivity(intent);
-                break;
-
-            case R.id.grid3:
-                intent.putExtra("photoID", tag3);
-                startActivity(intent);
-                break;
-
-            case R.id.grid4:
-                intent.putExtra("photoID", tag4);
-                startActivity(intent);
-                break;
-
-            case R.id.grid5:
-                intent.putExtra("photoID", tag5);
-                startActivity(intent);
-                break;
-
-            case R.id.grid6:
-                intent.putExtra("photoID", tag6);
-                startActivity(intent);
-                break;
-
-            case R.id.goInfo:
-                //show Dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle(R.string.tab2_DialogTitle);
-                builder.setMessage(R.string.tab2_DialogMessage);
-                builder.setPositiveButton(R.string.tab2_DialogOk,
-                        (dialog, which) -> {
-                        });
-
-                builder.show();
-
-                break;
-
-            case R.id.goReset:
-                AlertDialog.Builder resetDialog = new AlertDialog.Builder(context);
-                resetDialog.setTitle(getString(R.string.tab2_resetTitle));
-                resetDialog.setMessage(getString(R.string.tab2_resetContent));
-                resetDialog.setPositiveButton(R.string.tab2_DialogOk,
-                        (dialog, which) -> {
-                            TagTools.resetTags(context);
-                            setTagListsView(context);
-                            getPhotosAsEachTag(tag1, tag2, tag3, tag4, tag5, tag6);
-                        }).setNegativeButton(R.string.saveDialogNega,
-                        ((dialog, which) -> {
-
-                        }));
-
-                resetDialog.show();
 
 
-                break;
+        if (v.getId() == R.id.goInfo || v.getId() == R.id.goReset) {
+            switch (v.getId()) {
+                case R.id.goInfo:
+                    //show Dialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle(R.string.tab2_DialogTitle);
+                    builder.setMessage(R.string.tab2_DialogMessage);
+                    builder.setPositiveButton(R.string.tab2_DialogOk,
+                            (dialog, which) -> {
+                            });
+
+                    builder.show();
+
+                    break;
+
+                case R.id.goReset:
+                    AlertDialog.Builder resetDialog = new AlertDialog.Builder(context);
+                    resetDialog.setTitle(getString(R.string.tab2_resetTitle));
+                    resetDialog.setMessage(getString(R.string.tab2_resetContent));
+                    resetDialog.setPositiveButton(R.string.tab2_DialogOk,
+                            (dialog, which) -> {
+                                new TagRoomDatabase.PopulateDbAsync(TagRoomDatabase.getDatabase(context)).execute();
+
+                                //setTagListsView(context);
+                            }).setNegativeButton(R.string.saveDialogNega,
+                            ((dialog, which) -> {
+
+                            }));
+
+                    resetDialog.show();
+
+
+                    break;
+            }
+        } else {
+            if (netWorkCheck()) {
+                switch (v.getId()) {
+                    case R.id.grid1:
+                        intent.putExtra("photoID", tagLists.get(0).getTag());
+                        startActivity(intent);
+                        break;
+
+                    case R.id.grid2:
+                        intent.putExtra("photoID", tagLists.get(1).getTag());
+                        startActivity(intent);
+                        break;
+
+                    case R.id.grid3:
+                        intent.putExtra("photoID", tagLists.get(2).getTag());
+                        startActivity(intent);
+                        break;
+
+                    case R.id.grid4:
+                        intent.putExtra("photoID", tagLists.get(3).getTag());
+                        startActivity(intent);
+                        break;
+
+                    case R.id.grid5:
+                        intent.putExtra("photoID", tagLists.get(4).getTag());
+                        startActivity(intent);
+                        break;
+
+                    case R.id.grid6:
+                        intent.putExtra("photoID", tagLists.get(5).getTag());
+                        startActivity(intent);
+                        break;
+
+
+                }
+            }
+
+
         }
+
     }
 
 
