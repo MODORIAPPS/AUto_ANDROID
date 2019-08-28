@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.modori.kwonkiseokee.AUto.R;
-import com.modori.kwonkiseokee.AUto.Util.OpenDialog;
 
 import java.util.List;
 

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FAFAFA"
+    android:orientation="vertical"
     tools:context=".ListOfPhotos.ListOfPhotosView">
 
     <androidx.appcompat.widget.Toolbar
@@ -26,29 +26,38 @@
                 android:src="@drawable/left_arrow_icon"
                 android:tint="@color/semiBlack" />
 
-            <TextView
-                android:textColor="@color/semiBlack"
-                android:gravity="center"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_marginEnd="15dp"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/goInfo_list"
-                android:text="LOADING..."
-                android:background="@drawable/background_theme"
-                android:id="@+id/showPictGetCnt"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp" />
-
             <ImageView
-                android:layout_marginEnd="15dp"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/goInfo_list"
+                android:id="@+id/setToGridView"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf="@id/goInfo_list"
+                android:src="@drawable/comfy_icon" />
+
+            <ImageView
+                android:id="@+id/goInfo_list"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/info_icon"
                 android:tint="@color/semiBlack" />
+
+            <TextView
+                android:id="@+id/showPictGetCnt"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:layout_toStartOf="@id/setToGridView"
+                android:background="@drawable/background_theme"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="LOADING..."
+                android:textColor="@color/semiBlack" />
 
 
         </RelativeLayout>
@@ -58,9 +67,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:background="#EEEEEE"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#EEEEEE"
         tools:listitem="@layout/photo_item">
 
     </androidx.recyclerview.widget.RecyclerView>

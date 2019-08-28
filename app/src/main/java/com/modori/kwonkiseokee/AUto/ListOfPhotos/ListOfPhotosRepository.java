@@ -36,7 +36,7 @@ public class ListOfPhotosRepository {
 
 
         MutableLiveData<PhotoSearch> photoData = new MutableLiveData<>();
-        searchApi.getPhotobyKeyward(tag, photoCnt, 10).enqueue(new Callback<PhotoSearch>() {
+        searchApi.getPhotobyKeyward(tag, photoCnt, 20).enqueue(new Callback<PhotoSearch>() {
             @Override
             public void onResponse(Call<PhotoSearch> call, Response<PhotoSearch> response) {
                 if (response.isSuccessful()) {

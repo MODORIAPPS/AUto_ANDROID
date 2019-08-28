@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,24 +47,11 @@ import retrofit2.Response;
 public class tab2_frag extends Fragment implements View.OnClickListener {
 
     private List<Results> results = new ArrayList<>();
-
     public Context context;
-
-    public static final String PREFS_FILE = "PrefsFile";
-
-
-//    private String tag1 = null;
-//    private static String tag2 = null;
-//    private static String tag3 = null;
-//    private static String tag4 = null;
-//    private static String tag5 = null;
-//    private static String tag6 = null;
-
-    private String[] tagArray = new String[6];
-
 
     //Widgets
     private RecyclerView viewTagLists;
+    private View inputKeyword;
 
     //GridViews of tags
     private ImageView tag1Gridview;
@@ -74,18 +62,18 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     private ImageView tag6Gridview;
 
     // TextView of GridViews, tags..
-    TextView view_tag1Grid;
-    TextView view_tag2Grid;
-    TextView view_tag3Grid;
-    TextView view_tag4Grid;
-    TextView view_tag5Grid;
-    TextView view_tag6Grid;
+    private TextView view_tag1Grid;
+    private TextView view_tag2Grid;
+    private TextView view_tag3Grid;
+    private TextView view_tag4Grid;
+    private TextView view_tag5Grid;
+    private TextView view_tag6Grid;
 
 
-    View view;
+    private View view;
 
-    Intent intent;
-    CircularProgressDrawable circularProgressDrawable;
+    private Intent intent;
+    private CircularProgressDrawable circularProgressDrawable;
 
     private TagViewModel tagViewModel;
     private TagListsAdapter adapter;
@@ -188,7 +176,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
         intent = new Intent(getActivity(), ListOfPhotosView.class);
 
-        View goInfo = view.findViewById(R.id.goInfo);
         View goReset = view.findViewById(R.id.goReset);
 
         tag1Gridview = view.findViewById(R.id.tag1Gridview);
@@ -204,6 +191,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         view_tag4Grid = view.findViewById(R.id.view_tag4Grid);
         view_tag5Grid = view.findViewById(R.id.view_tag5Grid);
         view_tag6Grid = view.findViewById(R.id.view_tag6Grid);
+
+        inputKeyword = view.findViewById(R.id.inputKeyword);
 
 
         // GridView
@@ -228,8 +217,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         grid4.setOnClickListener(this);
         grid5.setOnClickListener(this);
         grid6.setOnClickListener(this);
-        goInfo.setOnClickListener(this);
         goReset.setOnClickListener(this);
+        inputKeyword.setOnClickListener(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         viewTagLists.setLayoutManager(layoutManager);
@@ -392,21 +381,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
 
-        if (v.getId() == R.id.goInfo || v.getId() == R.id.goReset) {
+        if (v.getId() == R.id.goReset) {
             switch (v.getId()) {
-                case R.id.goInfo:
-                    //show Dialog
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle(R.string.tab2_DialogTitle);
-                    builder.setMessage(R.string.tab2_DialogMessage);
-                    builder.setPositiveButton(R.string.tab2_DialogOk,
-                            (dialog, which) -> {
-                            });
-
-                    builder.show();
-
-                    break;
-
                 case R.id.goReset:
                     AlertDialog.Builder resetDialog = new AlertDialog.Builder(context);
                     resetDialog.setTitle(getString(R.string.tab2_resetTitle));
@@ -429,33 +405,51 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         } else {
             if (netWorkCheck()) {
                 switch (v.getId()) {
+                    case R.id.inputKeyword:
+                        intent = new Intent(getActivity(), ListOfPhotosView.class);
+                        intent.putExtra("mode", "search");
+                        startActivity(intent);
+
+                        break;
                     case R.id.grid1:
                         intent.putExtra("photoID", tagLists.get(0).getTag());
+                        intent.putExtra("mode", "none");
+
                         startActivity(intent);
                         break;
 
                     case R.id.grid2:
                         intent.putExtra("photoID", tagLists.get(1).getTag());
+                        intent.putExtra("mode", "none");
+
                         startActivity(intent);
                         break;
 
                     case R.id.grid3:
                         intent.putExtra("photoID", tagLists.get(2).getTag());
+                        intent.putExtra("mode", "none");
+
                         startActivity(intent);
                         break;
 
                     case R.id.grid4:
                         intent.putExtra("photoID", tagLists.get(3).getTag());
+                        intent.putExtra("mode", "none");
+
                         startActivity(intent);
                         break;
 
                     case R.id.grid5:
                         intent.putExtra("photoID", tagLists.get(4).getTag());
+                        intent.putExtra("mode", "none");
+
                         startActivity(intent);
                         break;
 
                     case R.id.grid6:
                         intent.putExtra("photoID", tagLists.get(5).getTag());
+                        intent.putExtra("mode", "none");
+
                         startActivity(intent);
                         break;
 

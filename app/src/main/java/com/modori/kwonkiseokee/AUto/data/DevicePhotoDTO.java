@@ -1,11 +1,23 @@
 package com.modori.kwonkiseokee.AUto.data;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+
+import javax.annotation.Nonnull;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
+@Entity(tableName = "device_photos")
 public class DevicePhotoDTO extends RealmObject {
 
+    @NonNull
+    @ColumnInfo(name = "photoId")
     private String photoID_d;
+
+    @Nonnull
+    @ColumnInfo(name = "photoUri")
     private String photoUri_d;
 
     public String getPhotoID_d() {

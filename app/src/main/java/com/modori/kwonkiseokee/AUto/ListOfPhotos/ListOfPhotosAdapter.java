@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.modori.kwonkiseokee.AUto.PhotoDetail.PhotoDetailView;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.data.data.Results;
+import com.modori.kwonkiseokee.AUto.showPhotoOnly;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,10 @@ public class ListOfPhotosAdapter extends RecyclerView.Adapter<ListOfPhotosAdapte
     public ListOfPhotosAdapter(Context context, ArrayList<Results> photoListData) {
         this.context = context;
         this.photoData = photoListData;
+    }
+
+    public ListOfPhotosAdapter(Context context) {
+        this.context = context;
     }
 
     @NonNull
@@ -63,6 +68,15 @@ public class ListOfPhotosAdapter extends RecyclerView.Adapter<ListOfPhotosAdapte
 
             context.startActivity(intent);
 
+        });
+
+        holder.photoCardofList.setOnLongClickListener(v -> {
+
+            Intent goPhotoOnly = new Intent(context, showPhotoOnly.class);
+            goPhotoOnly.putExtra("photoUrl", photoUrl);
+            context.startActivity(goPhotoOnly);
+
+            return false;
         });
     }
 
