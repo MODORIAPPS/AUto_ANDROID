@@ -84,7 +84,8 @@ public class OpenDialog extends Dialog {
 
                 if (inputText.getText().toString().isEmpty()) {
                     warning_dia.setVisibility(View.VISIBLE);
-                    warning_dia.setText("잘못된 입력이거나 공백입니다.");
+                    String str3 = getContext().getResources().getString(R.string.opendialog_error2);
+                    warning_dia.setText(str3);
                 } else {
                     oldTag = inputText.getText().toString();
                     availableTagCheck(oldTag, position);
@@ -104,7 +105,8 @@ public class OpenDialog extends Dialog {
     private void availableTagCheck(final String inputTag, final int position) {
         final ProgressDialog mProgressDialog = new ProgressDialog(mContext);
         mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("유효한 태그인지 검사하고 있습니다.");
+        String str4 = getContext().getResources().getString(R.string.opendialog_checkAvail);
+        mProgressDialog.setMessage(str4);
         mProgressDialog.show();
 
 
@@ -121,7 +123,8 @@ public class OpenDialog extends Dialog {
                         if (availCnt == 0) {
                             //사진이 없는 경우
                             warning_dia.setVisibility(View.VISIBLE);
-                            warning_dia.setText("검색된 결과가 없는 태그입니다.");
+                            String str3 = getContext().getResources().getString(R.string.opendialog_noResult);
+                            warning_dia.setText(str3);
                         } else {
                             if (!TagTools.overLapTagCheck(tagList, inputTag)) {
                                 Log.d("TAG 처리중", "진입됨");
@@ -158,13 +161,14 @@ public class OpenDialog extends Dialog {
 
                                 }
 
-
-                                Toast.makeText(mContext, "새 태그가 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                                String str2 = getContext().getResources().getString(R.string.opendialog_newAlert);
+                                Toast.makeText(mContext, str2, Toast.LENGTH_SHORT).show();
                                 dismiss();
 
                             } else {
                                 warning_dia.setVisibility(View.VISIBLE);
-                                warning_dia.setText("태그가 중복됩니다. 다른 태그를 입력하세요.");
+                                String str1 = getContext().getResources().getString(R.string.openDialog_error);
+                                warning_dia.setText(str1);
                             }
                         }
 

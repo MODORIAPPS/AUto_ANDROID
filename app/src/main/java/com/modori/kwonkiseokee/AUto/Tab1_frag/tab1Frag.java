@@ -55,6 +55,9 @@ public class tab1Frag extends Fragment {
         String ads_app = getResources().getString(R.string.ads_app);
         MobileAds.initialize(mContext, ads_app);
         AdView adView = view.findViewById(R.id.adView_frag1);
+        //AdView adView2 = view.findViewById(R.id.adView2_frag1);
+
+        //adView2.loadAd(adRequest);
         adView.loadAd(adRequest);
 
         pickedRV = view.findViewById(R.id.pickedRV);

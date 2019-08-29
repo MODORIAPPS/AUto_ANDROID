@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     FrameLayout mainFrame;
     BottomNavigationView navBar;
+
+    int tabState = 0;
 
     private static final int MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 1;
 
@@ -42,19 +45,47 @@ public class MainActivity extends AppCompatActivity {
         mainFrame = findViewById(R.id.mainFrame);
         navBar = findViewById(R.id.navBar);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1Frag()).commit();
+        if(savedInstanceState != null){
+            tabState = savedInstanceState.getInt("STATE_KEY");
+            switch (tabState){
+                case 0:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1Frag()).commit();
+
+                    break;
+
+                case 1:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab2_frag()).commit();
+
+                    break;
+
+                case 2:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab3_frag()).commit();
+
+                    break;
+            }
+        }else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1Frag()).commit();
+
+        }
+
+
 
         navBar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.goTranslate:
+                    tabState = 0;
                     getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1Frag()).commit();
                     return true;
 
                 case R.id.goPhotos:
+                    tabState = 1;
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab2_frag()).commit();
                     return true;
 
                 case R.id.goAutoSet:
+                    tabState = 2;
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab3_frag()).commit();
                     return true;
 
@@ -64,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("STATE_KEY", tabState);
+
+        super.onSaveInstanceState(outState);
     }
 
     public void permissionCheck() {

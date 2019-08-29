@@ -1,12 +1,13 @@
 <resources>
 
-    <string name="ads_app" translatable="false">앱의 광고 ID</string>
-    <string name="ads_code1" translatable="false">배너광고 ID</string>
-    <string name="InterstitialAd" translatable="false">전면광고 ID</string>
+    <string name="ads_app" translatable="false">앱코드</string>
+    <string name="banner1" translatable="false">배너1</string>
+    <string name="InterstitialAd" translatable="false">전면광고</string>
+    <string name="ads_Code2" translatable="false">배너2</string>
 
     <!--영어 버전-->
     <string name="app_name">AUto - a new mood every day</string>
-    <string name="version_name">1.5.2</string>
+    <string name="version_name">1.7.2</string>
 
     <string name="makingAlert">The service is being prepared.</string>
     <string name="nonAlert">preparing</string>
@@ -28,6 +29,19 @@
     <string name="mobileNetworkWarningContent">Downloading high-capacity pictures may result in additional data charges.</string>
     <string name="SetWallpaperJob">We applied all of this equipment because of its low version and inability to separate.</string>
 
+    <!-- OpenDialog -->
+    <string name="openDialog_title">New type the tag.</string>
+    <string name="openDialog_content">Modifies existing</string>
+    <string name="openDialog_content2">keyword.</string>
+    <string name="openDialog_error">Tag already exists.</string>
+    <string name="openDialog_hint">Type your new Tag</string>
+    <string name="openDialog_cancel">Cancel</string>
+    <string name="openDialog_ok">Confirm</string>
+
+    <string name="opendialog_newAlert">A new tag has been added.</string>
+    <string name="opendialog_noResult">Keywords that do not have a search result.</string>
+    <string name="opendialog_checkAvail">inspecting whether a valid tag.</string>
+    <string name="opendialog_error2">Incorrect input or blank.</string>
 
     <!-- TabLayout -->
     <string name="tab_1">pictures</string>
@@ -79,6 +93,8 @@
     <string name="ListsPfPhotos_DialogTitle">About this Page</string>
     <string name="ListsPfPhotos_DialogMessage">You can click a picture to see more information.</string>
     <string name="ListsPfPhotos_DialogOk">OK</string>
+    <string name="ListOfPhotos_questMessage">Please input the keyword what you want.</string>
+
 
     <!-- tab1Frag -->
     <string name="tab1_gallerySmall">From gallery</string>

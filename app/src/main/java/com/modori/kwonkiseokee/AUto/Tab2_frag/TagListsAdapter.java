@@ -53,8 +53,8 @@ public class TagListsAdapter extends RecyclerView.Adapter<TagListsAdapter.ViewHo
 
             Log.d("선택된 TAG 와 position", currTag + " | " + position);
 
-            String title = "사진 검색 키워드 수정";
-            String subtitle = "기존의 " + currTag + " 키워드를 수정합니다.";
+            String title = mContext.getResources().getString(R.string.openDialog_title);
+            String subtitle = mContext.getString(R.string.openDialog_content) + " '" + currTag + "' " + mContext.getString(R.string.openDialog_content2);
 
             // 화면 조정
             DisplayMetrics dm = mContext.getResources().getDisplayMetrics(); //디바이스 화면크기를 구하기위해
@@ -62,7 +62,7 @@ public class TagListsAdapter extends RecyclerView.Adapter<TagListsAdapter.ViewHo
             int height = dm.heightPixels; //디바이스 화면 높이
 
 
-            openDialog = new OpenDialog(mContext, position, title, subtitle, tagLists,tagViewModel);
+            openDialog = new OpenDialog(mContext, position, title, subtitle, tagLists, tagViewModel);
             WindowManager.LayoutParams wm = openDialog.getWindow().getAttributes();  //다이얼로그의 높이 너비 설정하기위해
             wm.copyFrom(openDialog.getWindow().getAttributes());  //여기서 설정한값을 그대로 다이얼로그에 넣겠다는의미
             wm.width = width;  //화면 너비의 절반

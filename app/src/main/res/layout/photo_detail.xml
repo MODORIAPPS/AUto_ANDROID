@@ -283,7 +283,7 @@
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
                 ads:adSize="SMART_BANNER"
-                ads:adUnitId="@string/ads_code1"
+                ads:adUnitId="@string/banner1"
                 ads:layout_constraintTop_toBottomOf="@+id/linearLayout3"
                 tools:layout_editor_absoluteX="0dp">
 

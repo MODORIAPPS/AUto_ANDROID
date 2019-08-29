@@ -213,6 +213,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 GET_SETTING = 0;
             } else {
                 setToUserPick.setChecked(true);
+                setToDir.setChecked(false);
                 GET_SETTING = 1;
             }
         });
@@ -224,6 +225,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 GET_SETTING = 1;
             } else {
                 setToDir.setChecked(true);
+                setToUserPick.setChecked(false);
                 GET_SETTING = 0;
             }
         });

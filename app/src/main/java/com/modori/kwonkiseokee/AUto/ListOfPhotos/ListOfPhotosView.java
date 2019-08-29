@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.modori.kwonkiseokee.AUto.R;
@@ -48,6 +49,7 @@ public class ListOfPhotosView extends AppCompatActivity {
 
     View searchMode, questMessage;
     SearchView searchView;
+    SwipeRefreshLayout refreshLayout;
 
     String tag;
 
@@ -81,6 +83,7 @@ public class ListOfPhotosView extends AppCompatActivity {
         isSearchMode = mode.equals("search");
         System.out.println("Searchmode is : " + isSearchMode);
 
+        refreshLayout = findViewById(R.id.refreshLayout);
         goBack = findViewById(R.id.goBack);
         recyclerView = findViewById(R.id.recyclerView);
         goInfo = findViewById(R.id.goInfo_list);
@@ -98,6 +101,7 @@ public class ListOfPhotosView extends AppCompatActivity {
 
         photosViewModel = ViewModelProviders.of(ListOfPhotosView.this).get(ListOfPhotosViewModel.class);
         photosViewModel.init();
+
 
         if (isSearchMode) {
             searchView.setVisibility(View.VISIBLE);
@@ -138,6 +142,15 @@ public class ListOfPhotosView extends AppCompatActivity {
 
         }
 
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPhotoByKeyword(tag);
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
+
 
         getSupportActionBar().hide();
 
@@ -146,7 +159,7 @@ public class ListOfPhotosView extends AppCompatActivity {
 
     private void setGridView() {
 
-        int mNoOfColumns = ColumnQty.calculateNoOfColumns(getApplicationContext(), 130);
+        int mNoOfColumns = ColumnQty.calculateNoOfColumns(getApplicationContext(), 150);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), mNoOfColumns);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 

@@ -1,12 +1,26 @@
 <resources>
     <string name="app_name">AUto 日々新たな気持ち</string>
-    <string name="version_name">1.5.2</string>
+    <string name="version_name">1.7.2</string>
 
 
     <string name="makingAlert">サビスは準備中です。</string>
     <string name="nonAlert">準備中</string>
     <string name="nonPageAlert">ライセンスのページは準備中です。(MIT)</string>
     <string name="noImageAlert">イメージを探すに失敗しました。</string>
+
+    <string name="openDialog_title">新たなタグを入力されます。</string>
+    <string name="openDialog_content">既存の</string>
+    <string name="openDialog_content2">タグを変更します。</string>
+    <string name="openDialog_error">タグが重複しています。</string>
+    <string name="openDialog_hint">新しいタグの入力</string>
+    <string name="openDialog_cancel">キャンセル</string>
+    <string name="openDialog_ok">確認</string>
+
+    <string name="opendialog_newAlert">新たなタグが追加されました。</string>
+    <string name="opendialog_noResult">検索の結果がの無いキーワードです。</string>
+    <string name="opendialog_checkAvail">有効なタグか検査しています。</string>
+    <string name="opendialog_error2">間違った入力や空白です。</string>
+
 
 
 
@@ -81,6 +95,8 @@
     <string name="ListsPfPhotos_DialogTitle">このページについて</string>
     <string name="ListsPfPhotos_DialogMessage">写真をクリックして詳しい情報が確認できます。</string>
     <string name="ListsPfPhotos_DialogOk">はい</string>
+    <string name="ListOfPhotos_questMessage">検索したいキーワードを入力してください。</string>
+
 
     <!-- tab1Frag -->
     <string name="tab1_gallerySmall">ギャラリーで</string>
@@ -127,7 +143,7 @@
 
     <string name="tab3_showGetFromWhat1">選択したフォルダからロードしています。</string>
     <string name="tab3_showGetFromWhat2">選択した写真たちをロードしています。</string>
-    <string name="tab3_showPictGetCnt">　個の写真探したこと</string>
+    <string name="tab3_showPictGetCnt">個の写真探し</string>
 
     <!--라이선스 표시 페이지-->
     <string name="mainTitle">いつも新たな気持ちのために。</string>
