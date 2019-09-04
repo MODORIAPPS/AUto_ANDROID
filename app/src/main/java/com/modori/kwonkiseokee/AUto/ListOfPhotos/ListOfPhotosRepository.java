@@ -1,6 +1,7 @@
 package com.modori.kwonkiseokee.AUto.ListOfPhotos;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -48,8 +49,9 @@ public class ListOfPhotosRepository {
 
             @Override
             public void onFailure(Call<PhotoSearch> call, Throwable t) {
-                photoData.setValue(null);
+                //photoData.setValue(null);
                 Log.d("사진 검색 오류", t.getMessage());
+
 
             }
         });

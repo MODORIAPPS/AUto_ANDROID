@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="ads_app" translatable="false">앱코드</string>
-    <string name="banner1" translatable="false">배너1</string>
-    <string name="InterstitialAd" translatable="false">전면광고</string>
-    <string name="ads_Code2" translatable="false">배너2</string>
+    <string name="ads_app" translatable="false"></string>
+    <string name="banner1" translatable="false"></string>
+    <string name="InterstitialAd" translatable="false"></string>
+    <string name="ads_Code2" translatable="false"></string>
 
     <!--영어 버전-->
     <string name="app_name">AUto - a new mood every day</string>

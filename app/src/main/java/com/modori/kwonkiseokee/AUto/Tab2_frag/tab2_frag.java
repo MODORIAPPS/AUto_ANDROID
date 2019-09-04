@@ -135,7 +135,8 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         String ads_app = getResources().getString(R.string.ads_app);
         MobileAds.initialize(context, ads_app);
         AdView adView = view.findViewById(R.id.adView_frag1);
-        adView.loadAd(adRequest);
+        // 잠시 막아놓음
+        //adView.loadAd(adRequest);
 
         //tagLists = new ArrayList<>();
         netWorkCheck();

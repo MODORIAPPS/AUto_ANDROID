@@ -20,8 +20,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.Util.ColumnQty;
-import com.modori.kwonkiseokee.AUto.Util.DEVICE_INFO;
-import com.modori.kwonkiseokee.AUto.data.AlbumDTO;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
 import java.util.ArrayList;
@@ -57,8 +55,8 @@ public class tab1Frag extends Fragment {
         AdView adView = view.findViewById(R.id.adView_frag1);
         //AdView adView2 = view.findViewById(R.id.adView2_frag1);
 
-        //adView2.loadAd(adRequest);
-        adView.loadAd(adRequest);
+        // 잠시 막아놓음
+        //adView.loadAd(adRequest);
 
         pickedRV = view.findViewById(R.id.pickedRV);
         noImagesWarning2 = view.findViewById(R.id.noPickedImagesWarning);
@@ -105,9 +103,9 @@ public class tab1Frag extends Fragment {
     private void setUpAlbumRV(){
 
         List<AlbumDTO> albumData = new ArrayList<>();
-        albumData.add(new AlbumDTO("중국", "아름다운 중국의 배경의 경치", 5,true, false));
-        albumData.add(new AlbumDTO("한국", "한국에서만 느낄 수 있는 기분", 10,true, false));
-        albumData.add(new AlbumDTO("일본", "일본 도시의 청량함", 5,true, false));
+        albumData.add(new AlbumDTO("오사카","오사카에서 느끼는 일본의 청량함","/",5, true,true));
+        albumData.add(new AlbumDTO("오사카","오사카에서 느끼는 일본의 청량함","/",5, true,true));
+        albumData.add(new AlbumDTO("오사카","오사카에서 느끼는 일본의 청량함","/",5, true,true));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         albumRV.setLayoutManager(linearLayoutManager);
         albumRV.setAdapter(new Tab1AlbumAdapter(getActivity(), albumData));
