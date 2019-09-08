@@ -104,6 +104,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
     int notificationId = 8980;
 
     String fileLength;
+    long fileLengthAsLong;
 
 
     @Override
@@ -340,8 +341,8 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
                 System.out.println(downloadUrl);
                 URLConnection connection = url.openConnection();
                 connection.setRequestProperty("Accept-Encoding", "identity");
-                int file = connection.getContentLength();
-                fileLength = humanReadableByteCount(file, true);
+                fileLengthAsLong = connection.getContentLength();
+                fileLength = humanReadableByteCount(fileLengthAsLong, true);
                 System.out.println(fileLength);
 
 
@@ -512,16 +513,13 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
                 mBitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-//                byte data[] = new byte[24];
-//                int count;
-//                long total = 0;
-//                while((count = inputStream.read(data)) != -1){
-//                    total += count;
-//                    int progress = (int)(total * 100 / fileLength);
-//                    System.out.println();
-//                    setProgress(proress);
-//
-//                }
+                while((fileLengthAsLong <= inputStream.read())){
+                    int count = inputStream.read();
+                    int progress = (int)(count / fileLengthAsLong) * 100;
+                    System.out.println(progress);
+                    setProgress(progress);
+
+                }
 
 
             } catch (Exception e) {
