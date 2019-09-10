@@ -11,6 +11,9 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.ClipData;
@@ -52,6 +55,8 @@ import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
 import com.modori.kwonkiseokee.AUto.showPhotoOnly;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -100,17 +105,29 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
     private InterstitialAd interstitialAd;
 
-    String channelId = "CHANNEL_DOWNLOAD_PROGRESS";
+    String channelId = "AUTO_SLIDE";
     int notificationId = 8980;
 
     String fileLength;
-    long fileLengthAsLong;
+    int fileLengthAsLong;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_detail);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel = new NotificationChannel("AUTO_SLIDE", "SLIDE_CHANNEL", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setDescription("CHANNEL FOR OREO");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.BLUE);
+            notificationChannel.enableVibration(false);
+            notificationChannel.setVibrationPattern(new long[]{100, 200, 100, 200});
+            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
 
 
         Intent intent = getIntent();
@@ -240,7 +257,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
                     Glide.with(getApplicationContext()).load(results.getUrls().getRegular())
                             .into(detailImageView);
 
-                    downloadUrl = getDownloadUrl(results,DOWNLOAD_TYPE);
+                    downloadUrl = getDownloadUrl(results, DOWNLOAD_TYPE);
 
                     if (getImageLength.getState() == Thread.State.NEW) {
                         getImageLength.start();
@@ -337,7 +354,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
         public void run() {
             try {
 
-                URL url = new URL(getDownloadUrl(results,DOWNLOAD_TYPE));
+                URL url = new URL(getDownloadUrl(results, DOWNLOAD_TYPE));
                 System.out.println(downloadUrl);
                 URLConnection connection = url.openConnection();
                 connection.setRequestProperty("Accept-Encoding", "identity");
@@ -370,7 +387,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
             case R.id.fab2:
                 anim();
-                downloadUrl = getDownloadUrl(results,DOWNLOAD_TYPE);
+                downloadUrl = getDownloadUrl(results, DOWNLOAD_TYPE);
                 action = false;
                 if (FileManager.alreadyDownloaded(filename)) {
                     //이미 있는 경우
@@ -442,17 +459,14 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
     private void setUpDialog() {
         pDialog = new ProgressDialog(PhotoDetailView.this);
         pDialog.setCancelable(false);
-        pDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PhotoDetailView.this);
-                builder.setTitle("다운로드를 취소하시겠습니까?");
-                builder.setMessage("다운로드를 취소합니다.");
-                builder.setPositiveButton("확인", (dialog1, which) -> {
-                    dialog1.dismiss();
-                    pDialog.dismiss();
-                });
-            }
+        pDialog.setOnCancelListener(dialog -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(PhotoDetailView.this);
+            builder.setTitle("다운로드를 취소하시겠습니까?");
+            builder.setMessage("다운로드를 취소합니다.");
+            builder.setPositiveButton("확인", (dialog1, which) -> {
+                dialog1.dismiss();
+                pDialog.dismiss();
+            });
         });
         pDialog.setMessage(getString(R.string.PhotoDeatil_Downloading));
     }
@@ -475,11 +489,13 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
             builder.setContentTitle("사진 다운로드")
                     .setContentText("사진을 다운로드 하는 중..")
                     .setSmallIcon(R.mipmap.app_icon_round)
-                    .setPriority(NotificationCompat.PRIORITY_LOW);
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .setOngoing(true);
 
             // Issue the initial notification with zero progress
             int PROGRESS_MAX = 100;
             int PROGRESS_CURRENT = 0;
+
             builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false);
 
             notificationManager.notify(notificationId, builder.build());
@@ -490,43 +506,97 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
         protected Bitmap doInBackground(String... args) {
             BitmapFactory.Options options;
+            int count;
 
             try {
 
+                // xin
 
-                Log.d("DEVICE_TOTAL_RAM", String.valueOf(DEVICE_INFO.getDeviceTotalRam(context)));
-                Log.d("DEVICE_FREE_RAM", String.valueOf(DEVICE_INFO.getDeviceFreeRam(context)));
+                URL url = new URL(args[0]);
+                URLConnection connection = url.openConnection();
+                connection.connect();
 
                 options = new BitmapFactory.Options();
                 options.inJustDecodeBounds = true;
 
+                int lenghtOfFile = connection.getContentLength();
+                Log.d("ANDRO_ASYNC", "Lenght of file: " + lenghtOfFile);
 
-                InputStream testStream = (InputStream) new URL(args[0]).getContent();
+                InputStream input = url.openStream();
 
-                mBitmap = BitmapFactory.decodeStream(testStream, null, options);
+                mBitmap = BitmapFactory.decodeStream(input, null, options);
 
                 options.inSampleSize = FileManager.makeBitmapSmall(options.outWidth, options.outHeight, displayWidth, displayHeight);
                 options.inJustDecodeBounds = false;
                 Log.d("inSampleSize", String.valueOf(options.inSampleSize));
 
-                InputStream inputStream = (InputStream) new URL(args[0]).getContent();
+                InputStream inputStream = url.openStream();
+
+
+
+
+                byte data[] = new byte[1024];
+
+                long total = 0;
+                int pregress = 0;
+                while ((count = input.read(data)) != -1) {
+                    total += count;
+                    if(pregress + 10 <= (int) ((total * 100) / lenghtOfFile)){
+                        publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+                        pregress = (int) ((total * 100) / lenghtOfFile);
+
+                    }
+                }
 
                 mBitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-                while((fileLengthAsLong <= inputStream.read())){
-                    int count = inputStream.read();
-                    int progress = (int)(count / fileLengthAsLong) * 100;
-                    System.out.println(progress);
-                    setProgress(progress);
 
-                }
-
+//                Log.d("DEVICE_TOTAL_RAM", String.valueOf(DEVICE_INFO.getDeviceTotalRam(context)));
+//                Log.d("DEVICE_FREE_RAM", String.valueOf(DEVICE_INFO.getDeviceFreeRam(context)));
+//
+//                options = new BitmapFactory.Options();
+//                options.inJustDecodeBounds = true;
+//
+//
+//                InputStream testStream = (InputStream) new URL(args[0]).getContent();
+//
+//                mBitmap = BitmapFactory.decodeStream(testStream, null, options);
+//
+//                options.inSampleSize = FileManager.makeBitmapSmall(options.outWidth, options.outHeight, displayWidth, displayHeight);
+//                options.inJustDecodeBounds = false;
+//                Log.d("inSampleSize", String.valueOf(options.inSampleSize));
+//
+//                InputStream inputStream = (InputStream) new URL(args[0]).getContent();
+//
+//                mBitmap = BitmapFactory.decodeStream(inputStream, null, options);
+//
+//                long total = 0;
+//                int count;
+//                while ((count = inputStream.read()) != -1) {
+//                    System.out.println("whilewhile");
+//                    total += count;
+//                    // publishing the progress....
+//                    int value = (int)(total * 100 / fileLengthAsLong);
+//                    publishProgress(String.valueOf(value));
+//                }
+//
+//                System.out.println("파일 크기 Long 환산 값 : " + fileLengthAsLong);
+                input.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             return mBitmap;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            System.out.println(values[0]);
+            builder.setProgress(100, Integer.parseInt(values[0]), false);
+            notificationManager.notify(notificationId, builder.build());
+
         }
 
         protected void onPostExecute(Bitmap image) {
@@ -538,8 +608,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
             Toast.makeText(context, "다운로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
-            builder.setContentText("다운로드가 완료됨.")
-                    .setProgress(0, 0, false);
+            builder.setContentText("다운로드가 완료됨.").setProgress(100, 100, false).setOngoing(false);
             notificationManager.notify(notificationId, builder.build());
 
             if (image != null) {
@@ -619,7 +688,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
             Log.d("DOWNLOAD_TYPE상태", DOWNLOAD_TYPE + "");
 
-            getDownloadUrl(results,DOWNLOAD_TYPE);
+            getDownloadUrl(results, DOWNLOAD_TYPE);
             MakePreferences.getInstance().getSettings().edit().putInt("DOWNLOAD_TYPE", DOWNLOAD_TYPE).apply();
             setDownloadTypeView();
 
@@ -715,7 +784,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
         Log.d("DOWNLOAD_TYPE", DOWNLOAD_TYPE + "");
         Log.d("DOWNLOAD_URL", downloadUrl);
 
-        if(getImageLength.getState() == Thread.State.NEW){
+        if (getImageLength.getState() == Thread.State.NEW) {
             getImageLength.start();
         }
 
