@@ -29,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 import com.modori.kwonkiseokee.AUto.Util.DEVICE_INFO;
@@ -92,6 +95,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
     PhotoSearchID results;
 
     Toolbar toolbar;
+    ProgressBar progress_circular;
 
     Button copyColorBtn;
 
@@ -110,6 +114,8 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
     String fileLength;
     int fileLengthAsLong;
+
+    boolean okayGo = false;
 
 
     @Override
@@ -158,6 +164,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
         photoSizeV = findViewById(R.id.photoSizeV);
         goSettings = findViewById(R.id.goSetting);
         downloadTypeView = findViewById(R.id.downloadTypeView);
+        progress_circular = findViewById(R.id.progress_circular);
 
         copyColorBtn.setOnClickListener(this);
         fab1.setOnClickListener(this);
@@ -257,11 +264,10 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
                     Glide.with(getApplicationContext()).load(results.getUrls().getRegular())
                             .into(detailImageView);
 
-                    downloadUrl = getDownloadUrl(results, DOWNLOAD_TYPE);
 
-                    if (getImageLength.getState() == Thread.State.NEW) {
-                        getImageLength.start();
-                    }
+//                    if (getImageLength.getState() == Thread.State.NEW) {
+//                        getImageLength.start();
+//                    }
 
                     fab1.setClickable(true);
 
@@ -301,11 +307,9 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
             case 0:
                 mdownloadType = "RAW";
 
-
                 break;
             case 1:
                 mdownloadType = "FULL";
-
 
                 break;
             case 2:
@@ -316,13 +320,8 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
             default:
                 mdownloadType = "NOT";
 
-
                 break;
 
-        }
-
-        if (getImageLength.getState() == Thread.State.NEW && results != null) {
-            getImageLength.start();
         }
 
 
@@ -349,9 +348,40 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    Thread getImageLength = new Thread() {
+//    Thread getImageLength = new Thread() {
+//        @Override
+//        public void run() {
+//            try {
+//
+//                URL url = new URL(getDownloadUrl(results, DOWNLOAD_TYPE));
+//                System.out.println(downloadUrl);
+//                URLConnection connection = url.openConnection();
+//                connection.setRequestProperty("Accept-Encoding", "identity");
+//                fileLengthAsLong = connection.getContentLength();
+//                fileLength = humanReadableByteCount(fileLengthAsLong, true);
+//                System.out.println(fileLength);
+//
+//
+//            } catch (IOException io) {
+//                io.printStackTrace();
+//            }
+//
+//        }
+//    };
+
+    public class getImageSize extends AsyncTask<Void, Void, String> {
+
         @Override
-        public void run() {
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progress_circular.setVisibility(View.VISIBLE);
+
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            //super.doInBackground();
+
             try {
 
                 URL url = new URL(getDownloadUrl(results, DOWNLOAD_TYPE));
@@ -360,15 +390,24 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
                 connection.setRequestProperty("Accept-Encoding", "identity");
                 fileLengthAsLong = connection.getContentLength();
                 fileLength = humanReadableByteCount(fileLengthAsLong, true);
-                System.out.println(fileLength);
+                System.out.println("AsyncTask : " + fileLength);
 
 
             } catch (IOException io) {
                 io.printStackTrace();
             }
+            return fileLength;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            progress_circular.setVisibility(View.GONE);
+            okayGo = true;
 
         }
-    };
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -387,6 +426,10 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
             case R.id.fab2:
                 anim();
+
+                progress_circular.setVisibility(View.VISIBLE);
+                new getImageSize().execute();
+
                 downloadUrl = getDownloadUrl(results, DOWNLOAD_TYPE);
                 action = false;
                 if (FileManager.alreadyDownloaded(filename)) {
@@ -394,16 +437,22 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(PhotoDetailView.this, "이미 파일이 존재합니다.", Toast.LENGTH_SHORT).show();
                 } else {
 
+                    if (okayGo) {
 
-                    System.out.println("다운로드 받을 파일 크기 : " + fileLength);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("사진 다운로드");
-                    builder.setMessage("약 " + fileLength + "의 이미지를 다운로드 받습니다.(저장될 때는 용량이 자동 압축됩니다.)");
-                    builder.setPositiveButton("확인", (dialog, which) -> new downloadImage().execute(downloadUrl));
-                    builder.setNegativeButton("취소", (dialog, which) -> dialog.dismiss());
+                        System.out.println("다운로드 받을 파일 크기 : " + fileLength);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setTitle("사진 다운로드");
+                        builder.setMessage("약 " + fileLength
+                                + "의 이미지를 다운로드 받습니다.(저장될 때는 용량이 자동 압축됩니다.)");
+                        builder.setPositiveButton("확인", (dialog, which) -> new downloadImage().execute(downloadUrl));
+                        builder.setNegativeButton("취소", (dialog, which) -> dialog.dismiss());
 
 
-                    builder.show();
+                        builder.show();
+                    }else{
+                        Toast.makeText(context,"다운로드를 준비하고 있습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
 
                 }
 
@@ -533,15 +582,13 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
                 InputStream inputStream = url.openStream();
 
 
-
-
                 byte data[] = new byte[1024];
 
                 long total = 0;
                 int pregress = 0;
                 while ((count = input.read(data)) != -1) {
                     total += count;
-                    if(pregress + 10 <= (int) ((total * 100) / lenghtOfFile)){
+                    if (pregress + 10 <= (int) ((total * 100) / lenghtOfFile)) {
                         publishProgress("" + (int) ((total * 100) / lenghtOfFile));
                         pregress = (int) ((total * 100) / lenghtOfFile);
 
@@ -692,6 +739,9 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
             MakePreferences.getInstance().getSettings().edit().putInt("DOWNLOAD_TYPE", DOWNLOAD_TYPE).apply();
             setDownloadTypeView();
 
+            okayGo = false;
+            new getImageSize().execute();
+
 
         });
         builder.show();
@@ -784,9 +834,10 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
         Log.d("DOWNLOAD_TYPE", DOWNLOAD_TYPE + "");
         Log.d("DOWNLOAD_URL", downloadUrl);
 
-        if (getImageLength.getState() == Thread.State.NEW) {
-            getImageLength.start();
-        }
+//        if (getImageLength.getState() == Thread.State.NEW) {
+//            getImageLength.start();
+//        }
+
 
         return downloadUrl;
 

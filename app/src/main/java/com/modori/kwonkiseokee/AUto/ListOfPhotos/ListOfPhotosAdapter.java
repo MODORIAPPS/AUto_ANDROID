@@ -24,9 +24,10 @@ import java.util.ArrayList;
 public class ListOfPhotosAdapter extends RecyclerView.Adapter<ListOfPhotosAdapter.ViewHolder> {
 
     private ArrayList<Results> photoData;
-
     Context context;
     CircularProgressDrawable circularProgressDrawable;
+
+    int cnt = 0;
 
     public ListOfPhotosAdapter(Context context, ArrayList<Results> photoListData) {
         this.context = context;
@@ -41,10 +42,22 @@ public class ListOfPhotosAdapter extends RecyclerView.Adapter<ListOfPhotosAdapte
     @Override
     public ListOfPhotosAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.photo_item, parent, false);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+
         circularProgressDrawable = new CircularProgressDrawable(context);
         circularProgressDrawable.setStrokeWidth(5f);
         circularProgressDrawable.setCenterRadius(30f);
         circularProgressDrawable.start();
+
+        if(cnt % 2 == 0){
+            params.leftMargin = 14;
+            params.rightMargin = 7;
+
+        }else{
+            params.rightMargin = 14;
+            params.leftMargin = 7;
+        }
+
         return new ListOfPhotosAdapter.ViewHolder(view);
     }
 

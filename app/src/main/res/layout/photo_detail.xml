@@ -341,6 +341,12 @@
                 android:src="@drawable/up_arrow_icon" />
         </FrameLayout>
 
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
