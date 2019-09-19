@@ -125,14 +125,17 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel notificationChannel = new NotificationChannel("AUTO_SLIDE", "SLIDE_CHANNEL", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel notificationChannel = new NotificationChannel("AUTO_SLIDE", "SLIDE_CHANNEL", NotificationManager.IMPORTANCE_LOW);
             notificationChannel.setDescription("CHANNEL FOR OREO");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.enableVibration(false);
-            notificationChannel.setVibrationPattern(new long[]{100, 200, 100, 200});
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             notificationManager.createNotificationChannel(notificationChannel);
+            notificationChannel.setSound(null,null);
+            notificationChannel.enableLights(false);
+            notificationChannel.setLightColor(Color.BLUE);
+            notificationChannel.enableVibration(false);
         }
 
 

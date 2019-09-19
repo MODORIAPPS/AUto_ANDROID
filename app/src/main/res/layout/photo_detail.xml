@@ -118,7 +118,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:text="AuthorName"
+                    android:text=""
                     android:textColor="@color/semiBlack"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -143,7 +143,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="7dp"
-                    android:text="NaN"
+                    android:text=""
                     android:textColor="@color/semiBlack"
                     android:textSize="16sp" />
 
@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
-                    android:text="NaN"
+                    android:text=""
                     android:textColor="@color/semiBlack"
                     android:textSize="16sp" />
 
@@ -171,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="15dp"
-                android:text="getting description from API"
+                android:text=""
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 tools:layout_editor_absoluteX="0dp" />
 
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
-                    android:text="2020-03-04Seoul"
+                    android:text=""
                     android:textColor="@color/semiBlack" />
 
 
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
-                    android:text="#ffffff"
+                    android:text=""
                     android:textColor="@color/semiBlack" />
 
                 <View
@@ -271,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
-                    android:text="NaN * NaN"
+                    android:text=""
                     android:textColor="@color/semiBlack" />
 
 
