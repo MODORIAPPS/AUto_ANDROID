@@ -17,9 +17,6 @@ import androidx.annotation.NonNull;
 
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
-import com.modori.kwonkiseokee.AUto.Tab2_frag.Tag;
-import com.modori.kwonkiseokee.AUto.Tab2_frag.TagTools;
-import com.modori.kwonkiseokee.AUto.Tab2_frag.TagViewModel;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 
 import java.util.List;

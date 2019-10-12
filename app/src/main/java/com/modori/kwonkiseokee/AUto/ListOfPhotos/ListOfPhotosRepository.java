@@ -1,15 +1,13 @@
 package com.modori.kwonkiseokee.AUto.ListOfPhotos;
 
+
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitService;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.SearchApi;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
-
-import javax.xml.transform.Result;
 
 import retrofit2.Call;
 import retrofit2.Callback;

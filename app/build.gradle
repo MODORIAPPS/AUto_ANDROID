@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'realm-android'
 
 realm {
@@ -35,7 +38,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.android.material:material:1.1.0-alpha10'
+    implementation 'com.google.android.material:material:1.1.0-beta01'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
@@ -55,16 +58,22 @@ dependencies {
 
     // ViewModel
     implementation "android.arch.lifecycle:extensions:2.0.0-beta01"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0-alpha04"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0-beta01"
 
     // Room
-    implementation "androidx.room:room-runtime:2.2.0-rc01"
-    annotationProcessor "androidx.room:room-compiler:2.2.0-rc01"
-    androidTestImplementation "androidx.room:room-testing:2.2.0-rc01"
+    implementation "androidx.room:room-runtime:2.2.0"
+    annotationProcessor "androidx.room:room-compiler:2.2.0"
+    androidTestImplementation "androidx.room:room-testing:2.2.0"
 
 
     // Google Ads
     implementation 'com.google.firebase:firebase-ads:18.2.0'
     implementation 'com.google.android.gms:play-services-ads:18.2.0'
+    compile "androidx.core:core-ktx:1.1.0"
+    compile "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+}
+repositories {
+    mavenCentral()
 }

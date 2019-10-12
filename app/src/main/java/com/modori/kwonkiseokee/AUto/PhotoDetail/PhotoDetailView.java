@@ -1,13 +1,11 @@
 package com.modori.kwonkiseokee.AUto.PhotoDetail;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,7 +17,6 @@ import android.app.WallpaperManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -29,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -47,10 +43,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
-import com.modori.kwonkiseokee.AUto.Util.DEVICE_INFO;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
@@ -58,13 +52,10 @@ import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
 import com.modori.kwonkiseokee.AUto.showPhotoOnly;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -74,7 +65,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Url;
 
 public class PhotoDetailView extends AppCompatActivity implements View.OnClickListener {
 
@@ -239,6 +229,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
             public void onResponse(Call<PhotoSearchID> call, Response<PhotoSearchID> response) {
                 if (response.isSuccessful()) {
                     //photoUrl[0] = (Results) response.body().getResults();
+                    System.out.println(results);
                     results = response.body();
                     //downloadUrl = results.getUrls().getFull();
                     regularUrl = results.getUrls().getRegular();
@@ -253,7 +244,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
                     authorNameV.setText(results.getUser().getUsername());
 
                     photoDescriptionV.setText(results.getDescription());
-                    uploadedDateV.setText(results.getCreate_at());
+                    uploadedDateV.setText(results.getCreated_at());
                     photoColorV.setText(results.getColor());
 
                     int color = Color.parseColor(results.getColor());

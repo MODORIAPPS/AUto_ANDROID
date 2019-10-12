@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.modori.kwonkiseokee.AUto.ListOfPhotos.ListOfPhotosView;
+import com.modori.kwonkiseokee.AUto.ListOfPhotos.ListOfPhotoView;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitService;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.SearchApi;
@@ -175,7 +174,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
     private void initWork() {
 
-        intent = new Intent(getActivity(), ListOfPhotosView.class);
+        intent = new Intent(getActivity(), ListOfPhotoView.class);
 
         View goReset = view.findViewById(R.id.goReset);
 
@@ -407,7 +406,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
             if (netWorkCheck()) {
                 switch (v.getId()) {
                     case R.id.inputKeyword:
-                        intent = new Intent(getActivity(), ListOfPhotosView.class);
+                        intent = new Intent(getActivity(), ListOfPhotoView.class);
                         intent.putExtra("mode", "search");
                         startActivity(intent);
 

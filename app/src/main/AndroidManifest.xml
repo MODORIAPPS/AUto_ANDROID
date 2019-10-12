@@ -36,7 +36,7 @@
             android:name=".PhotoDetail.PhotoDetailView"
             android:configChanges="screenSize|orientation" />
         <activity
-            android:name=".ListOfPhotos.ListOfPhotosView"
+            android:name=".ListOfPhotos.ListOfPhotoView"
             android:configChanges="screenSize|orientation"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".LicensePage" />
