@@ -8,6 +8,8 @@
     android:layout_height="100dp">
 
     <ImageView
+        android:background="?selectableItemBackgroundBorderless"
+
         android:scaleType="centerCrop"
         android:src="@drawable/image_icon"
         android:id="@+id/pick_ImagesView"

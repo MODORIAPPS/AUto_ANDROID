@@ -1,7 +1,6 @@
 package com.modori.kwonkiseokee.AUto;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
@@ -15,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.modori.kwonkiseokee.AUto.frag1.tab1_frag;
 
 import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
 

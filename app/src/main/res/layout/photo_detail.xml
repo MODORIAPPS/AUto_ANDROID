@@ -32,12 +32,14 @@
                     android:layout_height="match_parent">
 
                     <ImageView
+                        android:background="?selectableItemBackgroundBorderless"
+
                         android:id="@+id/goBackBtn"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/left_arrow_icon"
+                        android:src="@drawable/arrow_back"
                         android:tint="@color/semiBlack" />
 
 
@@ -58,6 +60,8 @@
 
 
                     <ImageView
+                        android:background="?selectableItemBackgroundBorderless"
+
                         android:id="@+id/goInfo"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -68,6 +72,8 @@
                         android:tint="@color/semiBlack" />
 
                     <ImageView
+                        android:background="?selectableItemBackgroundBorderless"
+
                         android:id="@+id/goSetting"
                         android:layout_width="30dp"
                         android:layout_height="30dp"

@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.frag1;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
@@ -41,16 +42,14 @@ public class tab1_frag extends Fragment {
         mContext = getActivity();
         Realm.init(mContext);
 
-
+        // 광고
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
         String ads_app = getResources().getString(R.string.ads_app);
         MobileAds.initialize(mContext, ads_app);
         adView = view.findViewById(R.id.adView_frag1);
         adView.loadAd(adRequest);
 
-
-
-
+        // 갤러리에서 가져온
         pickedRV = view.findViewById(R.id.pickedRV);
         noImagesWarning2 = view.findViewById(R.id.noPickedImagesWarning);
         setupPickedRV();

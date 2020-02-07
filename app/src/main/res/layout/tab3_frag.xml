@@ -20,27 +20,29 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_centerVertical="true"
                 android:id="@+id/toolbar_title"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="5dp"
                 android:text="@string/tab_3"
                 android:textColor="@color/semiBlack"
                 android:textSize="22sp"
-                android:textStyle="normal"/>
+                android:textStyle="normal" />
 
 
             <ImageView
-                android:tint="@android:color/black"
-                android:layout_marginEnd="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
                 android:id="@+id/goInfo"
-                android:src="@drawable/info_icon"
+
                 android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/info_icon"
+                android:tint="@android:color/black" />
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -180,11 +182,11 @@
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/bootLaunchSwitch"
-                        android:layout_marginStart="13dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
+                        android:layout_marginStart="13dp"
                         android:layout_marginEnd="8dp"
                         android:scaleX="1.3"
                         android:scaleY="1.3"
@@ -238,11 +240,11 @@
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/shuffleSwitch"
-                        android:layout_marginStart="13dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
+                        android:layout_marginStart="13dp"
                         android:layout_marginEnd="8dp"
                         android:scaleX="1.3"
                         android:scaleY="1.3"
@@ -396,39 +398,43 @@
 
                     <RelativeLayout
                         android:id="@+id/showStatsDefaultGetting"
-                        android:layout_below="@id/detailSet4Title"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/showGetFromWhat"
-                            android:layout_marginTop="5dp"
-                            android:maxWidth="250dp"
-                            android:textColor="@color/gray"
-                            android:textStyle="normal"
-                            android:textSize="15sp"
-                            android:text="사용자가 지정한 폴더에서 불러오고 있습니다."
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detailSet4Title"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:layout_below="@id/showGetFromWhat"
-                            android:id="@+id/showPictGetCnt"
+                            android:id="@+id/showGetFromWhat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:maxWidth="250dp"
-                            android:textColor="@color/semiBlack"
-                            android:textStyle="bold"
+                            android:text="사용자가 지정한 폴더에서 불러오고 있습니다."
+                            android:textColor="@color/gray"
                             android:textSize="15sp"
-                            android:text="확인된 사진 n개"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/showPictGetCnt"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/showGetFromWhat"
+                            android:layout_marginTop="5dp"
+                            android:maxWidth="250dp"
+                            android:text="확인된 사진 n개"
+                            android:textColor="@color/semiBlack"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
                         <ImageView
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"
                             android:id="@+id/showDirBtn"
+
                             android:layout_width="50dp"
                             android:layout_height="50dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginEnd="8dp"
+                            android:background="?selectableItemBackgroundBorderless"
 
                             android:src="@drawable/settings_icon"
                             android:tint="#6AAFE6">
@@ -436,12 +442,7 @@
                         </ImageView>
 
 
-
                     </RelativeLayout>
-
-
-
-
 
 
                 </RelativeLayout>

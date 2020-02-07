@@ -39,6 +39,7 @@
 
 
                 <ImageView
+                    android:background="?selectableItemBackgroundBorderless"
 
                     android:id="@+id/goReset"
                     android:layout_width="30dp"
@@ -52,6 +53,7 @@
                 <ImageView
                     android:id="@+id/goInfo"
                     android:layout_width="30dp"
+                    android:background="?selectableItemBackgroundBorderless"
 
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"

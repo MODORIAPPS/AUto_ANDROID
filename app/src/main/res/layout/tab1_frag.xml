@@ -42,59 +42,59 @@
             ads:adSize="SMART_BANNER">
         </com.google.android.gms.ads.AdView>
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="15dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:text="Unsplash"-->
-            <!--android:textColor="@color/littleBlack"-->
-            <!--android:textStyle="normal" />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Unsplash"
+            android:textColor="@color/littleBlack"
+            android:textStyle="normal" />
 
-        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:background="@drawable/background_theme"-->
-            <!--android:paddingBottom="20dp">-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/background_theme"
+            android:paddingBottom="20dp">
 
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView2"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="15dp"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="Unsplash"-->
-                <!--android:textColor="@color/semiBlack"-->
-                <!--android:textSize="27sp"-->
-                <!--android:textStyle="bold"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toTopOf="parent" />-->
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Unsplash"
+                android:textColor="@color/semiBlack"
+                android:textSize="27sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="15dp"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:text="앱을 통해 다운로드 받은 사진"-->
-                <!--android:textColor="@color/gray"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toBottomOf="@+id/textView2" />-->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:text="앱을 통해 다운로드 받은 사진"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <!--<androidx.recyclerview.widget.RecyclerView-->
-                <!--android:id="@+id/unsplashRV"-->
-                <!--android:layout_width="383dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="15dp"-->
-                <!--android:layout_marginTop="11dp"-->
-                <!--android:layout_marginEnd="15dp"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toBottomOf="@+id/textView"-->
-                <!--tools:listitem="@layout/picked_items" />-->
-        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/unsplashRV"
+                android:layout_width="383dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:listitem="@layout/picked_items" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:layout_width="wrap_content"

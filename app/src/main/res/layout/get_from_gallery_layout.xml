@@ -28,6 +28,7 @@
             android:textStyle="bold" />
 
         <Button
+
             android:id="@+id/openGalleryBtn"
             android:layout_width="0dp"
             android:layout_height="match_parent"

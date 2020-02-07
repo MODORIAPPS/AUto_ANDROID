@@ -19,16 +19,20 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:background="?selectableItemBackgroundBorderless"
+
                 android:id="@+id/backBtn"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:src="@drawable/left_arrow_icon"
+                android:src="@drawable/arrow_back"
                 android:tint="@color/white" />
 
             <ImageView
                 android:id="@+id/githubBtn"
-                android:layout_width="50dp"
+                android:layout_width="30dp"
+                android:background="?selectableItemBackgroundBorderless"
+
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
