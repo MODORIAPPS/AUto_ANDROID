@@ -93,6 +93,14 @@ public class FileManager {
 
     }
 
+    public static void mkdirAt(String dirName){
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AUtoImages/"+dirName+"/";
+
+        File file = new File(path);
+        file.mkdirs();
+
+    }
+
     public static Bitmap getBitmapFromPath(String filename,int screenWidth, int screenHeight) {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AUtoImages/"+filename;
        // File file = new File(path + filename);

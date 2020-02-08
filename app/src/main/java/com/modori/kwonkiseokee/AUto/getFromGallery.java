@@ -15,18 +15,12 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
+import com.modori.kwonkiseokee.AUto.Tab1_frag.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -145,10 +139,6 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
                         } else {
                             // new Photos
-//                            pickedLists.remove(photoNewAdapter.getPhotoUri());
-//                            photoNewAdapter.notifyDataSetChanged();
-//                            newPhotosCnt.setText(pickedLists.size() + "");
-
                         }
                         //삭제
                     }

@@ -9,37 +9,39 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:theme="@style/AppTheme"
-        android:largeHeap="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".AlbumDetail"></activity>
+        <activity android:name=".TutorialActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true"/>
-
+            android:value="true" />
 
         <activity android:name=".showPhotoOnly" />
         <activity android:name=".getFromGallery" />
         <activity android:name=".SetGetImagesDir_layout" />
-        <activity android:name=".PhotoDetail"
-            android:configChanges="screenSize|orientation"/>
         <activity
-            android:theme="@style/Theme.AppCompat.Light"
-            android:name=".ListsOfPhotos"
+            android:name=".PhotoDetail.PhotoDetailView"
             android:configChanges="screenSize|orientation" />
+        <activity
+            android:name=".ListOfPhotos.ListOfPhotoView"
+            android:configChanges="screenSize|orientation"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".LicensePage" />
         <activity android:name=".SelectFolder" />
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -11,6 +11,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.R;
@@ -40,6 +44,8 @@ public class SetWallpaperJob extends BroadcastReceiver {
     static int FileNumber = 0;
     Realm realm;
 
+    private GestureDetector gestureDetector;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -48,6 +54,17 @@ public class SetWallpaperJob extends BroadcastReceiver {
         MakePreferences.getInstance().setSettings(mContext);
         Realm.init(mContext);
         realm = Realm.getDefaultInstance();
+        Animation anim = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+
+
+//        gestureDetector = new GestureDetector(new GestureDetector.SimpleOnGestureListener(){
+//            @Override
+//            public boolean onDoubleTap(MotionEvent e) {
+//                Log.e("onDoubleTap", e.toString());
+//                //handle double tap
+//                return true;
+//            }
+//        });
 
         //load preferences
         GET_SETTING = MakePreferences.getInstance().getSettings().getInt("GetSetting", 0);
@@ -187,12 +204,13 @@ public class SetWallpaperJob extends BroadcastReceiver {
         int ADS_COUNTER = MakePreferences.getInstance().getSettings().getInt("ADS_COUNTER", 1);
         ++ADS_COUNTER;
         MakePreferences.getInstance().getSettings().edit().putInt("ADS_COUNTER", ADS_COUNTER).apply();
-        // ADS_COUNTER를 증가하고, 3이 되면 PhotoDetail 에서 전면광고표시
+        // ADS_COUNTER를 증가하고, 3이 되면 PhotoDetailView 에서 전면광고표시
 
         Context mContext = context.getApplicationContext();
 
         WallpaperManager wallpaperManager =
                 WallpaperManager.getInstance(mContext);
+
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
             if (flag == WallpaperManager.FLAG_SYSTEM) {

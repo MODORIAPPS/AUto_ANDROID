@@ -5,7 +5,7 @@
     android:layout_gravity="center"
     android:layout_marginStart="2dp"
     android:layout_marginEnd="2dp"
-    android:background="@drawable/background_theme"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,7 +24,7 @@
                 android:id="@+id/Title_dia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="새로운 태그를 입력받습니다."
+                android:text="@string/openDialog_title"
                 android:textColor="@color/blueEnabled"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -37,7 +37,9 @@
             android:id="@+id/subTitle_dia"
             android:textColorHint="@color/semiBlack"
             android:text="기존의 House 태그를 변경합니다."
+            android:textColor="@color/semiBlack"
             android:layout_width="wrap_content"
+            android:textSize="15sp"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -46,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="이미 중복된 태그가 존재합니다."
+            android:text="@string/openDialog_content2"
             android:textColor="@color/colorAccent"
             android:textStyle="bold" />
 
@@ -59,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:hint="새 태그 입력" />
+            android:hint="@string/openDialog_hint" />
 
 
     </LinearLayout>
@@ -78,9 +80,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_bg"
-            android:text="취소"
-            android:textColor="@color/white" />
+            android:background="@drawable/button_bg_cancel"
+            android:text="@string/openDialog_cancel"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/positiveBtn_dia"
@@ -88,8 +90,8 @@
 
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_bg"
-            android:text="확인"
+            android:background="@drawable/button_bg_ok"
+            android:text="@string/openDialog_ok"
             android:textColor="@color/white" />
 
 

@@ -23,10 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.modori.kwonkiseokee.AUto.RA.GetFromGalleryRA;
+import com.modori.kwonkiseokee.AUto.Tab1_frag.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
@@ -213,6 +210,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 GET_SETTING = 0;
             } else {
                 setToUserPick.setChecked(true);
+                setToDir.setChecked(false);
                 GET_SETTING = 1;
             }
         });
@@ -224,6 +222,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 GET_SETTING = 1;
             } else {
                 setToDir.setChecked(true);
+                setToUserPick.setChecked(false);
                 GET_SETTING = 0;
             }
         });

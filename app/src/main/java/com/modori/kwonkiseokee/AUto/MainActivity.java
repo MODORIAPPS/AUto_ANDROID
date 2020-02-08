@@ -14,7 +14,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.modori.kwonkiseokee.AUto.frag1.tab1_frag;
+import com.modori.kwonkiseokee.AUto.Tab2_frag.tab2_frag;
+import com.modori.kwonkiseokee.AUto.Tab1_frag.tab1_frag;
 
 import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
 

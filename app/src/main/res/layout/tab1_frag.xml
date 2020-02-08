@@ -38,7 +38,7 @@
             android:id="@+id/adView_frag1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            ads:adUnitId="@string/ads_code1"
+            ads:adUnitId="@string/banner1"
             ads:adSize="SMART_BANNER">
         </com.google.android.gms.ads.AdView>
 

@@ -11,7 +11,10 @@
     <TextView
 
         android:id="@+id/tags"
-        android:padding="10dp"
+        android:paddingStart="13dp"
+        android:paddingEnd="13dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="13dp"
         android:textSize="18sp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="3dp"
@@ -19,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/background_theme"
-        android:textColor="@color/semiBlack"
+        android:textColor="#707070"
         tools:text="Computer" />
 
 </LinearLayout>

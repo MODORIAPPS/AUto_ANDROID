@@ -2,6 +2,7 @@ package com.modori.kwonkiseokee.AUto.Util;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import static android.content.Context.ACTIVITY_SERVICE;
@@ -13,7 +14,6 @@ public class DEVICE_INFO {
         activityManager.getMemoryInfo(mi);
 
 
-
         return mi.totalMem / 1048576L;
     }
 
@@ -23,7 +23,9 @@ public class DEVICE_INFO {
         activityManager.getMemoryInfo(mi);
 
 
-
         return mi.availMem / 1048576L;
     }
+
+
+
 }
