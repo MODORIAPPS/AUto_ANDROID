@@ -22,7 +22,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AlbumDetail"></activity>
+        <activity android:name=".AutoSettings.AutoSettings"></activity>
+        <activity android:name=".AutoSettings.TimeSettings" />
+        <activity android:name=".AutoSettings.SourceSettings" />
+        <activity android:name=".AutoSettings.AutoSettings" />
+        <activity android:name=".AlbumDetail" />
         <activity android:name=".TutorialActivity" />
 
         <meta-data

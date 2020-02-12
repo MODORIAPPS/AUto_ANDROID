@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#FAFAFA"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
 
 
     <LinearLayout
@@ -21,18 +21,18 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <LinearLayout
-                android:paddingEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingEnd="10dp">
 
                 <TextView
-                    android:layout_gravity="center"
                     android:id="@+id/toolbar_title"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="5dp"
                     android:text="@string/tab2_toolbarText"
                     android:textColor="@color/semiBlack"
@@ -40,21 +40,21 @@
                     android:textStyle="normal" />
 
                 <View
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
 
-
-                <ImageButton
-                    android:rotation="30"
+                <ImageView
                     android:id="@+id/goReset"
+
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
-                    android:background="@drawable/loop_icon"
-                    />
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:src="@drawable/loop_icon"
+                    android:rotation="30" />
 
 
             </LinearLayout>
@@ -62,13 +62,12 @@
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView_frag1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        ads:adUnitId="@string/banner1"
-        ads:adSize="SMART_BANNER">
-    </com.google.android.gms.ads.AdView>
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView_frag1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner1"></com.google.android.gms.ads.AdView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,29 +78,29 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
-                tools:listitem="@layout/taglists_layout"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                tools:listitem="@layout/taglists_layout">
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
 
 
-
         <LinearLayout
             android:id="@+id/inputKeyword"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:padding="10dp"
-            android:background="@drawable/background_theme"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_theme"
+            android:padding="10dp">
+
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:tint="#636363"
-                android:src="@drawable/search_icon"/>
+                android:src="@drawable/search_icon"
+                android:tint="#636363" />
         </LinearLayout>
 
 

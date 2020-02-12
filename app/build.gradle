@@ -64,6 +64,9 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.1.1"
     androidTestImplementation "androidx.room:room-testing:2.2.3"
 
+    // skeleton
+    implementation 'com.ethanhua:skeleton:1.1.2'
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
 
     // Google Ads
     implementation 'com.google.firebase:firebase-ads:18.3.0'

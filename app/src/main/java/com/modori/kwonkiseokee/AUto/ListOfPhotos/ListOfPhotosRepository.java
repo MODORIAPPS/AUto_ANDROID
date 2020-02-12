@@ -31,7 +31,7 @@ public class ListOfPhotosRepository {
     }
 
 
-    public MutableLiveData<PhotoSearch> getListofPhotos(String tag) {
+    public MutableLiveData<PhotoSearch> getListOfPhotos(String tag) {
 
 
         MutableLiveData<PhotoSearch> photoData = new MutableLiveData<>();

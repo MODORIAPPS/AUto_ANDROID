@@ -29,14 +29,14 @@ class ListOfPhotosAdapter(val context: Context, val photoData: ArrayList<Results
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
-
-        if(cnt % 2 == 0){
-            params.leftMargin = 14
-            params.rightMargin = 7
-        }else{
-            params.rightMargin = 14
-            params.leftMargin = 7
-        }
+//
+//        if(cnt % 2 == 0){
+//            params.leftMargin = 14
+//            params.rightMargin = 7
+//        }else{
+//            params.rightMargin = 14
+//            params.leftMargin = 7
+//        }
 
 
 

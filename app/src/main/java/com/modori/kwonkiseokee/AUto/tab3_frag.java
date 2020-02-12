@@ -18,6 +18,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.modori.kwonkiseokee.AUto.AutoSettings.AutoSettings;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.Util.calTimes;
@@ -306,6 +307,19 @@ public class tab3_frag extends Fragment {
         initWorks();
         timePickerSetup();
         initSet();
+
+        /// Test
+        view.findViewById(R.id.debug).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(view.getContext(), AutoSettings.class));
+                    }
+                }
+        );
+
+
+
 
         Boolean temp;
         String cycleStr;

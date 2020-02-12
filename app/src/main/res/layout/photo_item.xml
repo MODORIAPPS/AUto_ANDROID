@@ -4,31 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/photoCardofList"
-
-    app:cardCornerRadius="20dp"
-    android:layout_marginTop="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <ImageView
+        android:adjustViewBounds="true"
+        android:id="@+id/imageCleanView"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/backgrounds/scenic"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:adjustViewBounds="true"
-            android:id="@+id/imageCleanView"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/backgrounds/scenic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <!---->
-        <!--<LinearLayout-->
-            <!--android:background="#5BFF9800"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp">-->
-
-        <!--</LinearLayout>-->
-
-    </RelativeLayout>
+        android:layout_height="wrap_content" />
 
 </androidx.cardview.widget.CardView>

@@ -18,7 +18,7 @@ public class ListOfPhotosViewModel extends ViewModel {
     }
 
     public LiveData<PhotoSearch> getListofPhotos(String tag) {
-        mutableLiveData = photosRepository.getListofPhotos(tag);
+        mutableLiveData = photosRepository.getListOfPhotos(tag);
         return mutableLiveData;
     }
 }

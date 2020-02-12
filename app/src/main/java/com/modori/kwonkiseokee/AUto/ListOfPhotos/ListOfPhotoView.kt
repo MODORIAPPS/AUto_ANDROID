@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.lists_of_photos.*
 
 class ListOfPhotoView : AppCompatActivity() {
 
+    var latestImage = "aaa"
     var photoCnt = 1
     var viewMode = true
     var isSearchMode = true
@@ -62,9 +63,6 @@ class ListOfPhotoView : AppCompatActivity() {
         goBack.setOnClickListener { finish() }
         setToGridView.setOnClickListener { setGridView() }
 
-
-        if(tag == null) finish()
-
         if (isSearchMode) {
             searchView.visibility = View.VISIBLE
             questMessage.visibility = View.VISIBLE
@@ -85,7 +83,6 @@ class ListOfPhotoView : AppCompatActivity() {
                     //adapter.notifyDataSetChanged()
 
 
-
                     return true
                 }
 
@@ -102,10 +99,10 @@ class ListOfPhotoView : AppCompatActivity() {
         }
 
 
-        refreshLayout.setOnRefreshListener {
-            getPhotoByKeyword(listOfPhotosViewModel,tag!!)
-            refreshLayout.isRefreshing = false
-        }
+//        refreshLayout.setOnRefreshListener {
+//            getPhotoByKeyword(listOfPhotosViewModel,tag!!)
+//            refreshLayout.isRefreshing = false
+//        }
 
 
         supportActionBar?.hide()
@@ -168,9 +165,8 @@ class ListOfPhotoView : AppCompatActivity() {
             if (isKeywordAvail(it)) {
                 questMessage.visibility = View.GONE
 
-                photoArrayList.addAll(it.results)
-
                 if (photoCnt == 1) {
+                    photoArrayList.addAll(it.results)
                     adapter = ListOfPhotosAdapter(this, photoArrayList)
                     recyclerView.adapter = adapter
 
@@ -178,7 +174,23 @@ class ListOfPhotoView : AppCompatActivity() {
                     print(it.total)
                     showPictGetCnt.text = "${it.total}  $getStr"
                 } else {
-                    adapter.notifyItemInserted(photoCnt * 10)
+                    var arraytwo = it.results
+                    for ((index, content) in arraytwo.withIndex()){
+                        for (ori in photoArrayList){
+                            if(content.id == ori.id) {
+                                arraytwo = it.results.toMutableList().apply {
+                                    removeAt(index)
+                                }
+                            }
+                        }
+                    }
+
+                    photoArrayList.addAll(arraytwo)
+                    adapter.notifyItemInserted(photoArrayList.size)
+                    //adapter.notifyItemInserted(photoCnt * 10- count)
+
+
+
                 }
 
                 photoCnt++
