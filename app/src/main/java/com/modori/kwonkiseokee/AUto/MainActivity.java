@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.modori.kwonkiseokee.AUto.Tab2_frag.tab2_frag;
-import com.modori.kwonkiseokee.AUto.Tab1_frag.tab1_frag;
+import com.modori.kwonkiseokee.AUto.Tab1_frag.Tab1_frag;
 
 import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
 
@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
         mainFrame = findViewById(R.id.mainFrame);
         navBar = findViewById(R.id.navBar);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1_frag()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new Tab1_frag()).commit();
 
         navBar.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.goTranslate:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new tab1_frag()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new Tab1_frag()).commit();
                         return true;
 
                     case R.id.goPhotos:
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         if (ReadpermissionCheck == PackageManager.PERMISSION_DENIED) {
             //권한이 없는 경우, 없으므로 권한 요청 메세지 띄운다.
             //요청 메세지가 띄워지면 '허용'과 '거절'이 보이는데 둘중 어느 것을 누르냐에 대한 처리는 onRequestPermissionsResult에서 처리한다.
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE);
 
         } else {
             //권한이 있는 경우

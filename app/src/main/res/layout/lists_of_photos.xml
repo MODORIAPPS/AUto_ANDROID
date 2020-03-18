@@ -113,16 +113,22 @@
                 android:text="@string/ListOfPhotos_questMessage" />
         </RelativeLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <com.faltenreich.skeletonlayout.SkeletonLayout
+            android:id="@+id/listOfPhotosMask"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#EEEEEE"
-            android:visibility="visible"
-            tools:listitem="@layout/photo_item">
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EEEEEE"
+                android:visibility="visible"
+                tools:listitem="@layout/photo_item">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
+        </com.faltenreich.skeletonlayout.SkeletonLayout>
+
+
 
     </LinearLayout>
 

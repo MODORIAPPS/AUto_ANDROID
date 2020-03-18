@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.modori.kwonkiseokee.AUto"
     android:versionName="1.7.0">
+
     <!-- 버전 코드 설명 https://mainia.tistory.com/4925 -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -22,10 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AutoSettings.AutoSettings"></activity>
-        <activity android:name=".AutoSettings.TimeSettings" />
-        <activity android:name=".AutoSettings.SourceSettings" />
-        <activity android:name=".AutoSettings.AutoSettings" />
+        <activity android:name=".AutoSettings.AutoSettings"/>
         <activity android:name=".AlbumDetail" />
         <activity android:name=".TutorialActivity" />
 

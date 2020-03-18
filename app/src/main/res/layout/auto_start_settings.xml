@@ -5,8 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="자동배경화면\n설정하기."
@@ -14,7 +15,7 @@
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
@@ -26,7 +27,7 @@
         android:textSize="16dp"
         android:textColor="@color/semiBlack"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/mainText" />
 
     <LinearLayout
         android:layout_marginTop="50dp"
@@ -85,7 +86,7 @@
 
 
     <Button
-        android:id="@+id/startDefault"
+        android:id="@+id/startSettings"
         android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

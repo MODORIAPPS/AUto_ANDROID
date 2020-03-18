@@ -68,7 +68,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         realm = Realm.getDefaultInstance();
         photoList = getPhotoList();
 
-        photoOldAdapter = new GetFromGalleryRA(this, photoList, true);
+        photoOldAdapter = new GetFromGalleryRA(this, photoList, 0);
         oldPhotosList.setAdapter(photoOldAdapter);
 
 //        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
@@ -84,13 +84,13 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
     }
 
     public void setRecyclerView() {
-        photoNewAdapter = new GetFromGalleryRA(this, pickedLists, false);
+        photoNewAdapter = new GetFromGalleryRA(this, pickedLists, 1);
         newPhotosList.setAdapter(photoNewAdapter);
         //newPhotosCnt.setText(pickedLists.size() + "");
 
         photoList = getPhotoList();
 
-        photoOldAdapter = new GetFromGalleryRA(this, photoList, true);
+        photoOldAdapter = new GetFromGalleryRA(this, photoList, 0);
         oldPhotosList.setAdapter(photoOldAdapter);
         //oldPhotosCnt.setText(photoList.size() + "");
 

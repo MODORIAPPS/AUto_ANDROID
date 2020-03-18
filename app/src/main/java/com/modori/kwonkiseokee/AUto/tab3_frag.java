@@ -128,6 +128,7 @@ public class tab3_frag extends Fragment {
 
         numPickerView = view.findViewById(R.id.numPickerView);
 
+
         //NumberPickers
         inputCycleDay = view.findViewById(R.id.inputCycleDay);
         inputCycleHour = view.findViewById(R.id.inputCycleHour);
@@ -307,18 +308,6 @@ public class tab3_frag extends Fragment {
         initWorks();
         timePickerSetup();
         initSet();
-
-        /// Test
-        view.findViewById(R.id.debug).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(view.getContext(), AutoSettings.class));
-                    }
-                }
-        );
-
-
 
 
         Boolean temp;

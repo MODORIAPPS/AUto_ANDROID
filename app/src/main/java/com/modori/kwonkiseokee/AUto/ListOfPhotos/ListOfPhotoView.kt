@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.SkeletonLayout
+import com.faltenreich.skeletonlayout.applySkeleton
 import com.google.android.material.snackbar.Snackbar
 import com.modori.kwonkiseokee.AUto.R
 import com.modori.kwonkiseokee.AUto.Util.ColumnQty
@@ -30,6 +33,7 @@ class ListOfPhotoView : AppCompatActivity() {
     var viewMode = true
     var isSearchMode = true
     lateinit var adapter: ListOfPhotosAdapter
+    lateinit var listOfPhotosMask:Skeleton
     var photoArrayList: ArrayList<Results> = ArrayList()
 
 
@@ -37,6 +41,8 @@ class ListOfPhotoView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.lists_of_photos)
 
+        listOfPhotosMask = findViewById<SkeletonLayout>(R.id.listOfPhotosMask)
+        listOfPhotosMask = recyclerView.applySkeleton(R.layout.photo_item,10)
 
 
 
@@ -79,6 +85,8 @@ class ListOfPhotoView : AppCompatActivity() {
 
                     getPhotoByKeyword(listOfPhotosViewModel, tag!!)
                     setUpRecyclerView(listOfPhotosViewModel, tag!!)
+                    listOfPhotosMask.showOriginal()
+
 
                     //adapter.notifyDataSetChanged()
 
@@ -96,6 +104,8 @@ class ListOfPhotoView : AppCompatActivity() {
 
             setUpRecyclerView(listOfPhotosViewModel, tag!!)
             getPhotoByKeyword(listOfPhotosViewModel, tag!!)
+            listOfPhotosMask.showOriginal()
+
         }
 
 
@@ -109,6 +119,7 @@ class ListOfPhotoView : AppCompatActivity() {
     }
 
     fun setUpRecyclerView(listOfPhotosViewModel: ListOfPhotosViewModel, tag: String) {
+
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
         viewMode = true
@@ -162,6 +173,7 @@ class ListOfPhotoView : AppCompatActivity() {
 
     fun getPhotoByKeyword(viewModel: ListOfPhotosViewModel, tag: String) {
         viewModel.getListofPhotos(tag).observe(this, Observer {
+            listOfPhotosMask.showSkeleton()
             if (isKeywordAvail(it)) {
                 questMessage.visibility = View.GONE
 
@@ -195,6 +207,8 @@ class ListOfPhotoView : AppCompatActivity() {
 
                 photoCnt++
                 Log.d("ListOfPhotoView.kt", "잘 가져옴")
+
+                listOfPhotosMask.showOriginal()
 
 
             } else {

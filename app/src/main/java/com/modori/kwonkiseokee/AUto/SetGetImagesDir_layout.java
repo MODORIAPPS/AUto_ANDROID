@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.modori.kwonkiseokee.AUto.AutoSettings.AutoSettings;
 import com.modori.kwonkiseokee.AUto.Tab1_frag.GetFromGalleryRA;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
@@ -70,9 +74,10 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
     ArrayList<String> imageFilesDe = new ArrayList<>();
 
+    private PhotoViewModel viewModel;
+
 
     public void initWork() {
-
 
 
         goPickGallery = findViewById(R.id.goPickGallery);
@@ -98,26 +103,39 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
         permissionCheck();
 
+        viewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
+
         Realm.init(this);
-        Realm realm = Realm.getDefaultInstance();
-        List<String> onlyPhotoUri = new ArrayList<>();
-        RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
-        for (int i = 0; i < realmResults.size(); i++) {
-            onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
-        }
+//        Realm realm = Realm.getDefaultInstance();
+//        List<String> onlyPhotoUri = new ArrayList<>();
+//        RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
+//        for (int i = 0; i < realmResults.size(); i++) {
+//            onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+//        }
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
         listOfPictures.setLayoutManager(linearLayoutManager);
 
 
-        if (onlyPhotoUri.size() != 0) {
-            warningNoImagesText.setVisibility(View.GONE);
-            listOfPictures.setLayoutManager(new GridLayoutManager(this, 3));
-            adapter = new GetFromGalleryRA(this, onlyPhotoUri,true);
-            listOfPictures.setAdapter(adapter);
-        }
+//        if (onlyPhotoUri.size() != 0) {
+//            warningNoImagesText.setVisibility(View.GONE);
+//            listOfPictures.setLayoutManager(new GridLayoutManager(this, 3));
+//            adapter = new GetFromGalleryRA(this, onlyPhotoUri, true);
+//            listOfPictures.setAdapter(adapter);
+//        }
 
+//        viewModel.getDevicePhotos().observe(this, (Observer) o -> {
+//            if (viewModel.getDevicePhotos().getValue() != null) {
+//                warningNoImagesText.setVisibility(View.GONE);
+//                setPickedRV(viewModel.getDevicePhotos().getValue());
+//            } else {
+//                // No images
+//                warningNoImagesText.setVisibility(View.VISIBLE);
+//
+//
+//            }
+//        });
 
     }
 
@@ -183,6 +201,12 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
         checkAvailImages(true);
 
+
+        /// Test
+        findViewById(R.id.openAutoSettings).setOnClickListener(
+                v -> startActivity(new Intent(this, AutoSettings.class))
+        );
+
         // load prefernces
 
         SelectedPath = settings.getString("SelectedPath", "/system");
@@ -227,6 +251,19 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
             }
         });
 
+
+    }
+
+    private void setPickedRV(List<DevicePhotoDTO> array) {
+        List<String> photoUriLists = new ArrayList<>();
+        for (DevicePhotoDTO item : array) {
+            photoUriLists.add(item.getPhotoUri_d());
+        }
+
+        GetFromGalleryRA adapter = new GetFromGalleryRA(this, photoUriLists, 0);
+
+
+        adapter.notifyDataSetChanged();
 
     }
 

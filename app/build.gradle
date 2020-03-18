@@ -28,6 +28,7 @@ android {
         }
     }
 
+
     compileOptions {
         sourceCompatibility '1.8'
         targetCompatibility '1.8'
@@ -38,7 +39,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.google.android.material:material:1.2.0-alpha04'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
@@ -60,17 +61,16 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-common-java8:2.2.0"
 
     // Room
-    implementation "androidx.room:room-runtime:2.2.3"
+    implementation "androidx.room:room-runtime:2.2.4"
     kapt "android.arch.persistence.room:compiler:1.1.1"
-    androidTestImplementation "androidx.room:room-testing:2.2.3"
+    androidTestImplementation "androidx.room:room-testing:2.2.4"
 
-    // skeleton
-    implementation 'com.ethanhua:skeleton:1.1.2'
-    implementation 'io.supercharge:shimmerlayout:2.1.0'
+    // Skeleton
+    implementation 'com.faltenreich:skeletonlayout:2.0.1'
 
     // Google Ads
-    implementation 'com.google.firebase:firebase-ads:18.3.0'
-    implementation 'com.google.android.gms:play-services-ads:18.3.0'
+    implementation 'com.google.firebase:firebase-ads:19.0.0'
+    implementation 'com.google.android.gms:play-services-ads:19.0.0'
     implementation "androidx.core:core-ktx:1.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

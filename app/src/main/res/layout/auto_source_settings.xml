@@ -3,18 +3,135 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp"
-    tools:context=".AutoSettings.SourceSettings">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="사진을 가져올 장소\n선택"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:text="사진을 가져올 방법\n선택"
         android:textColor="@color/semiBlack"
         android:textSize="40dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/subText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:text="아래의 항목중 하나만 선택할 수 있습니다."
+        android:textColor="@color/semiBlack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainText" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/nextBtnInSourceSettings"
+        app:layout_constraintTop_toBottomOf="@id/subText">
+
+        <LinearLayout
+            android:background="#3DADF2"
+            android:id="@+id/setSourceAsDownloaded"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/semiBlack"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이 앱에서 다운로드한 사진 가져오기" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="앱에서 다운로드한 사진만을 가져옵니다. 가장 간단합니다." />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="#D7F205"
+            android:id="@+id/setSourceAsFolder"
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/semiBlack"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사진이 있는 폴더 선택" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="미리 사용하고 싶은 사진을 모아둔 폴더를 지정합니다." />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:backgroundTint="#23D9B7"
+            android:id="@+id/setSourceAsGallery"
+            android:layout_width="match_parent"
+            android:padding="15dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/semiBlack"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="갤러리에서 원하는 사진 직접 선택" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="갤러리를 열어 사용할 사진들을 직접 선택해야합니다." />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/nextBtnInSourceSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/button_bg"
+        android:enabled="false"
+        android:text="다음"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

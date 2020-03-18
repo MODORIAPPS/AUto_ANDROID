@@ -147,13 +147,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         return view;
     }
 
-    private void insertTagLists(TagViewModel viewModel) {
-        String[] tagOrigin = {"Landscape", "Office", "MilkyWay", "Yosemite", "Roads", "home"};
-        for (int i = 0; i < 6; i++) {
-            viewModel.insert(new Tag(tagOrigin[i], i));
-        }
-    }
-
     private boolean netWorkCheck() {
         if (NETWORKS.getNetWorkType(context) == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);

@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.modori.kwonkiseokee.AUto.R
 
-class TimeSettings(): Fragment(){
+class fragment_PeriodSettings(): Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.auto_time_settings, container, false)
+        val view = inflater.inflate(R.layout.auto_period_settings, container, false)
         return view
     }
 }

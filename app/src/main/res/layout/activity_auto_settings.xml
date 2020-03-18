@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".AutoSettings.AutoSettings">
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/autoToolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/settingsViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -11,8 +11,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.modori.kwonkiseokee.AUto.R;
+import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -27,12 +30,12 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
     private List<String> imageLists;
     private Context context;
     private Realm realm;
-    private boolean type;
+    private int type;
     private int index;
 
     String photoUri;
 
-    public GetFromGalleryRA(Context context, List<String> imageLists, boolean type) {
+    public GetFromGalleryRA(Context context, List<String> imageLists, int type) {
         this.context = context;
         this.imageLists = imageLists;
         this.type = type;
@@ -56,18 +59,21 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
         String item = imageLists.get(position);
 
         Glide.with(context).load(Uri.parse(item))
-                .override(450,450)
+                .override(450, 450)
                 .centerCrop()
                 .into(holder.pick_ImagesView);
         photoUri = item;
         holder.pick_ImagesView.setOnClickListener(v -> {
-            if (type) {
+            if (type == 0) {
                 // oldphoto
                 makeDeleteDialog(type, position, item);
-            } else {
+            } else if (type == 1) {
                 // newphoto
                 makeDeleteDialog(type, position, item);
 
+
+            }else{
+                makeDeleteDialog(type, position, item);
 
             }
         });
@@ -76,14 +82,14 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
         Log.d("어댑터 들어옴", item);
     }
 
-    private void makeDeleteDialog(final boolean dataType, int position, String photoUri) {
+    private void makeDeleteDialog(final int dataType, int position, String photoUri) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         builder.setTitle("사진 삭제")        // 제목 설정
                 .setMessage("목록에서 사진을 삭제할까요?")        // 메세지 설정
                 .setCancelable(false)        // 뒤로 버튼 클릭시 취소 가능 설정
                 .setPositiveButton("확인", (dialog, whichButton) -> {
-                    if (dataType) {
+                    if (dataType == 0) {
 
                         realm.beginTransaction();
                         RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoUri).findAll();
@@ -95,7 +101,7 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
                         notifyDataSetChanged();
 
 
-                    } else {
+                    } else if (dataType == 1) {
                         // new Photos
 //                            pickedLists.remove(photoNewAdapter.getPhotoUri());
 //                            photoNewAdapter.notifyDataSetChanged();
@@ -104,14 +110,16 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
                         imageLists.remove(position);
                         notifyDataSetChanged();
 
+                    }else if(dataType == 2){
+                        try {
+                            File file = new File(FileManager.getPath(context,Uri.parse(photoUri)));
+                            file.delete();
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
                     }
                     //삭제
-                }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.cancel();
-            }
-        });
+                }).setNegativeButton("취소", (dialog, whichButton) -> dialog.cancel());
 
         AlertDialog dialog = builder.create();    // 알림창 객체 생성
         dialog.show();    // 알림창 띄우기
