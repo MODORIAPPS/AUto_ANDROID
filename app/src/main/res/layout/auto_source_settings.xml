@@ -9,11 +9,11 @@
         android:id="@+id/mainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="@dimen/verticalMargin"
         android:text="사진을 가져올 방법\n선택"
         android:textColor="@color/semiBlack"
-        android:textSize="40dp"
+        android:textSize="@dimen/mainTextBig"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,10 +22,11 @@
         android:id="@+id/subText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/appSideMargin"
+        android:layout_marginTop="@dimen/verticalMargin"
         android:text="아래의 항목중 하나만 선택할 수 있습니다."
         android:textColor="@color/semiBlack"
+        android:textSize="@dimen/descText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mainText" />
 
@@ -91,7 +92,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:backgroundTint="#23D9B7"
+            android:background="#23D9B7"
             android:id="@+id/setSourceAsGallery"
             android:layout_width="match_parent"
             android:padding="15dp"
@@ -122,15 +123,12 @@
         android:id="@+id/nextBtnInSourceSettings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_margin="@dimen/defaultMargin"
         android:background="@drawable/button_bg"
         android:enabled="false"
         android:text="다음"
         android:textColor="@color/white"
-        android:textSize="17dp"
+        android:textSize="@dimen/btnText"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent" />
 

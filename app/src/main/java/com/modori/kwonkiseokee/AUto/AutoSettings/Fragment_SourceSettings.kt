@@ -2,6 +2,7 @@ package com.modori.kwonkiseokee.AUto.AutoSettings
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.modori.kwonkiseokee.AUto.R
 
-class fragment_SourceSettings(): Fragment(), View.OnClickListener {
+class Fragment_SourceSettings(): Fragment(), View.OnClickListener {
 
     lateinit var viewModel: SettingsViewModel
 
@@ -35,29 +36,33 @@ class fragment_SourceSettings(): Fragment(), View.OnClickListener {
         viewModel.getSourceType().observe(this,androidx.lifecycle.Observer {
             val sourceType = viewModel.getSourceType().value
             if(sourceType != null){
+                Log.d("SourceType", sourceType.toString())
                 nextBtnInSourceSettings.isEnabled = true
 
                 when(sourceType){
                     SourceType.DOWNLOADED -> {
-                        setSourceAsDownloaded.setBackgroundColor(Color.parseColor(PresentColor.DOWNLOADED_ENABLED.color))
-                        setSourceAsFolder.setBackgroundColor(Color.parseColor(PresentColor.MY_FOLDER.color))
-                        setSourceAsGallery.setBackgroundColor(Color.parseColor(PresentColor.GALLERY_PICK.color))
+                        setSourceAsDownloaded.setBackgroundColor(PresentColor.DOWNLOADED_ENABLED.color)
+                        setSourceAsFolder.setBackgroundColor(PresentColor.MY_FOLDER.color)
+                        setSourceAsGallery.setBackgroundColor(PresentColor.GALLERY_PICK.color)
                     }
 
                     SourceType.MY_FOLDER -> {
-                        setSourceAsDownloaded.setBackgroundColor(Color.parseColor(PresentColor.DOWNLOADED.color))
-                        setSourceAsFolder.setBackgroundColor(Color.parseColor(PresentColor.MY_FOLDER_ENABLED.color))
-                        setSourceAsGallery.setBackgroundColor(Color.parseColor(PresentColor.GALLERY_PICK.color))
+                        setSourceAsDownloaded.setBackgroundColor(PresentColor.DOWNLOADED.color)
+                        setSourceAsFolder.setBackgroundColor(PresentColor.MY_FOLDER_ENABLED.color)
+                        setSourceAsGallery.setBackgroundColor(PresentColor.GALLERY_PICK.color)
                     }
 
                     SourceType.GALLERY_PICK -> {
-                        setSourceAsDownloaded.setBackgroundColor(Color.parseColor(PresentColor.DOWNLOADED.color))
-                        setSourceAsFolder.setBackgroundColor(Color.parseColor(PresentColor.MY_FOLDER.color))
-                        setSourceAsGallery.setBackgroundColor(Color.parseColor(PresentColor.GALLERY_PICK_ENABLED.color))
+                        setSourceAsDownloaded.setBackgroundColor(PresentColor.DOWNLOADED.color)
+                        setSourceAsFolder.setBackgroundColor(PresentColor.MY_FOLDER.color)
+                        setSourceAsGallery.setBackgroundColor(PresentColor.GALLERY_PICK_ENABLED.color)
                     }
                 }
             }
         })
+
+
+        //viewModel.setSourceType(SourceType.DOWNLOADED)
 
         setSourceAsDownloaded.setOnClickListener(this)
         setSourceAsFolder.setOnClickListener(this)
@@ -74,7 +79,7 @@ class fragment_SourceSettings(): Fragment(), View.OnClickListener {
                 viewModel.setSourceType(SourceType.DOWNLOADED)
             }
 
-            R.id.setSourceAsFolder ->{
+            R.id.setSourceAsFolder -> {
                 viewModel.setSourceType(SourceType.MY_FOLDER)
             }
 
@@ -85,7 +90,7 @@ class fragment_SourceSettings(): Fragment(), View.OnClickListener {
                 if(!nextBtnInSourceSettings.isEnabled){
                     Toast.makeText(activity,"하나 이상의 방법을 선택하세요",Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModel.setCurrentPosition(2)
+                    viewModel.setCurrentPosition(3)
                 }
             }
         }

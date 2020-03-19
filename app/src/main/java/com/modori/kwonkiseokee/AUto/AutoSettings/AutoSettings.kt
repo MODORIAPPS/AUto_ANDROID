@@ -12,6 +12,9 @@ import kotlinx.android.synthetic.main.activity_auto_settings.*
 
 class AutoSettings : AppCompatActivity() {
 
+    lateinit var viewModel: SettingsViewModel
+    var currentPosition:Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auto_settings)
@@ -19,24 +22,31 @@ class AutoSettings : AppCompatActivity() {
 
         setSupportActionBar(autoToolBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "자동 설정하기"
+        supportActionBar?.title = "닫기"
 
 
         // ViewPager setup
-        val list: List<Fragment> = listOf(fragment_StartSettings(), fragment_SourceSettings(), fragment_PeriodSettings())
+        val list: List<Fragment> = listOf(Fragment_StartSettings(), Fragment_SourceSettings(), Fragment_PeriodSettings(), Fragment_EndSettings())
         val fm = supportFragmentManager
         val autoSettingsAdapter = ViewPagerAdapter(fm, this, list)
         settingsViewPager.adapter = autoSettingsAdapter
 
         // setUp ViewModel
-        val viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         viewModel.getCurrentPosition().observe(this, androidx.lifecycle.Observer {
             Log.d("AutoSettings", "CurrentPosition change Detected")
             val position = viewModel.getCurrentPosition().value
             if (position != null) {
                 Log.d("AutoSettings", "Set to position $position")
                 //autoSettingsAdapter.getItemPosition(position)
+                currentPosition = position
                 settingsViewPager.currentItem = position
+
+                if(position == 0){
+                    supportActionBar?.title = "닫기"
+                }else{
+                    supportActionBar?.title = "뒤로가기"
+                }
 
             } else {
                 Toast.makeText(this, "죄송합니다. 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
@@ -50,11 +60,19 @@ class AutoSettings : AppCompatActivity() {
 
     }
 
+    private fun backBtnBehavior(){
+        if(currentPosition == 0){
+            finish()
+        }else{
+            settingsViewPager.currentItem = currentPosition - 1
+            viewModel.setCurrentPosition(currentPosition - 1)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             android.R.id.home -> {
-                // 취소할 건지 물어보기
-                finish()
+                backBtnBehavior()
             }
         }
         return super.onOptionsItemSelected(item)

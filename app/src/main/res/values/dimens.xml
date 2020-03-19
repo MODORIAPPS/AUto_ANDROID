@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margin -->
+    <dimen name="defaultMargin">15dp</dimen>
+    <dimen name="btnRadius">10dp</dimen>
+    <dimen name="appSideMargin">15dp</dimen>
+    <dimen name="verticalMargin">7dp</dimen>
+
+
+    <!-- TextSize -->
+    <dimen name="appBarText">23sp</dimen>
+    <dimen name="indicator">15sp</dimen>
+    <dimen name="smallAlertText">17sp</dimen>
+    <dimen name="mainTextBig">35sp</dimen>
+    <dimen name="descText">18sp</dimen>
+    <dimen name="btnText">17sp</dimen>
+    <dimen name="titleText">27sp</dimen>
+
+
+    <!-- ImageSize -->
+    <dimen name="iconSize">30dp</dimen>
+
+    <dimen name="dividerHeight">1dp</dimen>
+</resources>

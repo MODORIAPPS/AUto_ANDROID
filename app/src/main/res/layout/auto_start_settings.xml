@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="자동배경화면\n설정하기."
         android:textColor="@color/semiBlack"
-        android:textSize="40dp"
+        android:textSize="@dimen/mainTextBig"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp"
         android:maxWidth="300dp"
         android:text="새롭게 추가된 기능으로 더 편하게\n자동 배경화면을 설정하세요."
-        android:textSize="16dp"
+        android:textSize="@dimen/descText"
         android:textColor="@color/semiBlack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainText" />

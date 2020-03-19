@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.modori.kwonkiseokee.AUto.R
 import kotlinx.android.synthetic.main.auto_start_settings.*
 
-class fragment_StartSettings():Fragment(){
+class Fragment_StartSettings():Fragment(){
 
     lateinit var viewModel: SettingsViewModel
 

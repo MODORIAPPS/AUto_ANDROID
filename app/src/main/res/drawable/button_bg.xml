@@ -27,7 +27,7 @@
                 android:width="0.5dp"
                 android:color="#E0E0E0" />
             <solid android:color="#6AAFE6" />
-            <corners android:radius="30dp" />
+            <corners android:radius="@dimen/btnRadius" />
         </shape>
     </item>
 </ripple>

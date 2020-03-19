@@ -454,8 +454,10 @@
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="@dimen/appSideMargin"
+                android:layout_marginEnd="@dimen/appSideMargin"
+                android:layout_marginTop="@dimen/verticalMargin"
+                android:layout_marginBottom="@dimen/verticalMargin"
                 android:background="@drawable/button_bg"
                 android:text="@string/tab3_t6"
                 android:textColor="@color/white">

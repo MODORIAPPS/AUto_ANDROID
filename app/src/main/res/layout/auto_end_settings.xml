@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/mainText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/defaultMargin"
+        android:text="거의 완료되었습니다.."
+        android:textColor="@color/semiBlack"
+        android:textSize="@dimen/mainTextBig"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/appSideMargin"
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:text="아래의 설정대로 저장됩니다. 정확한가요?"
+        android:textColor="@color/semiBlack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainText" />
+
+    <!-- SourceType -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_theme"
+        android:orientation="vertical"
+        android:padding="@dimen/defaultMargin"
+        app:layout_constraintBottom_toTopOf="@+id/nextBtnInEndSettings"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <ImageView
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
+            android:layout_marginBottom="@dimen/verticalMargin"
+            android:src="@drawable/folder_icon"
+            android:tint="@color/semiBlack" />
+
+
+        <TextView
+            android:id="@+id/showSourceType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/verticalMargin"
+            android:text="내가 다운로드한 사진들"
+            android:textColor="@color/blueEnabled"
+            android:textSize="@dimen/titleText"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/showFoundImages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/verticalMargin"
+            android:text="찾은 사진 개수 : 5"
+            android:textColor="@color/semiBlack"
+            android:textSize="@dimen/descText" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dividerHeight"
+            android:layout_margin="@dimen/verticalMargin"
+            android:background="@color/gray" />
+
+
+        <ImageView
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
+            android:layout_marginBottom="@dimen/verticalMargin"
+            android:src="@drawable/loop_icon"
+            android:tint="@color/semiBlack" />
+
+
+        <TextView
+            android:id="@+id/showPeriodType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/verticalMargin"
+            android:text="1일마다 변경"
+            android:textColor="@color/blueEnabled"
+            android:textSize="@dimen/titleText"
+            android:textStyle="bold" />
+
+
+<!--        <TextView-->
+<!--            android:id=-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="찾은 사진 개수 : 5"-->
+<!--            android:textColor="@color/semiBlack"-->
+<!--            android:textSize="@dimen/descText" />-->
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/successCompletedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✅설정 성공!"
+            android:textColor="@color/semiBlack"
+            android:textSize="@dimen/mainTextBig"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:text="지금부터 설정하신 대로 실행됩니다."
+            android:textColor="@color/semiBlack"
+            android:textSize="@dimen/descText" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/nextBtnInEndSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/defaultMargin"
+        android:background="@drawable/button_bg"
+        android:enabled="false"
+        android:text="확인"
+        android:textColor="@color/white"
+        android:textSize="@dimen/btnText"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,10 +27,9 @@
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:text="@string/tab_1"
                 android:textColor="@color/semiBlack"
-                android:textSize="23sp" />
+                android:textSize="@dimen/appBarText" />
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.gms.ads.AdView
@@ -43,6 +42,7 @@
         </com.google.android.gms.ads.AdView>
 
         <TextView
+            android:textSize="@dimen/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -67,12 +67,13 @@
                 android:layout_marginTop="10dp"
                 android:text="Unsplash"
                 android:textColor="@color/semiBlack"
-                android:textSize="27sp"
+                android:textSize="@dimen/titleText"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:textSize="@dimen/descText"
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,6 +98,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:textSize="@dimen/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -121,12 +123,13 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/tab1_galleryTitle"
                 android:textColor="@color/semiBlack"
-                android:textSize="27sp"
+                android:textSize="@dimen/titleText"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:textSize="@dimen/descText"
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -139,6 +142,7 @@
 
 
             <TextView
+                android:textSize="@dimen/smallAlertText"
                 android:id="@+id/noPickedImagesWarning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

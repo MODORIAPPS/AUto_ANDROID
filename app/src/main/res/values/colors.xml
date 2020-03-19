@@ -23,4 +23,12 @@
     <color name="gradient1">#21D4FD</color>
     <color name="gradient2">#B721FF</color>
 
+    <!-- PresentColor -->
+    <color name="DOWNLOAD">#3DADF2</color>
+    <color name="DOWNLOAD_ENABLED">#ffffff</color>
+    <color name="MY_FOLDER">#D7F205</color>
+    <color name="MY_FOLDER_ENABLED">#ffffff</color>
+    <color name="GALLERY_PICK">#23D9B7</color>
+    <color name="GALLERY_PICK_ENABLED">#ffffff</color>
+
 </resources>
