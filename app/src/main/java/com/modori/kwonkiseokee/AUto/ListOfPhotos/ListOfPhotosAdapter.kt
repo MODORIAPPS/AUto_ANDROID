@@ -2,7 +2,6 @@ package com.modori.kwonkiseokee.AUto.ListOfPhotos
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,10 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.modori.kwonkiseokee.AUto.PhotoDetail.PhotoDetailView
+import com.modori.kwonkiseokee.AUto.PhotoDetail.PhotoDetailViewK
 import com.modori.kwonkiseokee.AUto.R
+import com.modori.kwonkiseokee.AUto.ShowPhotoOnly
 import com.modori.kwonkiseokee.AUto.data.data.Results
-import com.modori.kwonkiseokee.AUto.showPhotoOnly
 
 class ListOfPhotosAdapter(val context: Context, val photoData: ArrayList<Results>) : RecyclerView.Adapter<ListOfPhotosAdapter.ViewHolder>() {
 
@@ -57,13 +56,13 @@ class ListOfPhotosAdapter(val context: Context, val photoData: ArrayList<Results
         Glide.with(context).load(photoUrl).placeholder(circularProgressDrawable).centerCrop().into(holder.imageCleanView)
 
         holder.photoCardOfList.setOnClickListener {
-            val intent = Intent(it.context, PhotoDetailView::class.java)
+            val intent = Intent(it.context, PhotoDetailViewK::class.java)
             intent.putExtra("id", photoId)
             it.context.startActivity(intent)
         }
 
         holder.photoCardOfList.setOnLongClickListener {
-            val intent = Intent(it.context, showPhotoOnly::class.java)
+            val intent = Intent(it.context, ShowPhotoOnly::class.java)
             intent.putExtra("photoUrl", photoUrl)
             context.startActivity(intent)
 

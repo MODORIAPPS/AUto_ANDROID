@@ -38,19 +38,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
+import com.modori.kwonkiseokee.AUto.ShowPhotoOnly;
 import com.modori.kwonkiseokee.AUto.Util.FileManager;
 import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
 import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
-import com.modori.kwonkiseokee.AUto.showPhotoOnly;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -281,8 +278,7 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
         detailImageView.setOnClickListener(v -> {
             // 사진 만 보는 곳으로 이동
-            Intent goPhotoOnly = new Intent(PhotoDetailView.this, showPhotoOnly.class);
-            goPhotoOnly.putExtra("photoUrl", regularUrl);
+            Intent goPhotoOnly = new Intent(PhotoDetailView.this, ShowPhotoOnly.class);
             PhotoDetailView.this.startActivity(goPhotoOnly);
         });
 //        if(getImageLength.getState() == Thread.State.NEW){
@@ -590,37 +586,6 @@ public class PhotoDetailView extends AppCompatActivity implements View.OnClickLi
 
                 mBitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-
-//                Log.d("DEVICE_TOTAL_RAM", String.valueOf(DEVICE_INFO.getDeviceTotalRam(context)));
-//                Log.d("DEVICE_FREE_RAM", String.valueOf(DEVICE_INFO.getDeviceFreeRam(context)));
-//
-//                options = new BitmapFactory.Options();
-//                options.inJustDecodeBounds = true;
-//
-//
-//                InputStream testStream = (InputStream) new URL(args[0]).getContent();
-//
-//                mBitmap = BitmapFactory.decodeStream(testStream, null, options);
-//
-//                options.inSampleSize = FileManager.makeBitmapSmall(options.outWidth, options.outHeight, displayWidth, displayHeight);
-//                options.inJustDecodeBounds = false;
-//                Log.d("inSampleSize", String.valueOf(options.inSampleSize));
-//
-//                InputStream inputStream = (InputStream) new URL(args[0]).getContent();
-//
-//                mBitmap = BitmapFactory.decodeStream(inputStream, null, options);
-//
-//                long total = 0;
-//                int count;
-//                while ((count = inputStream.read()) != -1) {
-//                    System.out.println("whilewhile");
-//                    total += count;
-//                    // publishing the progress....
-//                    int value = (int)(total * 100 / fileLengthAsLong);
-//                    publishProgress(String.valueOf(value));
-//                }
-//
-//                System.out.println("파일 크기 Long 환산 값 : " + fileLengthAsLong);
                 input.close();
 
             } catch (Exception e) {
