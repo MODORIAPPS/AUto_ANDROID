@@ -35,7 +35,7 @@
                     android:layout_marginStart="5dp"
                     android:text="@string/tab2_toolbarText"
                     android:textColor="@color/semiBlack"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/appBarText"
                     android:textStyle="normal" />
 
                 <View

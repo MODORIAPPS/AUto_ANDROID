@@ -68,6 +68,10 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
     val NOTIFICATION_ID = 8980
     val CHANNEL_ID = "AUTO_SLIDE"
 
+    // Group Notification Support for 7.0+
+    val GROUP_KEY_WORK_AUTO = "AUTO_SLIDE_GROUP"
+    var notCnt = 1
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.detailImageView -> {
@@ -108,7 +112,9 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
                 builder.show()
             }
 
-            R.id.goSetting -> { openDownloadTypeSettingsDialog()}
+            R.id.goSetting -> {
+                openDownloadTypeSettingsDialog()
+            }
         }
     }
 
@@ -264,13 +270,13 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun openDownloadTypeSettingsDialog(){
-        val items = arrayOf(DownloadType.RAW.text, DownloadType.FULL.text,DownloadType.REGULAR.text)
+    private fun openDownloadTypeSettingsDialog() {
+        val items = arrayOf(DownloadType.RAW.text, DownloadType.FULL.text, DownloadType.REGULAR.text)
 
         val builder = AlertDialog.Builder(mContext)
         builder.setTitle(getString(R.string.PhotoDetail_SelectQua))
-        builder.setItems(items){dialog, pos ->
-            when(pos){
+        builder.setItems(items) { dialog, pos ->
+            when (pos) {
                 0 -> DOWNLOAD_TYPE = DownloadType.RAW
                 1 -> DOWNLOAD_TYPE = DownloadType.FULL
                 2 -> DOWNLOAD_TYPE = DownloadType.REGULAR
@@ -348,6 +354,8 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
 
         }
 
+        builder.show()
+
     }
 
     private fun changeWallpaper(bitmap: Bitmap, type: Int) {
@@ -373,9 +381,13 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
         val builder = NotificationCompat.Builder(mContext, CHANNEL_ID)
         builder.setContentTitle("사진 다운로드")
                 .setContentText("사진을 다운로드 하는 중..")
-                .setSmallIcon(R.mipmap.app_icon_round)
+                .setSmallIcon(R.drawable.ic_landscape_icon)
+                .setGroup(GROUP_KEY_WORK_AUTO)
                 .setPriority(Notification.PRIORITY_LOW)
+                .setGroupSummary(true)
                 .setOngoing(true)
+
+        notCnt++
 
         // Issue the initial notification from zero
         val PROGRESS_MAX = 100

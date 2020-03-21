@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,7 +27,7 @@
                 android:layout_marginStart="5dp"
                 android:text="@string/tab_3"
                 android:textColor="@color/semiBlack"
-                android:textSize="22sp"
+                android:textSize="@dimen/appBarText"
                 android:textStyle="normal" />
 
 
@@ -129,11 +128,12 @@
                 android:id="@+id/debug"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="@dimen/appSideMargin"
+                android:layout_marginTop="@dimen/verticalMargin"
+                android:layout_marginBottom="@dimen/verticalMargin"
                 android:text="@string/tab3_detailLine1"
                 android:textColor="@color/littleBlack"
+                android:textSize="@dimen/indicator"
                 android:textStyle="normal" />
 
             <LinearLayout
@@ -359,6 +359,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/tab3_detailLine2"
+                android:textSize="@dimen/indicator"
                 android:textColor="@color/littleBlack"
                 android:textStyle="normal" />
 
