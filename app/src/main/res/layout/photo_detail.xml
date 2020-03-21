@@ -365,8 +365,8 @@
         <ProgressBar
 
             android:id="@+id/progress_circular"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
             android:layout_centerInParent="true"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -10,23 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.modori.kwonkiseokee.AUto.ListOfPhotos.ListOfPhotoView;
-import com.modori.kwonkiseokee.AUto.R;
-import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitService;
-import com.modori.kwonkiseokee.AUto.RetrofitService.api.SearchApi;
-import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
-import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
-import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
-import com.modori.kwonkiseokee.AUto.data.data.Results;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -38,6 +21,23 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.modori.kwonkiseokee.AUto.ListOfPhotos.ListOfPhotoView;
+import com.modori.kwonkiseokee.AUto.R;
+import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitService;
+import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
+import com.modori.kwonkiseokee.AUto.RetrofitService.api.SearchApi;
+import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
+import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
+import com.modori.kwonkiseokee.AUto.data.data.Results;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,7 +67,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
     private TextView view_tag4Grid;
     private TextView view_tag5Grid;
     private TextView view_tag6Grid;
-
 
     private View view;
 
@@ -186,8 +185,6 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
         view_tag6Grid = view.findViewById(R.id.view_tag6Grid);
 
         inputKeyword = view.findViewById(R.id.inputKeyword);
-
-
         // GridView
         View grid1 = view.findViewById(R.id.grid1);
         View grid2 = view.findViewById(R.id.grid2);
@@ -244,6 +241,7 @@ public class tab2_frag extends Fragment implements View.OnClickListener {
 
                     Glide.with(context).load(results.get(0).getUrls().getSmall())
                             .placeholder(circularProgressDrawable).into(tag1Gridview);
+
                     Log.d("tag1", "잘 가져옴");
 
 

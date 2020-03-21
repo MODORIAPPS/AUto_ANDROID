@@ -83,10 +83,10 @@
             android:id="@+id/inputKeyword"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/appSideMargin"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginEnd="@dimen/appSideMargin"
+            android:layout_marginBottom="@dimen/verticalMargin"
             android:background="@drawable/background_theme"
             android:padding="10dp"
             app:layout_constraintTop_toBottomOf="@id/viewTagLists">
@@ -103,10 +103,10 @@
             android:id="@+id/grid1"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            app:cardCornerRadius="30dp"
+            android:layout_marginStart="@dimen/appSideMargin"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginEnd="@dimen/appSideMargin"
+            app:cardCornerRadius="@dimen/defaultRadius"
             app:layout_constraintTop_toBottomOf="@id/inputKeyword"
             tools:ignore="RtlSymmetry">
 
@@ -125,16 +125,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#99000000">
+                    android:background="@drawable/black_gradient">
 
                     <TextView
                         android:id="@+id/view_tag1Grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/defaultMargin"
                         android:text=""
                         android:textColor="@color/white" />
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -143,17 +144,16 @@
 
         <!-- 상단 그리드 2-->
         <androidx.cardview.widget.CardView
-            android:layout_marginEnd="7dp"
             android:id="@+id/grid2"
             android:layout_width="0dp"
             android:layout_height="180dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="14dp"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintTop_toBottomOf="@id/grid1"
+            android:layout_marginStart="@dimen/appSideMargin"
+            android:layout_marginTop="@dimen/appSideMargin"
+            android:layout_marginEnd="@dimen/verticalMargin"
+            app:cardCornerRadius="@dimen/defaultRadius"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintTop_toBottomOf="@id/grid1">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -170,14 +170,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#99000000">
+                    android:background="@drawable/black_gradient">
 
                     <TextView
                         android:id="@+id/view_tag2Grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/defaultMargin"
                         android:text=""
                         android:textColor="@color/white" />
                 </LinearLayout>
@@ -187,16 +187,16 @@
 
         <!-- 상단 그리드 3-->
         <androidx.cardview.widget.CardView
-            android:layout_marginTop="14dp"
-            android:layout_marginStart="7dp"
-            app:layout_constraintTop_toBottomOf="@id/grid1"
-            app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/grid3"
             android:layout_width="0dp"
             android:layout_height="230dp"
-            android:layout_marginEnd="15dp"
-            app:cardCornerRadius="30dp"
+            android:layout_marginStart="@dimen/verticalMargin"
+            android:layout_marginTop="@dimen/appSideMargin"
+            android:layout_marginEnd="@dimen/appSideMargin"
+            app:cardCornerRadius="@dimen/defaultRadius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/grid1"
             tools:ignore="RtlSymmetry">
 
             <RelativeLayout
@@ -214,16 +214,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#99000000">
+                    android:background="@drawable/black_gradient">
 
                     <TextView
                         android:id="@+id/view_tag3Grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/defaultMargin"
                         android:text=""
                         android:textColor="@color/white" />
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -232,17 +233,17 @@
 
         <!-- 상단 그리드 4-->
         <androidx.cardview.widget.CardView
-            app:layout_constraintTop_toBottomOf="@id/grid2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/guideline"
             android:id="@+id/grid4"
             android:layout_width="0dp"
             android:layout_height="230dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginBottom="7dp"
-            app:cardCornerRadius="30dp">
+            android:layout_marginStart="@dimen/appSideMargin"
+            android:layout_marginTop="@dimen/appSideMargin"
+            android:layout_marginEnd="@dimen/verticalMargin"
+            android:layout_marginBottom="@dimen/verticalMargin"
+            app:cardCornerRadius="@dimen/defaultRadius"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grid2">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -259,16 +260,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#99000000">
+                    android:background="@drawable/black_gradient">
 
                     <TextView
                         android:id="@+id/view_tag4Grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/defaultMargin"
                         android:text=""
                         android:textColor="@color/white" />
+
                 </LinearLayout>
             </RelativeLayout>
 
@@ -277,16 +279,16 @@
 
         <!-- 상단 그리드 5-->
         <androidx.cardview.widget.CardView
-            app:layout_constraintTop_toBottomOf="@id/grid3"
-            app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/grid5"
             android:layout_width="0dp"
             android:layout_height="180dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginEnd="15dp"
-            app:cardCornerRadius="30dp"
+            android:layout_marginStart="@dimen/verticalMargin"
+            android:layout_marginTop="@dimen/appSideMargin"
+            android:layout_marginEnd="@dimen/appSideMargin"
+            app:cardCornerRadius="@dimen/defaultRadius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/grid3"
             tools:ignore="RtlSymmetry">
 
             <RelativeLayout
@@ -304,16 +306,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#99000000">
+                    android:background="@drawable/black_gradient">
 
                     <TextView
                         android:id="@+id/view_tag5Grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/defaultMargin"
                         android:text=""
                         android:textColor="@color/white" />
+
                 </LinearLayout>
             </RelativeLayout>
 
@@ -321,18 +324,18 @@
 
         <!-- 그리드 6-->
         <androidx.cardview.widget.CardView
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_goneMarginTop="7dp"
             android:id="@+id/grid6"
-            app:layout_constraintTop_toBottomOf="@id/grid5"
             android:layout_width="0dp"
             android:layout_height="180dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="30dp">
+            android:layout_marginStart="@dimen/appSideMargin"
+            android:layout_marginTop="@dimen/appSideMargin"
+            android:layout_marginEnd="@dimen/appSideMargin"
+            android:layout_marginBottom="@dimen/appSideMargin"
+            app:cardCornerRadius="@dimen/defaultRadius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grid5"
+            app:layout_goneMarginTop="@dimen/verticalMargin">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -349,16 +352,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:background="#99000000">
+                    android:background="@drawable/black_gradient">
 
                     <TextView
                         android:id="@+id/view_tag6Grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="@dimen/defaultMargin"
                         android:text=""
                         android:textColor="@color/white" />
+
                 </LinearLayout>
             </RelativeLayout>
 

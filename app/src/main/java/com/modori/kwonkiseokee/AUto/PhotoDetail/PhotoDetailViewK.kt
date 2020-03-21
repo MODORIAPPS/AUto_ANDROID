@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.modori.kwonkiseokee.AUto.R
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient
@@ -51,6 +52,8 @@ enum class DownloadType(val type: Int, val text: String) {
 
 class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
 
+    lateinit var viewModel: PhotoDetailViewModel
+
     lateinit var photoID: String
     lateinit var fabOpen: Animation
     lateinit var fabClose: Animation
@@ -65,7 +68,7 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
 
     var ADS_COUNTER: Int = 1
     var CHANGE_TYPE: Int = 0
-    val NOTIFICATION_ID = 8980
+    var NOTIFICATION_ID = 0
     val CHANNEL_ID = "AUTO_SLIDE"
 
     // Group Notification Support for 7.0+
@@ -125,6 +128,19 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
 
         mContext = this
 
+        // Make Random Notification_ID for Stack Notification
+        val random = java.util.Random()
+        NOTIFICATION_ID = random.nextInt(100 - 1) + 1
+
+        // Setup ViewModel
+        viewModel = ViewModelProviders.of(this).get(PhotoDetailViewModel::class.java)
+        viewModel.getResults().observe(this, androidx.lifecycle.Observer {
+            if (viewModel.getResults().value != null) {
+                //setRecyclerView(PaletteTool.getColorSet(viewModel.getBitmaps().value!!))
+                //setImageView(viewModel.getBitmaps().value!!)
+                bindingToView(results)
+            }
+        })
         // Set SkeletonLayout
         photoDetailMask.showSkeleton()
 
@@ -232,22 +248,7 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
                     try {
                         results = response.body()!!
 
-                        // Binding Into View
-                        heartCnt.text = results.likes.toString()
-                        downloadsCnt.text = results.downloads.toString()
-                        Glide.with(applicationContext).load(results.user.profile_image.medium).into(authorProfile)
-                        authorName.text = results.user.username
-
-                        photoDescription.text = results.description
-                        uploadedDateV.text = results.created_at
-                        photoColorV.text = results.color
-
-                        val color: Int = Color.parseColor(results.color)
-                        imagePColorV.setBackgroundColor(color)
-
-                        photoSizeV.text = "${results.width} * ${results.height}"
-
-                        Glide.with(applicationContext).load(results.urls.regular).into(detailImageView)
+                        bindingToView(results)
 
                         actionFab1.isClickable = true
 
@@ -288,6 +289,31 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
 
         builder.show()
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+    }
+
+    fun bindingToView(results: PhotoSearchID) {
+        // Binding Into View
+        heartCnt.text = results.likes.toString()
+        downloadsCnt.text = results.downloads.toString()
+        Glide.with(applicationContext).load(results.user.profile_image.medium).into(authorProfile)
+        authorName.text = results.user.username
+
+        photoDescription.text = results.description
+        uploadedDateV.text = results.created_at
+        photoColorV.text = results.color
+
+        val color: Int = Color.parseColor(results.color)
+        imagePColorV.setBackgroundColor(color)
+
+        photoSizeV.text = "RAW : ${results.width} * ${results.height}"
+
+        Glide.with(applicationContext).load(results.urls.regular).into(detailImageView)
+    }
+
 
     private fun fab2Action() {
         anim()
@@ -348,7 +374,24 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
             if (FileManager.alreadyDownloaded(getFilename())) {
                 changeWallpaper(FileManager.getBitmapFromPath(getFilename(), displayWidth, displayHeight), CHANGE_TYPE)
             } else {
-                downloadImage(true)
+                progress_circular.visibility = View.VISIBLE
+
+                // Calculate ImageSize And Show AlertDialog
+                CoroutineScope(Dispatchers.IO).launch {
+                    val imageSize = getImageSize(true)
+
+                    withContext(Dispatchers.Main) {
+
+                        progress_circular.visibility = View.GONE
+
+                        val builder = AlertDialog.Builder(mContext)
+                        builder.setTitle("사진 다운로드 필요")
+                        builder.setMessage("약 $imageSize 의 이미지를 다운로드 받습니다.")
+                        builder.setPositiveButton("확인") { dialog, which -> downloadImage(false) }
+                        builder.setNegativeButton("취소") { dialog, which -> dialog.dismiss() }
+                        builder.show()
+                    }
+                }
             }
 
 
@@ -370,7 +413,11 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
         }
 
         // Set Background as CHANGE_TYPE
-        SetWallpaperJob.setWallPaper(mContext, bitmap, type)
+        CoroutineScope(Dispatchers.IO).launch {
+            progress_circular.visibility = View.VISIBLE
+            SetWallpaperJob.setWallPaper(mContext, bitmap, type)
+            progress_circular.visibility = View.GONE
+        }
 
     }
 
@@ -379,15 +426,13 @@ class PhotoDetailViewK : AppCompatActivity(), View.OnClickListener {
         // Pre Settings
         val notificationManager = NotificationManagerCompat.from(mContext)
         val builder = NotificationCompat.Builder(mContext, CHANNEL_ID)
-        builder.setContentTitle("사진 다운로드")
+        builder.setContentTitle("사진 다운로드 $photoID")
                 .setContentText("사진을 다운로드 하는 중..")
                 .setSmallIcon(R.drawable.ic_landscape_icon)
                 .setGroup(GROUP_KEY_WORK_AUTO)
                 .setPriority(Notification.PRIORITY_LOW)
                 .setGroupSummary(true)
                 .setOngoing(true)
-
-        notCnt++
 
         // Issue the initial notification from zero
         val PROGRESS_MAX = 100
