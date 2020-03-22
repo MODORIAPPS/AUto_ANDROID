@@ -1,12 +1,9 @@
-package com.modori.kwonkiseokee.AUto.Util;
+package com.modori.kwonkiseokee.AUto.utilities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,12 +15,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
 

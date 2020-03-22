@@ -3,7 +3,7 @@ package com.modori.kwonkiseokee.AUto.Tab2_frag;
 import android.content.Context;
 import android.util.Log;
 
-import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
+import com.modori.kwonkiseokee.AUto.utilities.MakePreferences;
 
 import java.util.ArrayList;
 import java.util.List;

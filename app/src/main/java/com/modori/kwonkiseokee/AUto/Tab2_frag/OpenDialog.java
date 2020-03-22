@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class OpenDialog extends Dialog {
 
     EditText inputText;
-    Button positiveBtn, negativeBtn;
+    Button positiveBtn;
     TextView title_dia, subTitle_dia, warning_dia;
     Context mContext;
 
@@ -62,7 +62,6 @@ public class OpenDialog extends Dialog {
 
         inputText = findViewById(R.id.inputText_dia);
         positiveBtn = findViewById(R.id.positiveBtn_dia);
-        negativeBtn = findViewById(R.id.negativeBtn_dia);
 
         title_dia.setText(title);
         subTitle_dia.setText(subtitle);
@@ -91,12 +90,12 @@ public class OpenDialog extends Dialog {
             }
         });
 
-        negativeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+//        negativeBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dismiss();
+//            }
+//        });
     }
 
     private void availableTagCheck(final String inputTag, final int position) {

@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,14 +25,13 @@ import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.AutoSettings.AutoSettings;
 import com.modori.kwonkiseokee.AUto.Tab1_frag.GetFromGalleryRA;
-import com.modori.kwonkiseokee.AUto.Util.FileManager;
-import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
+import com.modori.kwonkiseokee.AUto.utilities.FileManager;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 public class SetGetImagesDir_layout extends AppCompatActivity implements View.OnClickListener {
 
@@ -254,9 +250,9 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
     }
 
-    private void setPickedRV(List<DevicePhotoDTO> array) {
+    private void setPickedRV(List<DevicePhotoDTO_OLD> array) {
         List<String> photoUriLists = new ArrayList<>();
-        for (DevicePhotoDTO item : array) {
+        for (DevicePhotoDTO_OLD item : array) {
             photoUriLists.add(item.getPhotoUri_d());
         }
 

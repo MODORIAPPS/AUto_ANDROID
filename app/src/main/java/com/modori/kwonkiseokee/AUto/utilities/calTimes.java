@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto.Util;
+package com.modori.kwonkiseokee.AUto.utilities;
 
 import com.modori.kwonkiseokee.AUto.tab3_frag;
 

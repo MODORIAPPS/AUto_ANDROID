@@ -18,12 +18,12 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.modori.kwonkiseokee.AUto.AutoSettings.AutoSettings;
-import com.modori.kwonkiseokee.AUto.Util.FileManager;
-import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
-import com.modori.kwonkiseokee.AUto.Util.calTimes;
-import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
+import com.modori.kwonkiseokee.AUto.utilities.FileManager;
+import com.modori.kwonkiseokee.AUto.utilities.MakePreferences;
+import com.modori.kwonkiseokee.AUto.utilities.calTimes;
+import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -181,15 +181,15 @@ public class tab3_frag extends Fragment {
 
                 break;
             case 1:
-                showGetFromWhat.setText(getString(R.string.tab3_showGetFromWhat2));
-
-                Realm realm = Realm.getDefaultInstance();
-                List<String> onlyPhotoUri = new ArrayList<>();
-                RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
-                for (int i = 0; i < realmResults.size(); i++) {
-                    onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
-                }
-                showGetCnt.setText(onlyPhotoUri.size() + " " + getCntT);
+//                showGetFromWhat.setText(getString(R.string.tab3_showGetFromWhat2));
+//
+//                Realm realm = Realm.getDefaultInstance();
+//                List<String> onlyPhotoUri = new ArrayList<>();
+//                RealmResults<DevicePhotoDTO_OLD> realmResults = realm.where(DevicePhotoDTO_OLD.class).findAll();
+//                for (int i = 0; i < realmResults.size(); i++) {
+//                    onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+//                }
+//                showGetCnt.setText(onlyPhotoUri.size() + " " + getCntT);
 
                 break;
 
@@ -521,20 +521,22 @@ public class tab3_frag extends Fragment {
                 imageN = FileManager.availableImages(context);
 
             } else {
-                Realm.init(context);
-                Realm realm = Realm.getDefaultInstance();
-                List<String> onlyPhotoUri = new ArrayList<>();
-                RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
-                for (int i = 0; i < realmResults.size(); i++) {
-                    onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
-                }
+//                Realm.init(context);
+//                Realm realm = Realm.getDefaultInstance();
+//                List<String> onlyPhotoUri = new ArrayList<>();
+//                RealmResults<DevicePhotoDTO_OLD> realmResults = realm.where(DevicePhotoDTO_OLD.class).findAll();
+//                for (int i = 0; i < realmResults.size(); i++) {
+//                    onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+//                }
+//
+//                imageN = onlyPhotoUri.size();
 
-                imageN = onlyPhotoUri.size();
+
                 //return realm.where(DevicePhotoDTO.class).findAll();
             }
 
-
-            if (imageN == 0) {
+            // imageN == 0
+            if (true) {
                 //이미지가 없는 경우
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(dialog1Title).setMessage(dialog1Con);

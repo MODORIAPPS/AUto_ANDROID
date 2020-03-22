@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.modori.kwonkiseokee.AUto.PhotoViewModel
 import com.modori.kwonkiseokee.AUto.R
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD
 import io.realm.Realm
 import kotlinx.android.synthetic.main.tab1_frag.*
 import kotlinx.android.synthetic.main.tab1_frag.view.*
@@ -41,39 +41,40 @@ class Tab1_frag : Fragment() {
 ////        adView = view.findViewById(R.id.adView_frag1);
 ////        adView.loadAd(adRequest);
 
-        // ViewModel
+        // Setup ViewModel
         val viewModel = ViewModelProviders.of(this).get(PhotoViewModel::class.java)
 
-//        viewModel.getDevicePhotos().observe(this, androidx.lifecycle.Observer {
-//            if (viewModel.getDevicePhotos().value != null) {
-//                setPickedRV(viewModel.getDevicePhotos().value!!)
-//
-//                //noPickedImagesWarning = true
-//                noPickedImagesWarning.visibility = View.GONE
-//
-//            } else {
-//                // No images
-//                noPickedImagesWarning.visibility = View.VISIBLE
-//            }
-//        })
+        // Gallery Picked Photos
+        viewModel.getDevicePhotos().observe(this, androidx.lifecycle.Observer {
+            if (viewModel.getDevicePhotos().value != null) {
+                setPickedRV(viewModel.getDevicePhotos().value!!)
 
+                //noPickedImagesWarning = true
+                noPickedImagesWarning.visibility = View.GONE
 
-        try {
-            viewModel.getDownloadedPhotos().observe(this, androidx.lifecycle.Observer {
-                Toast.makeText(context,"변경 감지!",Toast.LENGTH_SHORT).show()
-                if (viewModel.getDownloadedPhotos().value != null) {
-                    setDownloadRV(viewModel.getDownloadedPhotos().value!!)
-                } else {
-                    // No images
-                }
-
-
-            })
-        } catch (e: Exception) {
-            if (e.message == "fileLists is Null") {
-                Toast.makeText(context, "리스트가 널입니다", Toast.LENGTH_SHORT).show()
+            } else {
+                // No images
+                noPickedImagesWarning.visibility = View.VISIBLE
             }
-        }
+        })
+
+
+//        try {
+//            viewModel.getDownloadedPhotos().observe(this, androidx.lifecycle.Observer {
+//                Toast.makeText(context,"변경 감지!",Toast.LENGTH_SHORT).show()
+//                if (viewModel.getDownloadedPhotos().value != null) {
+//                    setDownloadRV(viewModel.getDownloadedPhotos().value!!)
+//                } else {
+//                    // No images
+//                }
+//
+//
+//            })
+//        } catch (e: Exception) {
+//            if (e.message == "fileLists is Null") {
+//                Toast.makeText(context, "리스트가 널입니다", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         return view
 
@@ -98,7 +99,7 @@ class Tab1_frag : Fragment() {
 //
 //    }
 
-    private fun setDownloadRV(array: List<DevicePhotoDTO>) {
+    private fun setDownloadRV(array: List<DevicePhotoDTO_OLD>) {
         val photoUriLists = arrayListOf<String>()
         for (item in array) {
             photoUriLists.add(item.photoUri_d)

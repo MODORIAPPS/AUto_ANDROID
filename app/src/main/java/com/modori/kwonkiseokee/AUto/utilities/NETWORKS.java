@@ -1,10 +1,8 @@
-package com.modori.kwonkiseokee.AUto.Util;
+package com.modori.kwonkiseokee.AUto.utilities;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
-import java.util.function.BinaryOperator;
 
 public class NETWORKS {
     public static int getNetWorkType(Context context){

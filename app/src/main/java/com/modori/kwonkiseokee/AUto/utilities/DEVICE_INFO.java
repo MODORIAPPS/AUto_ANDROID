@@ -1,9 +1,7 @@
-package com.modori.kwonkiseokee.AUto.Util;
+package com.modori.kwonkiseokee.AUto.utilities;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 

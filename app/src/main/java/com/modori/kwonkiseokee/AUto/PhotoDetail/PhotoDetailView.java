@@ -43,9 +43,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob;
 import com.modori.kwonkiseokee.AUto.ShowPhotoOnly;
-import com.modori.kwonkiseokee.AUto.Util.FileManager;
-import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
-import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
+import com.modori.kwonkiseokee.AUto.utilities.FileManager;
+import com.modori.kwonkiseokee.AUto.utilities.MakePreferences;
+import com.modori.kwonkiseokee.AUto.utilities.NETWORKS;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
 

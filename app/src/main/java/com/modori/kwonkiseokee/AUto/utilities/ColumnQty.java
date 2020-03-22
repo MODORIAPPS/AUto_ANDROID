@@ -1,8 +1,7 @@
-package com.modori.kwonkiseokee.AUto.Util;
+package com.modori.kwonkiseokee.AUto.utilities;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.view.View;
 
 public class ColumnQty {
 

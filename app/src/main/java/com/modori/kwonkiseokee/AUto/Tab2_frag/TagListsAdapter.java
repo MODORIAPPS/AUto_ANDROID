@@ -66,7 +66,7 @@ public class TagListsAdapter extends RecyclerView.Adapter<TagListsAdapter.ViewHo
             WindowManager.LayoutParams wm = openDialog.getWindow().getAttributes();  //다이얼로그의 높이 너비 설정하기위해
             wm.copyFrom(openDialog.getWindow().getAttributes());  //여기서 설정한값을 그대로 다이얼로그에 넣겠다는의미
             wm.width = width;  //화면 너비의 절반
-            wm.height = height / 3;  //화면 높이의 1/3
+//            wm.height = height / 3;  //화면 높이의 1/3
 
             openDialog.show();
 

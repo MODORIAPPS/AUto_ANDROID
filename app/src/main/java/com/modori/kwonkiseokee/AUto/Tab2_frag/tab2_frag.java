@@ -31,7 +31,7 @@ import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.RetrofitService.RetrofitService;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient;
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.SearchApi;
-import com.modori.kwonkiseokee.AUto.Util.NETWORKS;
+import com.modori.kwonkiseokee.AUto.utilities.NETWORKS;
 import com.modori.kwonkiseokee.AUto.data.data.PhotoSearch;
 import com.modori.kwonkiseokee.AUto.data.data.Results;
 

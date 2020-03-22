@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.modori.kwonkiseokee.AUto.Tab1_frag.GetFromGalleryRA;
-import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         oldPhotosList.setLayoutManager(gridLayoutManager1);
 
         realm = Realm.getDefaultInstance();
-        photoList = getPhotoList();
+        ////photoList = getPhotoList();
 
         photoOldAdapter = new GetFromGalleryRA(this, photoList, 0);
         oldPhotosList.setAdapter(photoOldAdapter);
@@ -88,7 +88,7 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
         newPhotosList.setAdapter(photoNewAdapter);
         //newPhotosCnt.setText(pickedLists.size() + "");
 
-        photoList = getPhotoList();
+        ///photoList = getPhotoList();
 
         photoOldAdapter = new GetFromGalleryRA(this, photoList, 0);
         oldPhotosList.setAdapter(photoOldAdapter);
@@ -126,15 +126,15 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if (dataType) {
 
-                            realm.beginTransaction();
-                            RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoOldAdapter.getPhotoUri()).findAll();
-                            Log.d(TAG, photoDTOS.toString());
-                            Log.d(TAG, photoOldAdapter.getPhotoUri());
-                            photoDTOS.deleteAllFromRealm();
-                            realm.commitTransaction();
+//                            realm.beginTransaction();
+//                            RealmResults<DevicePhotoDTO_OLD> photoDTOS = realm.where(DevicePhotoDTO_OLD.class).equalTo("photoUri_d", photoOldAdapter.getPhotoUri()).findAll();
+//                            Log.d(TAG, photoDTOS.toString());
+//                            Log.d(TAG, photoOldAdapter.getPhotoUri());
+//                            photoDTOS.deleteAllFromRealm();
+//                            realm.commitTransaction();
 
 
-                            getFromGallery.this.setRecyclerView();
+//                            getFromGallery.this.setRecyclerView();
 
 
                         } else {
@@ -234,31 +234,31 @@ public class getFromGallery extends AppCompatActivity implements View.OnClickLis
 
     private void savePhotos(List<String> photoList) {
 
-        for (int i = 0; i < photoList.size(); i++) {
-            realm.beginTransaction();
-
-            DevicePhotoDTO photoInfo = realm.createObject(DevicePhotoDTO.class);
-            photoInfo.setPhotoID_d("testID");
-
-            photoInfo.setPhotoUri_d(photoList.get(i));
-            Log.d(TAG, photoList.get(0));
-
-            realm.commitTransaction();
-
-        }
+//        for (int i = 0; i < photoList.size(); i++) {
+//            realm.beginTransaction();
+//
+//            DevicePhotoDTO_OLD photoInfo = realm.createObject(DevicePhotoDTO_OLD.class);
+//            photoInfo.setPhotoID_d("testID");
+//
+//            photoInfo.setPhotoUri_d(photoList.get(i));
+//            Log.d(TAG, photoList.get(0));
+//
+//            realm.commitTransaction();
+//
+//        }
 
     }
 
-    //사진 정보 리스트 반환
-    private List<String> getPhotoList() {
-        List<String> onlyPhotoUri = new ArrayList<>();
-        RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
-        for (int i = 0; i < realmResults.size(); i++) {
-            onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
-        }
-        //return realm.where(DevicePhotoDTO.class).findAll();
-        return onlyPhotoUri;
-    }
+//    //사진 정보 리스트 반환
+//    private List<String> getPhotoList() {
+//        List<String> onlyPhotoUri = new ArrayList<>();
+//        RealmResults<DevicePhotoDTO_OLD> realmResults = realm.where(DevicePhotoDTO_OLD.class).findAll();
+//        for (int i = 0; i < realmResults.size(); i++) {
+//            onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+//        }
+//        //return realm.where(DevicePhotoDTO.class).findAll();
+//        return onlyPhotoUri;
+//    }
 
 
 }

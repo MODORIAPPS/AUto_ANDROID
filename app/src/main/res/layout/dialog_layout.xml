@@ -1,101 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginStart="2dp"
-    android:layout_marginEnd="2dp"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:background="@drawable/background_theme"
+    android:orientation="vertical"
+    android:padding="@dimen/defaultMargin">
 
-    <LinearLayout
-        android:id="@+id/ContentField"
+    <TextView
+        android:id="@+id/Title_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/openDialog_title"
+        android:textColor="@color/semiBlack"
+        android:textSize="@dimen/titleText"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/subTitle_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="기존의 House 태그를 변경합니다."
+        android:textColor="@color/semiBlack"
+        android:textColorHint="@color/semiBlack"
+        android:textSize="@dimen/descText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Title_dia" />
+
+    <TextView
+        android:id="@+id/warning_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/defaultMargin"
+        android:text="이미 중복된 태그가 존재합니다."
+        android:textSize="@dimen/smallAlertText"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/subTitle_dia" />
+
+    <EditText
+        android:id="@+id/inputText_dia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:hint="@string/openDialog_hint"
+        android:singleLine="true"
+        android:textColor="@color/semiBlack"
+        android:textColorHint="@color/semiBlack"
+        app:layout_constraintTop_toBottomOf="@id/warning_dia" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/Title_dia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/openDialog_title"
-                android:textColor="@color/blueEnabled"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-
-
-        <TextView
-            android:layout_marginTop="5dp"
-            android:id="@+id/subTitle_dia"
-            android:textColorHint="@color/semiBlack"
-            android:text="기존의 House 태그를 변경합니다."
-            android:textColor="@color/semiBlack"
-            android:layout_width="wrap_content"
-            android:textSize="15sp"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/warning_dia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/openDialog_content2"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold" />
-
-        <EditText
-            android:singleLine="true"
-            android:drawableStart="@drawable/edit_icon"
-            android:textColor="@color/semiBlack"
-            android:textColorHint="@color/semiBlack"
-            android:id="@+id/inputText_dia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="@string/openDialog_hint" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/buttonField"
+    <Button
+        android:id="@+id/positiveBtn_dia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/negativeBtn_dia"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_bg_cancel"
-            android:text="@string/openDialog_cancel"
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:id="@+id/positiveBtn_dia"
-            android:layout_width="0dp"
-
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_bg_ok"
-            android:text="@string/openDialog_ok"
-            android:textColor="@color/white" />
+        android:layout_marginTop="@dimen/defaultMargin"
+        android:layout_marginStart="@dimen/verticalMargin"
+        android:layout_marginEnd="@dimen/verticalMargin"
+        android:layout_marginBottom="@dimen/verticalMargin"
+        android:background="@drawable/button_bg"
+        android:text="@string/openDialog_ok"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputText_dia" />
 
 
-    </LinearLayout>
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

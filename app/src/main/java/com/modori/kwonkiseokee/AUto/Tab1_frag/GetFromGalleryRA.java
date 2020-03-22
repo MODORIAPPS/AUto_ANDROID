@@ -1,7 +1,6 @@
 package com.modori.kwonkiseokee.AUto.Tab1_frag;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +10,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.modori.kwonkiseokee.AUto.R;
-import com.modori.kwonkiseokee.AUto.Util.FileManager;
-import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
+import com.modori.kwonkiseokee.AUto.utilities.FileManager;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -92,7 +91,7 @@ public class GetFromGalleryRA extends RecyclerView.Adapter<GetFromGalleryRA.View
                     if (dataType == 0) {
 
                         realm.beginTransaction();
-                        RealmResults<DevicePhotoDTO> photoDTOS = realm.where(DevicePhotoDTO.class).equalTo("photoUri_d", photoUri).findAll();
+                        RealmResults<DevicePhotoDTO_OLD> photoDTOS = realm.where(DevicePhotoDTO_OLD.class).equalTo("photoUri_d", photoUri).findAll();
                         Log.d("PhotosDTOS", photoDTOS.toString());
                         photoDTOS.deleteAllFromRealm();
                         realm.commitTransaction();

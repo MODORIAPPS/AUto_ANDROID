@@ -24,7 +24,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".AutoSettings.AutoSettings"/>
-        <activity android:name=".AlbumDetail" />
         <activity android:name=".TutorialActivity" />
 
         <meta-data

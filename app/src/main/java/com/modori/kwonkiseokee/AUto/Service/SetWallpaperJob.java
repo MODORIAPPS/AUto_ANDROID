@@ -4,7 +4,6 @@ import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -12,17 +11,15 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.R;
-import com.modori.kwonkiseokee.AUto.Util.MakePreferences;
-import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO;
+import com.modori.kwonkiseokee.AUto.utilities.MakePreferences;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +28,7 @@ import java.util.Random;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-import static com.modori.kwonkiseokee.AUto.Util.FileManager.makeBitmapSmall;
+import static com.modori.kwonkiseokee.AUto.utilities.FileManager.makeBitmapSmall;
 
 public class SetWallpaperJob extends BroadcastReceiver {
 
@@ -134,51 +131,51 @@ public class SetWallpaperJob extends BroadcastReceiver {
             }
         } else if (GET_SETTING == 1) {
             // 사용자가 갤러리에서 선택한 사진을 불러온다.
-
-            List<String> onlyPhotoUri = new ArrayList<>();
-            RealmResults<DevicePhotoDTO> realmResults = realm.where(DevicePhotoDTO.class).findAll();
-            for (int i = 0; i < realmResults.size(); i++) {
-                onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
-            }
-
-            Log.d("OnlyPhotoUri", String.valueOf(onlyPhotoUri));
-
-
-            if (ShuffleMode) {
-                Random random = new Random();
-                getIndex = random.nextInt(onlyPhotoUri.size() + 1);
-            } else {
-                if (getIndex > onlyPhotoUri.size() - 1) {
-                    getIndex = 0;
-                    MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
-                } else {
-                    getIndex = getIndex + 1;
-                    MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
-                }
-
-            }
-
-            Log.d("getIndex", "Indexis" + getIndex);
-
-
-            Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(onlyPhotoUri.get(getIndex)));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d(TAG, e.getMessage());
-            }
-
-            WallpaperManager wallpaperManager =
-                    WallpaperManager.getInstance(mContext);
-
-            try {
-                wallpaperManager.setBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d(TAG, e.getMessage());
-            }
+//
+//            List<String> onlyPhotoUri = new ArrayList<>();
+//            RealmResults<DevicePhotoDTO_OLD> realmResults = realm.where(DevicePhotoDTO_OLD.class).findAll();
+//            for (int i = 0; i < realmResults.size(); i++) {
+//                onlyPhotoUri.add(realmResults.get(i).getPhotoUri_d());
+//            }
+//
+//            Log.d("OnlyPhotoUri", String.valueOf(onlyPhotoUri));
+//
+//
+//            if (ShuffleMode) {
+//                Random random = new Random();
+//                getIndex = random.nextInt(onlyPhotoUri.size() + 1);
+//            } else {
+//                if (getIndex > onlyPhotoUri.size() - 1) {
+//                    getIndex = 0;
+//                    MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
+//                } else {
+//                    getIndex = getIndex + 1;
+//                    MakePreferences.getInstance().getSettings().edit().putInt("GET_INDEX", getIndex).apply();
+//                }
+//
+//            }
+//
+//            Log.d("getIndex", "Indexis" + getIndex);
+//
+//
+//            Bitmap bitmap = null;
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(onlyPhotoUri.get(getIndex)));
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Log.d(TAG, e.getMessage());
+//            }
+//
+//            WallpaperManager wallpaperManager =
+//                    WallpaperManager.getInstance(mContext);
+//
+//            try {
+//                wallpaperManager.setBitmap(bitmap);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Log.d(TAG, e.getMessage());
+//            }
         }
 
 
