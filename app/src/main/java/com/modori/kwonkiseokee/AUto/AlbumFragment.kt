@@ -45,7 +45,6 @@ class AlbumFragment : Fragment() {
 ////        adView = view.findViewById(R.id.adView_frag1);
 ////        adView.loadAd(adRequest);
 
-        // Setup ViewModel
         // SetUp ViewModel
         val dao = AppDatabase.getInstance(activity!!.applicationContext).devicePhotoDao
         val repo = PhotoRepository(dao)
@@ -137,7 +136,7 @@ class AlbumFragment : Fragment() {
         super.onDestroy()
     }
 
-    fun permissionCheck() {
+    private fun permissionCheck() {
         val check = ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
         if (check == PackageManager.PERMISSION_DENIED) requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE)
     }

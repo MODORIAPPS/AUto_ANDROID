@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.goPhotos:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new ExploreFragmentK()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, new ExploreFragment()).commit();
                     return true;
 
                 case R.id.goAutoSet:

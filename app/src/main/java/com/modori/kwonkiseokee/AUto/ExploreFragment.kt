@@ -32,7 +32,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
 
-class ExploreFragmentK : Fragment(), View.OnClickListener {
+class ExploreFragment : Fragment(), View.OnClickListener {
 
     lateinit var viewModel: TagListViewModel
     lateinit var circularProgressDrawable: CircularProgressDrawable
@@ -122,7 +122,7 @@ class ExploreFragmentK : Fragment(), View.OnClickListener {
             val factory = TagListViewModelFactory(repo)
             viewModel = ViewModelProvider(viewModelStore, factory).get(TagListViewModel::class.java)
 
-            if (viewModel.tagAvailable) {
+            if (!viewModel.tagAvailable) {
                 viewModel.resetTagList()
             }
             withContext(Dispatchers.Main) {
@@ -177,6 +177,9 @@ class ExploreFragmentK : Fragment(), View.OnClickListener {
     }
 
     private fun getPhotosEachTag(tagList: List<Tag>) {
+
+        Log.d("TagList", tagList.toString())
+
         RetrofitService.createService(SearchApi::class.java).getPhotobyKeyward(tagList[0].tag, 1, 1)
                 .enqueue(object : retrofit2.Callback<PhotoSearch> {
 
@@ -198,7 +201,7 @@ class ExploreFragmentK : Fragment(), View.OnClickListener {
 
                     override fun onResponse(call: Call<PhotoSearch>, response: Response<PhotoSearch>) {
                         if (response.isSuccessful) {
-                            setImageView(response.body()!!.results[1].urls.small, tag1Gridview)
+                            setImageView(response.body()!!.results[0].urls.small, tag2Gridview)
 
                         }
                     }
@@ -215,7 +218,7 @@ class ExploreFragmentK : Fragment(), View.OnClickListener {
 
                     override fun onResponse(call: Call<PhotoSearch>, response: Response<PhotoSearch>) {
                         if (response.isSuccessful) {
-                            setImageView(response.body()!!.results[2].urls.small, tag1Gridview)
+                            setImageView(response.body()!!.results[0].urls.small, tag3Gridview)
 
                         }
                     }
@@ -232,7 +235,7 @@ class ExploreFragmentK : Fragment(), View.OnClickListener {
 
                     override fun onResponse(call: Call<PhotoSearch>, response: Response<PhotoSearch>) {
                         if (response.isSuccessful) {
-                            setImageView(response.body()!!.results[3].urls.small, tag1Gridview)
+                            setImageView(response.body()!!.results[0].urls.small, tag4Gridview)
 
                         }
                     }
@@ -248,7 +251,7 @@ class ExploreFragmentK : Fragment(), View.OnClickListener {
 
                     override fun onResponse(call: Call<PhotoSearch>, response: Response<PhotoSearch>) {
                         if (response.isSuccessful) {
-                            setImageView(response.body()!!.results[4].urls.small, tag1Gridview)
+                            setImageView(response.body()!!.results[0].urls.small, tag5Gridview)
 
                         }
                     }
@@ -264,7 +267,7 @@ class ExploreFragmentK : Fragment(), View.OnClickListener {
 
                     override fun onResponse(call: Call<PhotoSearch>, response: Response<PhotoSearch>) {
                         if (response.isSuccessful) {
-                            setImageView(response.body()!!.results[5].urls.small, tag1Gridview)
+                            setImageView(response.body()!!.results[0].urls.small, tag6Gridview)
 
                         }
                     }
