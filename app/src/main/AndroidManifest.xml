@@ -23,26 +23,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AutoSettings.AutoSettings"/>
-        <activity android:name=".TutorialActivity" />
+        <activity android:name=".AutoSettingsActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
 
-        <activity android:name=".ShowPhotoOnly"/>
-        <activity android:name=".PhotoDetail.PhotoDetailViewK"/>
-        <activity android:name=".getFromGallery" />
+        <activity android:name=".PhotoOnlyActivity"/>
+        <activity android:name=".PhotoDetailViewK"/>
+        <activity android:name=".PickGalleryActivity" />
         <activity android:name=".SetGetImagesDir_layout" />
         <activity
-            android:name=".PhotoDetail.PhotoDetailView"
-            android:configChanges="screenSize|orientation" />
-        <activity
-            android:name=".ListOfPhotos.ListOfPhotoView"
+            android:name=".ListOfPhotoActivity"
             android:configChanges="screenSize|orientation"
             android:theme="@style/Theme.AppCompat.Light" />
-        <activity android:name=".LicensePage" />
-        <activity android:name=".SelectFolder" />
+        <activity android:name=".LicenseActivity" />
+        <activity android:name=".SelectDirectoryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

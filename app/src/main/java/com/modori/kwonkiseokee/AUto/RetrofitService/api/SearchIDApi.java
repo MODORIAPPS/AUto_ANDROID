@@ -1,7 +1,7 @@
 package com.modori.kwonkiseokee.AUto.RetrofitService.api;
 
 
-import com.modori.kwonkiseokee.AUto.data.data.PhotoSearchID;
+import com.modori.kwonkiseokee.AUto.data.api.PhotoSearchID;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,15 +1,5 @@
 package com.modori.kwonkiseokee.AUto;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,10 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.modori.kwonkiseokee.AUto.AutoSettings.AutoSettings;
-import com.modori.kwonkiseokee.AUto.Tab1_frag.GetFromGalleryRA;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.modori.kwonkiseokee.AUto.adapters.PickGalleryAdapter;
+import com.modori.kwonkiseokee.AUto.data.DevicePhotoOLD;
 import com.modori.kwonkiseokee.AUto.utilities.FileManager;
-import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD;
+import com.modori.kwonkiseokee.AUto.viewmodels.PhotoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +65,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
     String SelectedPath;
 
-    GetFromGalleryRA adapter;
+    PickGalleryAdapter adapter;
 
 
     ArrayList<String> imageFilesDe = new ArrayList<>();
@@ -200,7 +200,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
         /// Test
         findViewById(R.id.openAutoSettings).setOnClickListener(
-                v -> startActivity(new Intent(this, AutoSettings.class))
+                v -> startActivity(new Intent(this, AutoSettingsActivity.class))
         );
 
         // load prefernces
@@ -250,13 +250,13 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
 
     }
 
-    private void setPickedRV(List<DevicePhotoDTO_OLD> array) {
+    private void setPickedRV(List<DevicePhotoOLD> array) {
         List<String> photoUriLists = new ArrayList<>();
-        for (DevicePhotoDTO_OLD item : array) {
+        for (DevicePhotoOLD item : array) {
             photoUriLists.add(item.getPhotoUri_d());
         }
 
-        GetFromGalleryRA adapter = new GetFromGalleryRA(this, photoUriLists, 0);
+        PickGalleryAdapter adapter = new PickGalleryAdapter(this, photoUriLists, 0);
 
 
         adapter.notifyDataSetChanged();
@@ -282,7 +282,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
         switch (v.getId()) {
             case R.id.openFolderBtn:
                 try {
-                    Intent intent = new Intent(SetGetImagesDir_layout.this, SelectFolder.class);
+                    Intent intent = new Intent(SetGetImagesDir_layout.this, SelectDirectoryActivity.class);
                     startActivityForResult(intent, SELECT_FOLDER);
                 } catch (Exception e) {
                     Toast.makeText(SetGetImagesDir_layout.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -292,7 +292,7 @@ public class SetGetImagesDir_layout extends AppCompatActivity implements View.On
                 break;
 
             case R.id.goPickGallery:
-                startActivity(new Intent(SetGetImagesDir_layout.this, getFromGallery.class));
+                startActivity(new Intent(SetGetImagesDir_layout.this, PickGalleryActivity.class));
                 break;
         }
 

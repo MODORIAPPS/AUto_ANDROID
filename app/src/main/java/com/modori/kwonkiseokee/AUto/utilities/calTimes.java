@@ -1,6 +1,6 @@
 package com.modori.kwonkiseokee.AUto.utilities;
 
-import com.modori.kwonkiseokee.AUto.tab3_frag;
+import com.modori.kwonkiseokee.AUto.AutoFragment;
 
 public class calTimes {
 
@@ -13,7 +13,7 @@ public class calTimes {
     public static void minToThreeTypes(int min) {
         //다양한 타입 입력 준비 되지 않음.
 
-        tab3_frag._MIN = min;
+        AutoFragment._MIN = min;
     }
 
 }

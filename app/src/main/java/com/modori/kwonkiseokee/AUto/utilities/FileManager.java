@@ -18,7 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
+import static com.modori.kwonkiseokee.AUto.AutoFragment.PREFS_FILE;
 
 public class FileManager {
 

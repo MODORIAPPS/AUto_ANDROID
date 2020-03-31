@@ -13,7 +13,7 @@ import com.modori.kwonkiseokee.AUto.utilities.calTimes;
 import java.util.Calendar;
 
 import static android.content.Context.ALARM_SERVICE;
-import static com.modori.kwonkiseokee.AUto.tab3_frag.PREFS_FILE;
+import static com.modori.kwonkiseokee.AUto.AutoFragment.PREFS_FILE;
 
 public class BootReceiver extends BroadcastReceiver {
 

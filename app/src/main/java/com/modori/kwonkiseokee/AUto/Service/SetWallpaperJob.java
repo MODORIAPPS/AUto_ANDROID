@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.animation.Animation;
@@ -17,16 +15,12 @@ import android.widget.Toast;
 
 import com.modori.kwonkiseokee.AUto.R;
 import com.modori.kwonkiseokee.AUto.utilities.MakePreferences;
-import com.modori.kwonkiseokee.AUto.data.DevicePhotoDTO_OLD;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 
 import static com.modori.kwonkiseokee.AUto.utilities.FileManager.makeBitmapSmall;
 
