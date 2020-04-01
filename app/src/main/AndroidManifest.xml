@@ -30,7 +30,7 @@
             android:value="true" />
 
         <activity android:name=".PhotoOnlyActivity"/>
-        <activity android:name=".PhotoDetailViewK"/>
+        <activity android:name=".PhotoDetailActivity"/>
         <activity android:name=".PickGalleryActivity" />
         <activity android:name=".SetGetImagesDir_layout" />
         <activity

@@ -5,6 +5,9 @@
     <dimen name="appSideMargin">15dp</dimen>
     <dimen name="verticalMargin">7dp</dimen>
 
+    <!-- padding -->
+    <dimen name="defaultPadding">16dp</dimen>
+
     <!-- radius -->
     <dimen name="btnRadius">10dp</dimen>
     <dimen name="defaultRadius">32dp</dimen>
@@ -17,7 +20,7 @@
     <dimen name="mainTextBig">35sp</dimen>
     <dimen name="descText">18sp</dimen>
     <dimen name="btnText">17sp</dimen>
-    <dimen name="titleText">27sp</dimen>
+    <dimen name="titleText">23sp</dimen>
 
 
     <!-- ImageSize -->

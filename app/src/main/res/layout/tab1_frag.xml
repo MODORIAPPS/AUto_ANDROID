@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -32,23 +31,21 @@
                 android:textSize="@dimen/appBarText" />
         </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView_frag1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            ads:adUnitId="@string/banner1"
-            ads:adSize="SMART_BANNER">
-        </com.google.android.gms.ads.AdView>
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner1"></com.google.android.gms.ads.AdView>
 
         <TextView
-            android:textSize="@dimen/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:text="Unsplash"
             android:textColor="@color/littleBlack"
+            android:textSize="@dimen/indicator"
             android:textStyle="normal" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,7 +70,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:textSize="@dimen/descText"
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,8 +77,23 @@
                 android:layout_marginTop="5dp"
                 android:text="앱을 통해 다운로드 받은 사진"
                 android:textColor="@color/gray"
+                android:textSize="@dimen/descText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/noDownloadImagesWarning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/tab1_galleryWarning"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/smallAlertText"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/downloadRV"
@@ -93,18 +104,18 @@
                 android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/noDownloadImagesWarning"
                 tools:listitem="@layout/picked_items" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:textSize="@dimen/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:text="@string/tab1_gallerySmall"
             android:textColor="@color/littleBlack"
+            android:textSize="@dimen/indicator"
             android:textStyle="normal" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -129,7 +140,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:textSize="@dimen/descText"
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -137,12 +147,13 @@
                 android:layout_marginTop="7dp"
                 android:text="@string/tab1_galleryContent"
                 android:textColor="@color/gray"
+                android:textSize="@dimen/descText"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
             <TextView
-                android:textSize="@dimen/smallAlertText"
+                android:visibility="gone"
                 android:id="@+id/noPickedImagesWarning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,6 +161,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/tab1_galleryWarning"
                 android:textColor="@color/colorAccent"
+                android:textSize="@dimen/smallAlertText"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />

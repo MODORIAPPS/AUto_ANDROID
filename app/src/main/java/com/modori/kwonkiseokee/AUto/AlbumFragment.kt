@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,27 +17,35 @@ import com.modori.kwonkiseokee.AUto.data.DevicePhotoOLD
 import com.modori.kwonkiseokee.AUto.data.PhotoRepository
 import com.modori.kwonkiseokee.AUto.viewmodels.PhotoViewModel
 import com.modori.kwonkiseokee.AUto.viewmodels.PhotoViewModelFactory
-import io.realm.Realm
 import kotlinx.android.synthetic.main.tab1_frag.*
 import kotlinx.android.synthetic.main.tab1_frag.view.*
+import kotlin.properties.Delegates
 
 class AlbumFragment : Fragment() {
 
-    private val MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = -1
-    lateinit var viewModel:PhotoViewModel
+    private val MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 8980
+
+    lateinit var viewModel: PhotoViewModel
+    lateinit var mView:View
+
+    var permissionGranted: Boolean by Delegates.observable(false) { property, oldValue, newValue ->
+
+        if (newValue) {
+            startObserve()
+            mView.noPickedImagesWarning.text = "이미지가 없습니다."
+            mView.noDownloadImagesWarning.text = "이미지가 없습니다."
+        } else {
+            mView.noPickedImagesWarning.visibility = View.VISIBLE
+            mView.noDownloadImagesWarning.visibility = View.VISIBLE
+
+            mView.noPickedImagesWarning.text = "현재 사용할 수 없습니다."
+            mView.noDownloadImagesWarning.text = "현재 사용할 수 없습니다."
+        }
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.tab1_frag, container, false)
-        Realm.init(view.context)
-
-        permissionCheck()
-
-        // RecyclerView init
-        val gridLayoutManager = GridLayoutManager(view.context, 3)
-        val gridLayoutManager2 = GridLayoutManager(view.context, 3)
-        view.pickedRV.layoutManager = gridLayoutManager
-        view.downloadRV.layoutManager = gridLayoutManager2
-
+        mView = inflater.inflate(R.layout.tab1_frag, container, false)
         // Ads
 //        // 광고
 ////        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
@@ -51,39 +60,15 @@ class AlbumFragment : Fragment() {
         val factory = PhotoViewModelFactory(repo)
         viewModel = ViewModelProvider(viewModelStore, factory).get(PhotoViewModel::class.java)
 
+        // RecyclerView init
+        val gridLayoutManager = GridLayoutManager(mView.context, 3)
+        val gridLayoutManager2 = GridLayoutManager(mView.context, 3)
+        mView.pickedRV.layoutManager = gridLayoutManager
+        mView.downloadRV.layoutManager = gridLayoutManager2
 
-        // Gallery Picked Photos
-        viewModel.devicePhotos.observe(this, androidx.lifecycle.Observer {
-            if (viewModel.devicePhotos.value != null) {
-                setPickedRV(viewModel.devicePhotos.value!!)
+        isPermissionGranted()
 
-                //noPickedImagesWarning = true
-                noPickedImagesWarning.visibility = View.GONE
-
-            } else {
-                // No images
-                noPickedImagesWarning.visibility = View.VISIBLE
-            }
-        })
-
-//        try {
-//            viewModel.getDownloadedPhotos().observe(this, androidx.lifecycle.Observer {
-//                Toast.makeText(context,"변경 감지!",Toast.LENGTH_SHORT).show()
-//                if (viewModel.getDownloadedPhotos().value != null) {
-//                    setDownloadRV(viewModel.getDownloadedPhotos().value!!)
-//                } else {
-//                    // No images
-//                }
-//
-//
-//            })
-//        } catch (e: Exception) {
-//            if (e.message == "fileLists is Null") {
-//                Toast.makeText(context, "리스트가 널입니다", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-
-        return view
+        return mView
 
     }
 
@@ -105,6 +90,46 @@ class AlbumFragment : Fragment() {
 //        adapter.notifyDataSetChanged()
 //
 //    }
+
+    private fun startObserve() {
+
+        // Observe photoList which user picked in gallery
+        try {
+            viewModel.devicePhotos.observe(this, androidx.lifecycle.Observer {
+                if (viewModel.devicePhotos.value != null) {
+                    setPickedRV(viewModel.devicePhotos.value!!)
+
+                    //noPickedImagesWarning = true
+                    noPickedImagesWarning.visibility = View.GONE
+
+                } else {
+                    // No images
+                    noPickedImagesWarning.visibility = View.VISIBLE
+                }
+            })
+        } catch (e: Exception) {
+            Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show()
+        }
+
+
+        // Observe photoList which user downloaded in app
+        //        try {
+//            viewModel.getDownloadedPhotos().observe(this, androidx.lifecycle.Observer {
+//                Toast.makeText(context,"변경 감지!",Toast.LENGTH_SHORT).show()
+//                if (viewModel.getDownloadedPhotos().value != null) {
+//                    setDownloadRV(viewModel.getDownloadedPhotos().value!!)
+//                } else {
+//                    // No images
+//                }
+//
+//
+//            })
+//        } catch (e: Exception) {
+//            if (e.message == "fileLists is Null") {
+//                Toast.makeText(context, "리스트가 널입니다", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+    }
 
     private fun setDownloadRV(array: List<DevicePhotoOLD>) {
         val photoUriLists = arrayListOf<String>()
@@ -136,9 +161,14 @@ class AlbumFragment : Fragment() {
         super.onDestroy()
     }
 
-    private fun permissionCheck() {
+    private fun isPermissionGranted() {
         val check = ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        if (check == PackageManager.PERMISSION_DENIED) requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE)
+        permissionGranted = if (check == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE)
+            false
+        } else {
+            true
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

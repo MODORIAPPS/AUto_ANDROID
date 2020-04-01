@@ -1,8 +1,10 @@
 package com.modori.kwonkiseokee.AUto.data
 
+import androidx.lifecycle.LiveData
+
 class PhotoRepository(private val dao: DevicePhotoDao) {
 
-    val devicePhotoList = dao.getDevicePhotoList()
+    val devicePhotoList:LiveData<List<DevicePhoto>> = dao.getDevicePhotoList()
 
     suspend fun insertDevicePhotos(devicePhoto: DevicePhoto) {
         dao.insert(devicePhoto)

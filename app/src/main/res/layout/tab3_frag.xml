@@ -33,7 +33,6 @@
 
             <ImageView
                 android:id="@+id/goInfo"
-
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
@@ -57,61 +56,53 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- 활성화 상태인지 표시 -->
-            <RelativeLayout
-
+            <!-- 활성화 여부 표시 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/actView_layout"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/verticalMargin"
                 android:background="@drawable/background_theme_title_act"
-                android:padding="10dp">
+                android:padding="@dimen/defaultPadding">
 
                 <TextView
                     android:id="@+id/viewCycle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     android:text="0일 0시 0분"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="normal" />
 
                 <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewCycle"
                     android:id="@+id/actStats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/viewCycle"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="@dimen/verticalMargin"
                     android:text="@string/tab3_ActStateActivated"
                     android:textColor="@color/white"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_toStartOf="@id/actSwitch"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
                 <androidx.appcompat.widget.SwitchCompat
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:id="@+id/actSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginEnd="13dp"
-                    android:scaleX="1.2"
-                    android:scaleY="1.2"
+                    android:scaleX="1.3"
+                    android:scaleY="1.3"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:theme="@style/SwitchCompatTheme" />
-            </RelativeLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <TextView
@@ -126,163 +117,100 @@
                 android:textSize="@dimen/indicator"
                 android:textStyle="normal" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_theme"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="@dimen/defaultPadding">
 
                 <!-- 순서대로 & 무작위 옵션-->
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/detailSet2Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab3_ShuffleStateOn"
+                    android:textColor="@color/semiBlack"
+                    android:textSize="@dimen/titleText"
+                    android:textStyle="normal" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:padding="8dp">
+                <TextView
+                    android:layout_marginTop="@dimen/verticalMargin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailSet2Title"
+                    android:id="@+id/detailSet2Con"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab3_t2"
+                    android:textSize="@dimen/descText"
+                    android:textColor="@color/littleBlack"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/detailSet2Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/tab3_ShuffleStateOn"
-                        android:textColor="@color/semiBlack"
-                        android:textSize="23sp"
-                        android:textStyle="normal" />
-
-                    <TextView
-                        android:id="@+id/detailSet2Con"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/detailSet2Title"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/tab3_t2"
-                        android:textColor="@color/littleBlack"
-                        android:textStyle="normal" />
-
-                    <View
-                        android:id="@+id/line2"
-                        android:layout_width="1dp"
-                        android:layout_height="35dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toStartOf="@id/shuffleSwitch"
-                        android:background="@color/strokeLineColor" />
-
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/shuffleSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerInParent="true"
-                        android:layout_marginStart="13dp"
-                        android:layout_marginEnd="8dp"
-                        android:scaleX="1.3"
-                        android:scaleY="1.3"
-                        android:theme="@style/SwitchCompatTheme" />
-                </RelativeLayout>
+                <androidx.appcompat.widget.SwitchCompat
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/middleDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/shuffleSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginEnd="8dp"
+                    android:scaleX="1.3"
+                    android:scaleY="1.3"
+                    android:theme="@style/SwitchCompatTheme" />
 
                 <View
+                    android:id="@+id/middleDivider"
+                    app:layout_constraintTop_toBottomOf="@id/detailSet2Con"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="0.7dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="@dimen/defaultMargin"
+                    android:layout_marginRight="@dimen/defaultMargin"
+                    android:layout_marginTop="@dimen/defaultMargin"
+                    android:layout_marginBottom="@dimen/defaultMargin"
                     android:background="@color/strokeLineColor" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_marginTop="@dimen/defaultMargin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/middleDivider"
+                    android:id="@+id/detailSet3Title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:text="@string/tab3_t3"
+                    android:textColor="@color/semiBlack"
+                    android:textSize="@dimen/titleText"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/detailSet3Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/tab3_t3"
-                        android:textColor="@color/semiBlack"
-                        android:textSize="23sp"
-                        android:textStyle="normal" />
+                <TextView
+                    android:layout_marginTop="@dimen/verticalMargin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailSet3Title"
+                    android:id="@+id/detailSet3Con"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/descText"
+                    android:text="최소 15분 이상이여야합니다."
+                    android:textColor="@color/littleBlack"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/detailSet3Con"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/detailSet3Title"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/tab3_t3_sub"
-                        android:textColor="@color/littleBlack"
-                        android:textStyle="normal" />
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailSet3Con"
+                    android:id="@+id/numPickerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/verticalMargin"
+                    android:text="n일 : n시간 : n분"
+                    android:textColor="@color/semiBlack"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/numPickerView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/detailSet3Con"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginEnd="20dp"
-                        android:text="n일 : n시간 : n분"
-                        android:textColor="@color/semiBlack"
-                        android:textStyle="normal" />
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-
-                        android:layout_below="@+id/numPickerView"
-                        android:layout_marginTop="5dp">
-
-                        <NumberPicker
-                            android:id="@+id/inputCycleDay"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:theme="@style/AppTheme">
-
-                        </NumberPicker>
-
-                        <NumberPicker
-
-                            android:id="@+id/inputCycleHour"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                        </NumberPicker>
-
-                        <NumberPicker
-                            android:id="@+id/inputCycleMin"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                        </NumberPicker>
-                    </LinearLayout>
-
-
-                    <!--&lt;!&ndash; 빠른 시간 선택&ndash;&gt;-->
-                    <!--<LinearLayout-->
-                    <!--android:layout_below="@id/inputCycle"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="30dp">-->
-                    <!---->
-                    <!--<LinearLayout-->
-                    <!--android:layout_weight="splash_image1"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent">-->
-                    <!--<Te-->
-                    <!--</LinearLayout>-->
-                    <!---->
-                    <!--</LinearLayout>-->
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -295,107 +223,68 @@
                 android:textColor="@color/littleBlack"
                 android:textStyle="normal" />
 
-            <LinearLayout
+            <!-- Set Directory -->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_theme"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="@dimen/defaultPadding">
 
-                <!-- 디렉토리 설정 -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/detailSet4Title"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:maxWidth="280dp"
+                    android:text="@string/tab3_detailSet4Title"
+                    android:textColor="@color/semiBlack"
+                    android:textSize="@dimen/titleText"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/detailSet4Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:maxWidth="280dp"
-                        android:text="@string/tab3_detailSet4Title"
-                        android:textColor="@color/semiBlack"
-                        android:textSize="19sp"
-                        android:textStyle="normal" />
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailSet4Title"
+                    android:id="@+id/showGetFromWhat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/verticalMargin"
+                    android:maxWidth="250dp"
+                    android:text="사용자가 지정한 폴더에서 불러오고 있습니다."
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/descText"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/detailSet4Title"
-                        android:layout_alignParentStart="true"
-                        android:text=""
-                        android:textColor="@color/littleBlack"
-                        android:textStyle="normal"
-                        android:visibility="gone" />
+                <TextView
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/showGetFromWhat"
+                    android:id="@+id/showPictGetCnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/showGetFromWhat"
+                    android:layout_marginTop="5dp"
+                    android:maxWidth="250dp"
+                    android:text="확인된 사진 n개"
+                    android:textColor="@color/semiBlack"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-                    <RelativeLayout
-                        android:id="@+id/showStatsDefaultGetting"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/detailSet4Title"
-                        android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/showDirBtn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:src="@drawable/settings_icon"
+                    android:tint="#6AAFE6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/showGetFromWhat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:maxWidth="250dp"
-                            android:text="사용자가 지정한 폴더에서 불러오고 있습니다."
-                            android:textColor="@color/gray"
-                            android:textSize="15sp"
-                            android:textStyle="normal" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/showPictGetCnt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/showGetFromWhat"
-                            android:layout_marginTop="5dp"
-                            android:maxWidth="250dp"
-                            android:text="확인된 사진 n개"
-                            android:textColor="@color/semiBlack"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/showDirBtn"
-
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="8dp"
-                            android:background="?selectableItemBackgroundBorderless"
-
-                            android:src="@drawable/settings_icon"
-                            android:tint="#6AAFE6">
-
-                        </ImageView>
-
-
-                    </RelativeLayout>
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/saveBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/appSideMargin"
-                android:layout_marginEnd="@dimen/appSideMargin"
-                android:layout_marginTop="@dimen/verticalMargin"
-                android:layout_marginBottom="@dimen/verticalMargin"
-                android:background="@drawable/button_bg"
-                android:text="@string/tab3_t6"
-                android:textColor="@color/white">
-
-            </Button>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
