@@ -13,4 +13,13 @@ class AutoSettingsRepository(private val dao:AutoSettingsDao) {
     suspend fun getAutoSettingsById(id:Int) : LiveData<AutoSettings>{
         return dao.getAutoSettingsById(id)
     }
+
+    companion object {
+        // For Singleton instantiation
+        @Volatile private var instance: AutoSettingsRepository? =null
+        fun getInstance(dao:AutoSettingsDao) =
+                instance ?: synchronized(this){
+                    instance ?: AutoSettingsRepository(dao).also { instance = it }
+                }
+    }
 }

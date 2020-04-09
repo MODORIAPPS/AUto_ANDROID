@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.modori.kwonkiseokee.AUto.adapters.AutoSettingsAdapter
+import com.modori.kwonkiseokee.AUto.utilities.InjectorUtils
 import com.modori.kwonkiseokee.AUto.viewmodels.AutoSettingsViewModel
 import kotlinx.android.synthetic.main.activity_auto_settings.*
 
 class AutoSettingsActivity : AppCompatActivity() {
 
-    lateinit var viewModelAuto: AutoSettingsViewModel
-    var currentPosition:Int = 0
+    private val viewModelAuto: AutoSettingsViewModel by viewModels {
+        InjectorUtils.provideAutoSettingsViewModelFactory(this)
+    }
+    var currentPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,19 +36,18 @@ class AutoSettingsActivity : AppCompatActivity() {
         settingsViewPager.adapter = autoSettingsAdapter
 
         // setUp ViewModel
-        viewModelAuto = ViewModelProviders.of(this).get(AutoSettingsViewModel::class.java)
-        viewModelAuto._currentPage.observe(this, androidx.lifecycle.Observer {
+        viewModelAuto.currentPage.observe(this, androidx.lifecycle.Observer {
             Log.d("AutoSettings", "CurrentPosition change Detected")
-            val position = viewModelAuto._currentPage.value
+            val position = viewModelAuto.currentPage.value
             if (position != null) {
                 Log.d("AutoSettings", "Set to position $position")
                 //autoSettingsAdapter.getItemPosition(position)
                 currentPosition = position
                 settingsViewPager.currentItem = position
 
-                if(position == 0){
+                if (position == 0) {
                     supportActionBar?.title = "닫기"
-                }else{
+                } else {
                     supportActionBar?.title = "뒤로가기"
                 }
 
@@ -61,17 +63,17 @@ class AutoSettingsActivity : AppCompatActivity() {
 
     }
 
-    private fun backBtnBehavior(){
-        if(currentPosition == 0){
+    private fun backBtnBehavior() {
+        if (currentPosition == 0) {
             finish()
-        }else{
+        } else {
             settingsViewPager.currentItem = currentPosition - 1
             viewModelAuto._currentPage.value = currentPosition - 1
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> {
                 backBtnBehavior()
             }

@@ -8,15 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.modori.kwonkiseokee.AUto.adapters.PickGalleryAdapter
-import com.modori.kwonkiseokee.AUto.data.AppDatabase
 import com.modori.kwonkiseokee.AUto.data.DevicePhoto
 import com.modori.kwonkiseokee.AUto.data.DevicePhotoOLD
-import com.modori.kwonkiseokee.AUto.data.PhotoRepository
+import com.modori.kwonkiseokee.AUto.utilities.InjectorUtils
 import com.modori.kwonkiseokee.AUto.viewmodels.PhotoViewModel
-import com.modori.kwonkiseokee.AUto.viewmodels.PhotoViewModelFactory
 import kotlinx.android.synthetic.main.tab1_frag.*
 import kotlinx.android.synthetic.main.tab1_frag.view.*
 import kotlin.properties.Delegates
@@ -25,7 +23,9 @@ class AlbumFragment : Fragment() {
 
     private val MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 8980
 
-    lateinit var photoViewModel: PhotoViewModel
+    private val photoViewModel: PhotoViewModel by viewModels {
+        InjectorUtils.provideDevicePhotoViewModelFactory(requireActivity())
+    }
     //private val autoSettingsViewModel:AutoSettingsViewModel by activityViewModels()
 
     lateinit var mView:View
@@ -55,12 +55,6 @@ class AlbumFragment : Fragment() {
 ////        MobileAds.initialize(mContext, ads_app);
 ////        adView = view.findViewById(R.id.adView_frag1);
 ////        adView.loadAd(adRequest);
-
-        // SetUp ViewModel
-        val dao = AppDatabase.getInstance(requireContext()).devicePhotoDao
-        val repo = PhotoRepository(dao)
-        val factory = PhotoViewModelFactory(repo)
-        photoViewModel = ViewModelProvider(viewModelStore, factory).get(PhotoViewModel::class.java)
 
         // RecyclerView init
         val gridLayoutManager = GridLayoutManager(mView.context, 3)

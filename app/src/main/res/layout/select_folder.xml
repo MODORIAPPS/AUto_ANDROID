@@ -59,6 +59,7 @@
     <Button
         android:textColor="@color/white"
         android:background="@drawable/button_bg"
+        android:layout_margin="@dimen/defaultMargin"
         android:id="@+id/show_select"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

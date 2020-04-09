@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F7F7"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".SetGetImagesDir_layout">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_theme_title_act"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/getFromWhatImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/getting_default_icon"
+                android:tint="@color/white" />
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
+
+            <TextView
+                android:id="@+id/getFromWhatText"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:maxWidth="280dp"
+                android:text="앱에서 다운로드받은 사진을 가져오고 있습니다."
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="normal" />
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/SetGetImagedir_GetV"
+            android:textColor="@color/littleBlack"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:id="@+id/openAutoSettings"
+            android:background="?selectableItemBackground"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/ic_lightbulb"
+                android:tint="@android:color/holo_orange_dark"
+                android:layout_marginRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_orange_dark"
+                android:text="새로운 설정 도구를 사용하세요!"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/background_theme"
+            android:padding="@dimen/defaultMargin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/detailSet2Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:maxWidth="300dp"
+                android:text="@string/tab3_t4"
+                android:textColor="@color/semiBlack"
+                android:textSize="@dimen/titleText"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_marginTop="@dimen/verticalMargin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailSet2Title"
+                android:maxWidth="300dp"
+                android:id="@+id/detailSet2Con"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SetGetImagedir_GetsV"
+                android:textSize="@dimen/descText"
+                android:textColor="@color/littleBlack"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/setToDir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:theme="@style/SwitchCompatTheme"
+                app:layout_constraintBottom_toBottomOf="@+id/detailSet2Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailSet2Title" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/verticalMargin"
+                android:src="@drawable/folder_open_icon"
+                android:tint="@color/semiBlack"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailSet2Con" />
+
+            <TextView
+                android:layout_marginStart="@dimen/defaultMargin"
+                android:id="@+id/showCurrDir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/semiBlack"
+                android:textSize="17sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView"
+                tools:text="/sdcard/..." />
+
+            <ImageView
+                android:id="@+id/openFolderBtn"
+
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/opened_folder_100"
+                android:tint="@color/blueEnabled"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <TextView
+                android:layout_marginTop="@dimen/verticalMargin"
+                android:id="@+id/warningNoImagesPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SetGetImageDir_ERROR1"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:textSize="@dimen/smallAlertText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <View
+                android:id="@+id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/warningNoImagesPath"
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_margin="@dimen/defaultMargin"
+                android:background="@color/strokeLineColor" />
+
+            <TextView
+                android:layout_marginTop="@dimen/verticalMargin"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/detailSet1Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="300dp"
+                android:text="@string/SetGetImageDir_detailSet1Title"
+                android:textColor="@color/semiBlack"
+                android:textSize="@dimen/titleText"
+                android:textStyle="normal" />
+
+            <TextView
+                app:layout_constraintTop_toBottomOf="@id/detailSet1Title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/detailSet1Con"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailSet1Title"
+                android:layout_alignParentStart="true"
+                android:maxWidth="250dp"
+                android:textSize="@dimen/descText"
+                android:layout_marginTop="@dimen/verticalMargin"
+                android:text="@string/SetGetImageDir_detailSet1Con"
+                android:textColor="@color/littleBlack"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/setToUserPick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:theme="@style/SwitchCompatTheme"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/detailSet1Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailSet1Title" />
+
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailSet1Con"
+                android:id="@+id/warningNoImagesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/verticalMargin"
+                android:textSize="@dimen/smallAlertText"
+                android:text="@string/SetGetImageDir_ERROR2"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                app:layout_constraintTop_toBottomOf="@id/warningNoImagesText"
+                app:layout_constraintEnd_toStartOf="parent"
+                android:id="@+id/listsOfPictures"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/defaultMargin"
+                tools:listitem="@layout/picked_items">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <ImageView
+                android:layout_margin="@dimen/defaultMargin"
+                android:id="@+id/goPickGallery"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/image_icon"
+                android:tint="@color/blueEnabled"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/listsOfPictures" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>
+
+

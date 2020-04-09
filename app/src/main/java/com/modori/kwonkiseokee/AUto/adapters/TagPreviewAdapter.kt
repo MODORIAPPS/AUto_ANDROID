@@ -57,7 +57,7 @@ class TagPreviewAdapter(val context: Context, val tagList: List<Tag>, val tagVie
                     }
 
                     override fun onFailure(call: Call<PhotoSearch>, t: Throwable) {
-
+                        
                     }
 
                 })

@@ -14,6 +14,15 @@ class PhotoRepository(private val dao: DevicePhotoDao) {
         dao.deletePhotoById(devicePhoto.photoID_d)
     }
 
+    companion object {
+        // For Singleton instantiation
+        @Volatile private var instance: PhotoRepository? =null
+        fun getInstance(dao:DevicePhotoDao) =
+                instance ?: synchronized(this){
+                    instance ?: PhotoRepository(dao).also { instance = it }
+                }
+    }
+
     // Android 10 Support
 //    fun getDownloadedPhotos():LiveData<List<DevicePhotoDTO>>{
 //        // android 10 ->

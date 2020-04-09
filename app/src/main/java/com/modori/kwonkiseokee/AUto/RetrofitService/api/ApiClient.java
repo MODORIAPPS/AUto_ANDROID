@@ -13,7 +13,4 @@ public class ApiClient {
         return RetrofitService.createService(SearchIDApi.class);
     }
 
-    public static FileDownloadClient downloadClient(){
-        return RetrofitService.createService(FileDownloadClient.class);
-    }
 }

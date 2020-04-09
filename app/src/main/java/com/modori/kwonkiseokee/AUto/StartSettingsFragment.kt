@@ -6,18 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import com.modori.kwonkiseokee.AUto.utilities.InjectorUtils
 import com.modori.kwonkiseokee.AUto.viewmodels.AutoSettingsViewModel
 
 class StartSettingsFragment():Fragment(){
 
-    lateinit var viewModelAuto: AutoSettingsViewModel
+    private val viewModelAuto: AutoSettingsViewModel by viewModels {
+        InjectorUtils.provideAutoSettingsViewModelFactory(requireActivity())
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.auto_start_settings, container, false)
-
-        // ViewModel Setup
-        viewModelAuto = ViewModelProviders.of(this).get(AutoSettingsViewModel::class.java)
 
         view.findViewById<Button>(R.id.startSettings).setOnClickListener {
             viewModelAuto._currentPage.value = 1

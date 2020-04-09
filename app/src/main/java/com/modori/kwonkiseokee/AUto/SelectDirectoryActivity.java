@@ -91,7 +91,6 @@ public class SelectDirectoryActivity extends ListActivity {
                 path.add(root + "sdcard/");
 
 
-
                 item.add(goPreDirStr);
                 path.add(f.getParent());
 

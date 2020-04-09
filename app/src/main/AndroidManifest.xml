@@ -40,7 +40,7 @@
         <activity android:name=".PhotoOnlyActivity" />
         <activity android:name=".PhotoDetailActivity" />
         <activity android:name=".PickGalleryActivity" />
-        <activity android:name=".SetGetImagesDir_layout" />
+        <activity android:name=".ManageImageSourceActivity" />
         <activity
             android:name=".ListOfPhotoActivity"
             android:configChanges="screenSize|orientation"

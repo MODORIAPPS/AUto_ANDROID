@@ -9,14 +9,18 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
+import com.modori.kwonkiseokee.AUto.utilities.InjectorUtils
 import com.modori.kwonkiseokee.AUto.utilities.PresentColor
 import com.modori.kwonkiseokee.AUto.utilities.SourceType
 import com.modori.kwonkiseokee.AUto.viewmodels.AutoSettingsViewModel
 
 class SourceSettingsFragment(): Fragment(), View.OnClickListener {
 
-    lateinit var viewModelAuto: AutoSettingsViewModel
+    private val viewModelAuto: AutoSettingsViewModel by viewModels {
+        InjectorUtils.provideAutoSettingsViewModelFactory(requireActivity())
+    }
+
 
     lateinit var nextBtnInSourceSettings:Button
     lateinit var setSourceAsDownloaded:LinearLayout
@@ -32,8 +36,6 @@ class SourceSettingsFragment(): Fragment(), View.OnClickListener {
         setSourceAsFolder = view.findViewById(R.id.setSourceAsFolder)
         setSourceAsGallery = view.findViewById(R.id.setSourceAsGallery)
 
-        // ViewModel Setup
-        viewModelAuto = ViewModelProviders.of(this).get(AutoSettingsViewModel::class.java)
         viewModelAuto.sourceType.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
             val sourceType = viewModelAuto.sourceType.value
             if(sourceType != null){

@@ -27,10 +27,7 @@ import com.bumptech.glide.Glide
 import com.modori.kwonkiseokee.AUto.RetrofitService.api.ApiClient
 import com.modori.kwonkiseokee.AUto.Service.SetWallpaperJob
 import com.modori.kwonkiseokee.AUto.data.api.PhotoSearchID
-import com.modori.kwonkiseokee.AUto.utilities.DownloadType
-import com.modori.kwonkiseokee.AUto.utilities.FileManager
-import com.modori.kwonkiseokee.AUto.utilities.MakePreferences
-import com.modori.kwonkiseokee.AUto.utilities.NetWorkTool
+import com.modori.kwonkiseokee.AUto.utilities.*
 import com.modori.kwonkiseokee.AUto.viewmodels.PhotoDetailViewModel
 import kotlinx.android.synthetic.main.photo_detail.*
 import kotlinx.coroutines.CoroutineScope
@@ -65,10 +62,8 @@ class PhotoDetailActivity : AppCompatActivity(), View.OnClickListener {
     var ADS_COUNTER: Int = 1
     var CHANGE_TYPE: Int = 0
     var NOTIFICATION_ID = 0
-    val CHANNEL_ID = "AUTO_SLIDE"
 
     // Group Notification Support for 7.0+
-    val GROUP_KEY_WORK_AUTO = "AUTO_SLIDE_GROUP"
     var notCnt = 1
 
     override fun onClick(v: View?) {
@@ -399,21 +394,33 @@ class PhotoDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun changeWallpaper(bitmap: Bitmap, type: Int) {
 
-        // Load Full-Screen ScreenAds
-        if (ADS_COUNTER == 3) {
-            // Check If Ads loaded
-            if (true) {
-                // Show Full-Screen Ads
-                MakePreferences.getInstance().settings.edit().putInt("ADS_COUNTER", 1).apply()
+        try {
+            // Load Full-Screen ScreenAds
+            if (ADS_COUNTER == 3) {
+                // Check If Ads loaded
+                if (true) {
+                    // Show Full-Screen Ads
+                    MakePreferences.getInstance().settings.edit().putInt("ADS_COUNTER", 1).apply()
+                }
             }
+
+            // Set Background as CHANGE_TYPE
+            CoroutineScope(Dispatchers.IO).launch {
+                withContext(Dispatchers.Main) {
+                    progress_circular.visibility = View.VISIBLE
+
+                }
+                SetWallpaperJob.setWallPaper(mContext, bitmap, type)
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(applicationContext, "적용 완료!", Toast.LENGTH_SHORT).show()
+                    progress_circular.visibility = View.GONE
+
+                }
+            }
+        } catch (e: Error) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
         }
 
-        // Set Background as CHANGE_TYPE
-        CoroutineScope(Dispatchers.IO).launch {
-            progress_circular.visibility = View.VISIBLE
-            SetWallpaperJob.setWallPaper(mContext, bitmap, type)
-            progress_circular.visibility = View.GONE
-        }
 
     }
 

@@ -6,6 +6,9 @@ import com.modori.kwonkiseokee.AUto.R
  *  Constants used throughout the app.
  * */
 
+const val CHANNEL_ID = "AUTO_SLIDE"
+const val GROUP_KEY_WORK_AUTO = "AUTO_SLIDE_GROUP"
+
 const val APP_DATABASE_NAME = "auto-db"
 const val TAG_DATABASE_NAME = "tag-db"
 
