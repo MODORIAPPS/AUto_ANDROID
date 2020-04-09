@@ -33,9 +33,9 @@ class SourceSettingsFragment(): Fragment(), View.OnClickListener {
         setSourceAsGallery = view.findViewById(R.id.setSourceAsGallery)
 
         // ViewModel Setup
-        viewModelAuto = ViewModelProviders.of(activity!!).get(AutoSettingsViewModel::class.java)
-        viewModelAuto.getSourceType().observe(this,androidx.lifecycle.Observer {
-            val sourceType = viewModelAuto.getSourceType().value
+        viewModelAuto = ViewModelProviders.of(this).get(AutoSettingsViewModel::class.java)
+        viewModelAuto.sourceType.observe(viewLifecycleOwner,androidx.lifecycle.Observer {
+            val sourceType = viewModelAuto.sourceType.value
             if(sourceType != null){
                 Log.d("SourceType", sourceType.toString())
                 nextBtnInSourceSettings.isEnabled = true
@@ -77,21 +77,21 @@ class SourceSettingsFragment(): Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.setSourceAsDownloaded -> {
-                viewModelAuto.setSourceType(SourceType.DOWNLOADED)
+                viewModelAuto._sourceType.value = SourceType.DOWNLOADED
             }
 
             R.id.setSourceAsFolder -> {
-                viewModelAuto.setSourceType(SourceType.MY_FOLDER)
+                viewModelAuto._sourceType.value = SourceType.MY_FOLDER
             }
 
             R.id.setSourceAsGallery -> {
-                viewModelAuto.setSourceType(SourceType.GALLERY_PICK)
+                viewModelAuto._sourceType.value = SourceType.GALLERY_PICK
             }
             R.id.nextBtnInSourceSettings -> {
                 if(!nextBtnInSourceSettings.isEnabled){
                     Toast.makeText(activity,"하나 이상의 방법을 선택하세요",Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModelAuto.setCurrentPosition(3)
+                    viewModelAuto._currentPage.value = 3
                 }
             }
         }

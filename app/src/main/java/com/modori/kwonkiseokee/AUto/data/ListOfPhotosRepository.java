@@ -1,4 +1,4 @@
-package com.modori.kwonkiseokee.AUto;
+package com.modori.kwonkiseokee.AUto.data;
 
 
 import android.util.Log;

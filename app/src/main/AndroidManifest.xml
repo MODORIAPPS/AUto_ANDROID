@@ -23,14 +23,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AutoSettingsActivity"/>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AutoSettingsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
 
-        <activity android:name=".PhotoOnlyActivity"/>
-        <activity android:name=".PhotoDetailActivity"/>
+        <activity android:name=".PhotoOnlyActivity" />
+        <activity android:name=".PhotoDetailActivity" />
         <activity android:name=".PickGalleryActivity" />
         <activity android:name=".SetGetImagesDir_layout" />
         <activity
@@ -39,13 +47,6 @@
             android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".LicenseActivity" />
         <activity android:name=".SelectDirectoryActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <receiver android:name=".Service.SetWallpaperJob" />
         <receiver

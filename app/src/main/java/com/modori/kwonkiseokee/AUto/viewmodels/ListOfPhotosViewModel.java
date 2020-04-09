@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.modori.kwonkiseokee.AUto.ListOfPhotosRepository;
+import com.modori.kwonkiseokee.AUto.data.ListOfPhotosRepository;
 import com.modori.kwonkiseokee.AUto.data.api.PhotoSearch;
 
 public class ListOfPhotosViewModel extends ViewModel {
@@ -18,7 +18,7 @@ public class ListOfPhotosViewModel extends ViewModel {
         photosRepository = ListOfPhotosRepository.getInstance();
     }
 
-    public LiveData<PhotoSearch> getListofPhotos(String tag) {
+    public LiveData<PhotoSearch> getListOfPhotos(String tag) {
         mutableLiveData = photosRepository.getListOfPhotos(tag);
         return mutableLiveData;
     }

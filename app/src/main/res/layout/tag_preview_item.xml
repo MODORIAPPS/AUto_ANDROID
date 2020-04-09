@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="@dimen/defaultMargin"
+    android:layout_marginTop="@dimen/defaultMargin"
+    android:layout_marginEnd="@dimen/defaultMargin"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:background="@drawable/background_theme"
+    android:elevation="10dp"
+    app:cardCornerRadius="@dimen/defaultRadius">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/tagImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/black_gradient"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/tagTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/defaultMargin"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/titleText"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

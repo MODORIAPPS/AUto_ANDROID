@@ -34,9 +34,9 @@ class AutoSettingsActivity : AppCompatActivity() {
 
         // setUp ViewModel
         viewModelAuto = ViewModelProviders.of(this).get(AutoSettingsViewModel::class.java)
-        viewModelAuto.getCurrentPosition().observe(this, androidx.lifecycle.Observer {
+        viewModelAuto._currentPage.observe(this, androidx.lifecycle.Observer {
             Log.d("AutoSettings", "CurrentPosition change Detected")
-            val position = viewModelAuto.getCurrentPosition().value
+            val position = viewModelAuto._currentPage.value
             if (position != null) {
                 Log.d("AutoSettings", "Set to position $position")
                 //autoSettingsAdapter.getItemPosition(position)
@@ -66,7 +66,7 @@ class AutoSettingsActivity : AppCompatActivity() {
             finish()
         }else{
             settingsViewPager.currentItem = currentPosition - 1
-            viewModelAuto.setCurrentPosition(currentPosition - 1)
+            viewModelAuto._currentPage.value = currentPosition - 1
         }
     }
 

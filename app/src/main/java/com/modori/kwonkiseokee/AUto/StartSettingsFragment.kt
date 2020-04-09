@@ -17,10 +17,10 @@ class StartSettingsFragment():Fragment(){
         val view = inflater.inflate(R.layout.auto_start_settings, container, false)
 
         // ViewModel Setup
-        viewModelAuto = ViewModelProviders.of(activity!!).get(AutoSettingsViewModel::class.java)
+        viewModelAuto = ViewModelProviders.of(this).get(AutoSettingsViewModel::class.java)
 
         view.findViewById<Button>(R.id.startSettings).setOnClickListener {
-            viewModelAuto.setCurrentPosition(1)
+            viewModelAuto._currentPage.value = 1
         }
 
         return view

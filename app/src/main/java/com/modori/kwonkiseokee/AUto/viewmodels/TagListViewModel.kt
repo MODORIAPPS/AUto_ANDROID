@@ -10,8 +10,6 @@ import kotlinx.coroutines.launch
 
 class TagListViewModel(private val repository: TagListRepository) : ViewModel() {
 
-
-
     private var _tagLists: LiveData<List<Tag>> = repository.tagList
     val tagLists: LiveData<List<Tag>>
         get() = _tagLists

@@ -17,19 +17,19 @@ class EndSettingsFragment():Fragment(){
         val view = inflater.inflate(R.layout.auto_end_settings, container, false)
 
         // ViewModel Setup
-        viewModelAuto = ViewModelProviders.of(activity!!).get(AutoSettingsViewModel::class.java)
+        viewModelAuto = ViewModelProviders.of(this).get(AutoSettingsViewModel::class.java)
 
         // SourceType
-        viewModelAuto.getSourceType().observe(this, androidx.lifecycle.Observer {
-            val sourceType = viewModelAuto.getSourceType().value
+        viewModelAuto.sourceType.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            val sourceType = viewModelAuto.sourceType.value
             if(sourceType != null){
                 showSourceType.text = sourceType.source
             }
         })
 
         // PeriodType
-        viewModelAuto.getPeriodType().observe(this, androidx.lifecycle.Observer {
-            val periodType = viewModelAuto.getPeriodType().value
+        viewModelAuto.periodType.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            val periodType = viewModelAuto.periodType.value
 
             if(periodType != null){
                 showPeriodType.text = periodType.info

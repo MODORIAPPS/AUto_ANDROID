@@ -18,7 +18,7 @@ import com.modori.kwonkiseokee.AUto.adapters.ListOfPhotosAdapter
 import com.modori.kwonkiseokee.AUto.data.api.PhotoSearch
 import com.modori.kwonkiseokee.AUto.data.api.Results
 import com.modori.kwonkiseokee.AUto.utilities.ColumnQty
-import com.modori.kwonkiseokee.AUto.utilities.NetworkTool
+import com.modori.kwonkiseokee.AUto.utilities.NetWorkTool
 import com.modori.kwonkiseokee.AUto.viewmodels.ListOfPhotosViewModel
 import kotlinx.android.synthetic.main.lists_of_photos.*
 
@@ -42,7 +42,7 @@ class ListOfPhotoActivity : AppCompatActivity() {
 
 
 
-        if (NetworkTool.getNetWorkType(this) == 0) {
+        if (NetWorkTool.getNetWorkType(this) == 0) {
             val builder = AlertDialog.Builder(this).let {
                 it.setTitle(getString(R.string.noNetworkErrorTitle))
                 it.setMessage(getString(R.string.noNetworkErrorContent))
@@ -168,7 +168,7 @@ class ListOfPhotoActivity : AppCompatActivity() {
     }
 
     fun getPhotoByKeyword(viewModel: ListOfPhotosViewModel, tag: String) {
-        viewModel.getListofPhotos(tag).observe(this, Observer {
+        viewModel.getListOfPhotos(tag).observe(this, Observer {
             //listOfPhotosMask.showSkeleton()
             if (isKeywordAvail(it)) {
                 questMessage.visibility = View.GONE

@@ -30,7 +30,7 @@ import com.modori.kwonkiseokee.AUto.data.api.PhotoSearchID
 import com.modori.kwonkiseokee.AUto.utilities.DownloadType
 import com.modori.kwonkiseokee.AUto.utilities.FileManager
 import com.modori.kwonkiseokee.AUto.utilities.MakePreferences
-import com.modori.kwonkiseokee.AUto.utilities.NetworkTool
+import com.modori.kwonkiseokee.AUto.utilities.NetWorkTool
 import com.modori.kwonkiseokee.AUto.viewmodels.PhotoDetailViewModel
 import kotlinx.android.synthetic.main.photo_detail.*
 import kotlinx.coroutines.CoroutineScope
@@ -190,7 +190,7 @@ class PhotoDetailActivity : AppCompatActivity(), View.OnClickListener {
         goBackBtn.setOnClickListener { finish() }
 
         // Check NetworkType
-        val networkType = NetworkTool.getNetWorkType(this)
+        val networkType = NetWorkTool.getNetWorkType(this)
         if (networkType == 0) {
             // No Network
             val builder = AlertDialog.Builder(this)

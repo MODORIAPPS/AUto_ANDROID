@@ -124,7 +124,7 @@ public class OpenDialog extends Dialog {
                             String str3 = getContext().getResources().getString(R.string.opendialog_noResult);
                             warning_dia.setText(str3);
                         } else {
-                            if (!TagTools.overLapTagCheck(tagList, inputTag)) {
+                            if (!TagTool.INSTANCE.overLapTagCheck(tagList, inputTag)) {
                                 Log.d("TAG 처리중", "진입됨");
                                 warning_dia.setVisibility(View.GONE);
 

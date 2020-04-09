@@ -18,8 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static com.modori.kwonkiseokee.AUto.AutoFragment.PREFS_FILE;
-
 public class FileManager {
 
     private static final int WRITE_REQUEST_CODE = 43;
@@ -50,7 +48,7 @@ public class FileManager {
     public static int availableImages(Context context) {
         int imagesCnt = 0;
 
-        SharedPreferences settings = context.getSharedPreferences(PREFS_FILE, 0);
+        SharedPreferences settings = context.getSharedPreferences(ConstantsKt.PREFS_FILE, 0);
         String SelectedPath = settings.getString("SelectedPath", "sdcard/");
 
         File file = new File(SelectedPath);

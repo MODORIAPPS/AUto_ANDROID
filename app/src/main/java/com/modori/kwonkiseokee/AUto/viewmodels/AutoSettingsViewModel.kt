@@ -1,47 +1,35 @@
 package com.modori.kwonkiseokee.AUto.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.modori.kwonkiseokee.AUto.data.AutoSettingsRepository
 import com.modori.kwonkiseokee.AUto.utilities.PeriodType
 import com.modori.kwonkiseokee.AUto.utilities.SourceType
+import kotlinx.coroutines.async
 
 
-class AutoSettingsViewModel : ViewModel() {
+class AutoSettingsViewModel(private val repository: AutoSettingsRepository) : ViewModel() {
 
-    var currentPage: MutableLiveData<Int> = MutableLiveData()
-    var sourceType:MutableLiveData<SourceType> = MutableLiveData()
-    var periodType:MutableLiveData<PeriodType> = MutableLiveData()
+    var isWorking: MutableLiveData<Boolean> = MutableLiveData()
 
-    fun getCurrentPosition(): LiveData<Int> {
-        Log.d("getCurrentPosition", currentPage.value.toString())
-        return currentPage
+    var _currentPage: MutableLiveData<Int> = MutableLiveData()
+    val currentPage: LiveData<Int>
+        get() = _currentPage
+
+    var _sourceType: MutableLiveData<SourceType> = MutableLiveData()
+    val sourceType: LiveData<SourceType>
+        get() = _sourceType
+
+    var _periodType: MutableLiveData<PeriodType> = MutableLiveData()
+    val periodType: LiveData<PeriodType>
+        get() = _periodType
+
+
+    fun getAutoSettingsById(id: Int) = viewModelScope.async {
+        repository.getAutoSettingsById(id)
     }
-
-    fun setCurrentPosition(position:Int){
-        Log.d("setCurrentPosition", position.toString())
-        currentPage.value = position
-    }
-
-    fun getSourceType() : LiveData<SourceType>{
-        return sourceType
-    }
-
-    fun setSourceType(type: SourceType){
-        sourceType.value = type
-        Log.d("setSourceType", type.toString())
-    }
-
-    fun getPeriodType() : LiveData<PeriodType>{
-        return periodType
-    }
-
-    fun setPeriodType(type:PeriodType){
-        periodType.value = type
-    }
-
-
 
 
 }

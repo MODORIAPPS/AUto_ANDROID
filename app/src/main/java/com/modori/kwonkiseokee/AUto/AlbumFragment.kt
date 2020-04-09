@@ -25,7 +25,9 @@ class AlbumFragment : Fragment() {
 
     private val MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 8980
 
-    lateinit var viewModel: PhotoViewModel
+    lateinit var photoViewModel: PhotoViewModel
+    //private val autoSettingsViewModel:AutoSettingsViewModel by activityViewModels()
+
     lateinit var mView:View
 
     var permissionGranted: Boolean by Delegates.observable(false) { property, oldValue, newValue ->
@@ -55,10 +57,10 @@ class AlbumFragment : Fragment() {
 ////        adView.loadAd(adRequest);
 
         // SetUp ViewModel
-        val dao = AppDatabase.getInstance(activity!!.applicationContext).devicePhotoDao
+        val dao = AppDatabase.getInstance(requireContext()).devicePhotoDao
         val repo = PhotoRepository(dao)
         val factory = PhotoViewModelFactory(repo)
-        viewModel = ViewModelProvider(viewModelStore, factory).get(PhotoViewModel::class.java)
+        photoViewModel = ViewModelProvider(viewModelStore, factory).get(PhotoViewModel::class.java)
 
         // RecyclerView init
         val gridLayoutManager = GridLayoutManager(mView.context, 3)
@@ -95,9 +97,9 @@ class AlbumFragment : Fragment() {
 
         // Observe photoList which user picked in gallery
         try {
-            viewModel.devicePhotos.observe(this, androidx.lifecycle.Observer {
-                if (viewModel.devicePhotos.value != null) {
-                    setPickedRV(viewModel.devicePhotos.value!!)
+            photoViewModel.devicePhotos.observe(this, androidx.lifecycle.Observer {
+                if (photoViewModel.devicePhotos.value != null) {
+                    setPickedRV(photoViewModel.devicePhotos.value!!)
 
                     //noPickedImagesWarning = true
                     noPickedImagesWarning.visibility = View.GONE
@@ -162,7 +164,7 @@ class AlbumFragment : Fragment() {
     }
 
     private fun isPermissionGranted() {
-        val check = ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        val check = ContextCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE)
         permissionGranted = if (check == PackageManager.PERMISSION_DENIED) {
             requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE)
             false
