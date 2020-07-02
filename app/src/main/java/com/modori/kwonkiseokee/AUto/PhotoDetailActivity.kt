@@ -13,6 +13,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
@@ -513,7 +514,31 @@ class PhotoDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+
+    private fun getAppSpecificAlbumStorageDir(context: Context, albumName: String): File? {
+
+        MediaStore.Images()
+
+        val file = File(
+                context.getExternalFilesDir(
+                        Environment.DIRECTORY_PICTURES
+                ), albumName
+        )
+
+        if (!file?.mkdirs()) {
+            Log.d("make", "Directory not created");
+        }
+
+        return file
+    }
+
     private fun saveImage(imageToSave: Bitmap) {
+
+        // android 10 supportment
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+//            val file = getAppSpecificAlbumStorageDir(applicationContext,"auto")
+//        }
+
         // get the path to sdcard
         val sdcard = Environment.getExternalStorageDirectory()
         // to this path add a new directory path

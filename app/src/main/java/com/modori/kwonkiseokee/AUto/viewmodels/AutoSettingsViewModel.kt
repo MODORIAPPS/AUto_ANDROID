@@ -32,4 +32,5 @@ class AutoSettingsViewModel(private val repository: AutoSettingsRepository) : Vi
     }
 
 
+
 }

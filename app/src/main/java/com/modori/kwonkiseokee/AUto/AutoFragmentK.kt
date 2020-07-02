@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.tab3_frag.view.*
 class AutoFragmentK : Fragment(), View.OnClickListener{
 
     private val photoViewModel: PhotoViewModel by viewModels {
-        InjectorUtils.provideDevicePhotoViewModelFactory(requireActivity())
+        InjectorUtils.provideDevicePhotoViewModelFactory(requireContext())
     }
     private val autoSettingsViewModel: AutoSettingsViewModel by viewModels {
-        InjectorUtils.provideAutoSettingsViewModelFactory(requireActivity())
+        InjectorUtils.provideAutoSettingsViewModelFactory(requireContext())
     }
 
     //var isWorking = autoSettingsViewModel.isWorking
@@ -28,6 +28,12 @@ class AutoFragmentK : Fragment(), View.OnClickListener{
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.tab3_frag, container, false)
+
+        photoViewModel.devicePhotos.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            if(photoViewModel.devicePhotos.value != null){
+
+            }
+        })
 
         autoSettingsViewModel.isWorking.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 

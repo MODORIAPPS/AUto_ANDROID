@@ -1,5 +1,6 @@
 package com.modori.kwonkiseokee.AUto.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,15 @@ import com.modori.kwonkiseokee.AUto.data.PhotoRepository
 import kotlinx.coroutines.launch
 
 class PhotoViewModel(private val repository: PhotoRepository) : ViewModel() {
+
+    private var jj = 10
+
+    init {
+        Log.d("PhotoViewModel","dfdd")
+        jj += 100
+        Log.d("PhotoViewModel","$jj")
+
+    }
 
     // 갤러리에서 지정한 사진 가져옴
     private var _devicePhotos: LiveData<List<DevicePhoto>> = repository.devicePhotoList

@@ -24,7 +24,7 @@ class AlbumFragment : Fragment() {
     private val MY_PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 8980
 
     private val photoViewModel: PhotoViewModel by viewModels {
-        InjectorUtils.provideDevicePhotoViewModelFactory(requireActivity())
+        InjectorUtils.provideDevicePhotoViewModelFactory(requireContext())
     }
     //private val autoSettingsViewModel:AutoSettingsViewModel by activityViewModels()
 
@@ -91,7 +91,7 @@ class AlbumFragment : Fragment() {
 
         // Observe photoList which user picked in gallery
         try {
-            photoViewModel.devicePhotos.observe(this, androidx.lifecycle.Observer {
+            photoViewModel.devicePhotos.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 if (photoViewModel.devicePhotos.value != null) {
                     setPickedRV(photoViewModel.devicePhotos.value!!)
 
